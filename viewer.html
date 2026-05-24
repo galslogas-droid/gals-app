@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GALS | View</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #edf5f0; padding: 20px; color: #18392b; }
+.container { max-width: 1400px; margin: auto; }
+.header { background: linear-gradient(135deg, #0b5e3a, #1a9a5e); padding: 30px; border-radius: 25px; color: white; text-align: center; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+.brand { font-size: 48px; font-weight: 800; letter-spacing: 6px; }
+.tagline { margin-top: 8px; font-size: 16px; opacity: 0.9; }
+.viewer-badge { background: #ff9800; display: inline-block; padding: 6px 16px; border-radius: 20px; font-size: 13px; margin-top: 10px; font-weight: 600; }
+.nav { display: flex; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; }
+.nav button { width: auto; padding: 12px 24px; border: none; border-radius: 18px; background: linear-gradient(135deg, #0b5e3a, #16834f); color: white; font-size: 16px; font-weight: 700; cursor: pointer; }
+.dashboard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 25px; }
+.stat { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+.stat-title { font-size: 14px; color: #6f8679; margin-bottom: 10px; }
+.stat-value { font-size: 28px; font-weight: 700; color: #0b5e3a; }
+.card { background: white; padding: 28px; border-radius: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); margin-bottom: 25px; }
+.card h2 { margin-bottom: 20px; color: #0b5e3a; }
+.table-wrap { overflow: auto; }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th { background: #0b5e3a; color: white; padding: 14px; font-size: 14px; white-space: nowrap; }
+td { padding: 12px; border-bottom: 1px solid #e7efea; font-size: 14px; vertical-align: top; }
+.auto-refresh { background: #e3f2fd; padding: 10px 15px; border-radius: 12px; margin-bottom: 20px; font-size: 13px; color: #1565c0; text-align: center; }
+@media(max-width: 900px) { .dashboard { grid-template-columns: 1fr 1fr; } .brand { font-size: 36px; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="brand">GALS</div>
+    <div class="tagline">🔥 LoGas aja!</div>
+    <div class="viewer-badge">👁️ Mode Monitoring - View Only</div>
+  </div>
+
+  <div class="nav">
+    <button onclick="showPage('dashboardPage')">🏠 Dashboard</button>
+    <button onclick="showPage('rekapPage')">📊 Rekap</button>
+  </div>
+
+  <div id="dashboardPage">
+    <div class="auto-refresh">🔄 Data auto-refresh setiap 30 detik | <span id="lastUpdate"></span></div>
+    <div class="dashboard">
+      <div class="stat"><div class="stat-title">Total Omzet</div><div class="stat-value" id="omzet">Rp 0</div></div>
+      <div class="stat"><div class="stat-title">Total Pengeluaran</div><div class="stat-value" id="pengeluaranTotal">Rp 0</div></div>
+      <div class="stat"><div class="stat-title">Total Laba</div><div class="stat-value" id="laba">Rp 0</div></div>
+      <div class="stat"><div class="stat-title">Total Zakat (2,5%)</div><div class="stat-value" id="zakat">Rp 0</div></div>
+    </div>
+  </div>
+
+  <div id="rekapPage" style="display:none;">
+    <div class="card">
+      <h2>📊 Rekap Penjualan Lengkap</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tanggal</th><th>Gas</th><th>Galon</th><th>Omzet</th><th>Pengeluaran</th><th>Laba</th><th>Zakat</th></tr></thead>
+          <tbody id="rekapBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const API_URL = 'https://script.google.com/macros/s/AKfycbzOLGj2YRd_Cibr5pSjSCBvXoq2pCdKIJ7vMLqWxHlRmfxayquW-QWALDkDyYXRybkg/exec';
+let allData = [];
+
+function rupiah(n) { return 'Rp ' + Number(n).toLocaleString('id-ID'); }
+
+function showPage(page) {
+  document.getElementById('dashboardPage').style.display = 'none';
+  document.getElementById('rekapPage').style.display = 'none';
+  document.getElementById(page).style.display = 'block';
+  if (page === 'rekapPage') renderTable();
+}
+
+async function loadData() {
+  try {
+    const res = await fetch(API_URL + '?action=getData');
+    const result = await res.json();
+    allData = result;
+    let omzet = 0, pengeluaran = 0, laba = 0, zakat = 0;
+    result.forEach(row => {
+      omzet += Number(row[11] || 0);
+      pengeluaran += Number(row[9] || 0);
+      laba += Number(row[12] || 0);
+      zakat += Number(row[13] || 0);
+    });
+    document.getElementById('omzet').innerText = rupiah(omzet);
+    document.getElementById('pengeluaranTotal').innerText = rupiah(pengeluaran);
+    document.getElementById('laba').innerText = rupiah(laba);
+    document.getElementById('zakat').innerText = rupiah(zakat);
+    document.getElementById('lastUpdate').innerText = 'Terakhir: ' + new Date().toLocaleTimeString('id-ID');
+    renderTable();
+  } catch(err) { console.log(err); }
+}
+
+function renderTable() {
+  const tbody = document.getElementById('rekapBody');
+  tbody.innerHTML = '';
+  if (allData.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:30px;">📭 Belum ada data</td></tr>';
+    return;
+  }
+  allData.forEach(row => {
+    tbody.innerHTML += `
+      <tr>
+        <td>${row[1]}</td>
+        <td>22k:${row[2]} | 23k:${row[3]}<br>Pink:${row[4]}</td>
+        <td>3k:${row[5]} | 4k:${row[6]}<br>5k:${row[7]}</td>
+        <td>${rupiah(row[11])}</td>
+        <td>${rupiah(row[9])}<br><small>${row[10]}</small></td>
+        <td>${rupiah(row[12])}</td>
+        <td>${rupiah(row[13])}</td>
+      </tr>`;
+  });
+}
+
+loadData();
+setInterval(loadData, 30000);
+</script>
+</body>
+</html>

@@ -86,7 +86,7 @@ tr:hover { background:#f8fdf9; }
 .chart-box { background:var(--card); padding:14px; border-radius:18px; box-shadow:var(--shadow); }
 .chart-box h3 { font-size:13px; color:var(--text-secondary); margin-bottom:10px; }
 canvas { max-height:250px; }
-.kantong-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+.kantong-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 @media(max-width:640px) {
   .stat-grid { grid-template-columns:1fr 1fr; }
   .form-grid,.form-grid-3,.chart-row,.kantong-row { grid-template-columns:1fr; }
@@ -150,24 +150,17 @@ canvas { max-height:250px; }
         <div class="form-group"><label>📝 Keterangan</label><input type="text" id="ketPemasukanLain" placeholder="Keterangan"></div>
       </div>
 
-      <h3>🔧 Real Operasional (9 Pos)</h3>
+      <h3>🔧 Real Operasional</h3>
       <div id="opContainer"></div>
 
       <h3>🏦 Real Kantong Besar</h3>
       <div class="kantong-row">
         <div class="form-group"><label>🔵 Real Kulakan (Rp)</label><input type="text" id="realKulakan" placeholder="Transfer ortu" class="input-rupiah"></div>
         <div class="form-group"><label>📝 Catatan</label><input type="text" id="catKulakan" placeholder="Keterangan"></div>
-      </div>
-      <div class="kantong-row">
         <div class="form-group"><label>🕌 Real Zakat (Rp)</label><input type="text" id="realZakat" placeholder="Zakat dikeluarkan" class="input-rupiah"></div>
         <div class="form-group"><label>📝 Catatan</label><input type="text" id="catZakat" placeholder="Keterangan"></div>
-      </div>
-      <div class="kantong-row">
         <div class="form-group"><label>🟡 Real Setoran (Rp)</label><input type="text" id="realSetoran" placeholder="Disetor ke ortu" class="input-rupiah"></div>
         <div class="form-group"><label>📝 Catatan</label><input type="text" id="catSetoran" placeholder="Keterangan"></div>
-      </div>
-
-      <div class="form-grid">
         <div class="form-group"><label>📦 Pengeluaran Lain (Rp)</label><input type="text" id="pengeluaranLain" placeholder="Nominal" class="input-rupiah"></div>
         <div class="form-group"><label>📝 Catatan</label><input type="text" id="catPengeluaranLain" placeholder="Keterangan"></div>
         <div class="form-group"><label>🤲 Shodaqoh (Rp)</label><input type="text" id="shodaqoh" placeholder="Nominal" class="input-rupiah"></div>
@@ -214,7 +207,7 @@ canvas { max-height:250px; }
     </div>
     <div class="card">
       <h2>📋 Riwayat Setoran <span style="font-size:11px;">Total: <b id="totalSetoran">Rp 0</b></span></h2>
-      <div class="table-wrap"><table><thead><tr><th>Tgl</th><th>Jumlah</th><th>Ket</th><th>Aksi</th></tr></thead><tbody id="setoranBody"></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th>Tgl</th><th>Jam</th><th>Jumlah</th><th>Ket</th><th>Aksi</th></tr></thead><tbody id="setoranBody"></tbody></table></div>
     </div>
   </div>
 
@@ -233,7 +226,7 @@ canvas { max-height:250px; }
 
 <script>
 // ⚠️ GANTI DENGAN URL DEPLOY
-const API_URL = 'https://script.google.com/macros/s/AKfycbyf39jkzANZ3SuZWRxC2bEo41UKjb2zhny_SVvosFHlwCsOKkHwQqj80e6SijKvl8TW7Q/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwNzuEF-aV5fyxMz7XPmZxRsC9dldRdCbZMT2ZGjS1TpoMjDcm2fbmPxDQRyxyEJMHmMg/exec';
 
 let allData=[], allSetoran=[], editId=null, charts={};
 
@@ -241,14 +234,13 @@ function toast(m){const t=document.getElementById('toast');t.innerText=m;t.style
 function rupiah(n){return'Rp '+Number(n).toLocaleString('id-ID');}
 
 const POS=[
-  {key:'realTransport',catKey:'catTransport',label:'🚚 Transport',jatahFn:(g)=>g*900},
+  {key:'realTransport',catKey:'catTransport',label:'🚚 Transport',jatahFn:(g,gl)=>(g*400)+(gl*500)},
   {key:'realWifi',catKey:'catWifi',label:'🌐 Wifi',jatahFn:(g)=>g*500},
   {key:'realOpkirimgas',catKey:'catOpkirimgas',label:'📦 Op.Kirim Gas',jatahFn:(g)=>g*833},
   {key:'realAir',catKey:'catAir',label:'💧 Air',jatahFn:(_,gl)=>gl*500},
   {key:'realListrik',catKey:'catListrik',label:'⚡ Listrik',jatahFn:(_,gl)=>gl*500},
   {key:'realPemeliharaan',catKey:'catPemeliharaan',label:'🔧 Pemeliharaan',jatahFn:(_,gl)=>gl*500},
   {key:'realTisuTutup',catKey:'catTisuTutup',label:'🧻 Tutup & Tisu',jatahFn:(_,gl)=>gl*500},
-  {key:'realTransportGalon',catKey:'catTransportGalon',label:'🚛 Transport Galon',jatahFn:(_,gl)=>gl*500},
   {key:'realJajan',catKey:'catJajan',label:'🟠 Jajan 2 Orang',jatahFn:()=>10000},
 ];
 
@@ -283,8 +275,6 @@ function formatRupiahInput(el){
 function toRupiah(v){return v&&Number(v)>0?'Rp '+Number(v).toLocaleString('id-ID'):'';}
 function getNum(id){return Number((document.getElementById(id).value||'').replace(/[^0-9]/g,''))||0;}
 
-document.querySelectorAll('.input-rupiah').forEach(el=>formatRupiahInput(el));
-
 function buildOpRows(data){
   const g=(data?.gas22||0)+(data?.gas23||0),gl=(data?.galon3k||0)+(data?.galon4k||0)+(data?.galon5k||0);
   let h='<table class="op-table"><thead><tr><th>Pos</th><th>Jatah</th><th>Real</th><th>Sisa</th><th>Catatan</th></tr></thead><tbody>';
@@ -315,9 +305,9 @@ function updateDashboard(){
   const filtered=filterData();
   let omzet=0,kulakan=0,ops=0,jajan=0,zakat=0,shodaqoh=0,laba=0,setoran=0;
   filtered.forEach(r=>{
-    omzet+=Number(r[38]||0);kulakan+=Number(r[41]||0);ops+=Number(r[42]||0);
-    jajan+=10000;zakat+=Number(r[43]||0);shodaqoh+=Number(r[37]||0);
-    laba+=Number(r[47]||0);setoran+=Number(r[44]||0);
+    omzet+=Number(r[36]||0);kulakan+=Number(r[39]||0);ops+=Number(r[40]||0);
+    jajan+=10000;zakat+=Number(r[41]||0);shodaqoh+=Number(r[35]||0);
+    laba+=Number(r[45]||0);setoran+=Number(r[42]||0);
   });
   document.getElementById('statContainer').innerHTML=[
     {cls:'c-omzet',title:'💰 Omzet',value:rupiah(omzet)},
@@ -349,13 +339,17 @@ function loadByTanggal(){
   document.getElementById('galon3k').value=r[6]||'';document.getElementById('galon4k').value=r[7]||'';document.getElementById('galon5k').value=r[8]||'';
   document.getElementById('pemasukanLain').value=toRupiah(r[9]);document.getElementById('ketPemasukanLain').value=r[10]||'';
   const data={gas22:Number(r[3]),gas23:Number(r[4]),galon3k:Number(r[6]),galon4k:Number(r[7]),galon5k:Number(r[8])};
-  POS.forEach(p=>{data[p.key]=Number(r[({realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realTransportGalon:25,realJajan:27})[p.key]]||0);data[p.catKey]=r[({catTransport:12,catWifi:14,catOpkirimgas:16,catAir:18,catListrik:20,catPemeliharaan:22,catTisuTutup:24,catTransportGalon:26,catJajan:28})[p.catKey]]||'';});
+  POS.forEach(p=>{
+    const colMap={realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realJajan:25};
+    const catMap={catTransport:12,catWifi:14,catOpkirimgas:16,catAir:18,catListrik:20,catPemeliharaan:22,catTisuTutup:24,catJajan:26};
+    data[p.key]=Number(r[colMap[p.key]]||0);data[p.catKey]=r[catMap[p.catKey]]||'';
+  });
   document.getElementById('opContainer').innerHTML=buildOpRows(data);
-  document.getElementById('realKulakan').value=toRupiah(r[29]);document.getElementById('catKulakan').value=r[30]||'';
-  document.getElementById('realZakat').value=toRupiah(r[31]);document.getElementById('catZakat').value=r[32]||'';
-  document.getElementById('realSetoran').value=toRupiah(r[33]);document.getElementById('catSetoran').value=r[34]||'';
-  document.getElementById('pengeluaranLain').value=toRupiah(r[35]);document.getElementById('catPengeluaranLain').value=r[36]||'';
-  document.getElementById('shodaqoh').value=toRupiah(r[37]);
+  document.getElementById('realKulakan').value=toRupiah(r[27]);document.getElementById('catKulakan').value=r[28]||'';
+  document.getElementById('realZakat').value=toRupiah(r[29]);document.getElementById('catZakat').value=r[30]||'';
+  document.getElementById('realSetoran').value=toRupiah(r[31]);document.getElementById('catSetoran').value=r[32]||'';
+  document.getElementById('pengeluaranLain').value=toRupiah(r[33]);document.getElementById('catPengeluaranLain').value=r[34]||'';
+  document.getElementById('shodaqoh').value=toRupiah(r[35]);
   document.querySelectorAll('.input-rupiah').forEach(el=>formatRupiahInput(el));
   document.getElementById('infoEdit').style.display='block';document.getElementById('btnHapusForm').style.display='block';
   document.getElementById('btnSimpan').textContent='💾 Simpan Perubahan';
@@ -401,9 +395,9 @@ function renderTable(){
     tb.innerHTML+=`<tr>
       <td><b>${r[1]||'-'}</b></td><td>22k:${r[3]||0} 23k:${r[4]||0}<br>Pink:${r[5]||0}</td>
       <td>3k:${r[6]||0} 4k:${r[7]||0}<br>5k:${r[8]||0}</td>
-      <td class="badge badge-green">${rupiah(r[38])}</td><td class="badge badge-red">${rupiah(r[41])}</td>
-      <td>${rupiah(r[42])}</td><td class="badge badge-purple">${rupiah(r[43])}</td>
-      <td class="badge badge-gold">${rupiah(r[44])}</td><td class="badge badge-blue">${rupiah(r[47])}</td>
+      <td class="badge badge-green">${rupiah(r[36])}</td><td class="badge badge-red">${rupiah(r[39])}</td>
+      <td>${rupiah(r[40])}</td><td class="badge badge-purple">${rupiah(r[41])}</td>
+      <td class="badge badge-gold">${rupiah(r[42])}</td><td class="badge badge-blue">${rupiah(r[45])}</td>
       <td><span class="btn-edit" onclick="editFromRekap('${r[0]}')">✏️</span><span class="btn-delete" onclick="hapusData('${r[0]}')">🗑️</span></td>
     </tr>`;
   });
@@ -416,13 +410,17 @@ function editFromRekap(id){
   document.getElementById('galon3k').value=r[6]||'';document.getElementById('galon4k').value=r[7]||'';document.getElementById('galon5k').value=r[8]||'';
   document.getElementById('pemasukanLain').value=toRupiah(r[9]);document.getElementById('ketPemasukanLain').value=r[10]||'';
   const data={gas22:Number(r[3]),gas23:Number(r[4]),galon3k:Number(r[6]),galon4k:Number(r[7]),galon5k:Number(r[8])};
-  POS.forEach(p=>{data[p.key]=Number(r[({realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realTransportGalon:25,realJajan:27})[p.key]]||0);data[p.catKey]=r[({catTransport:12,catWifi:14,catOpkirimgas:16,catAir:18,catListrik:20,catPemeliharaan:22,catTisuTutup:24,catTransportGalon:26,catJajan:28})[p.catKey]]||'';});
+  POS.forEach(p=>{
+    const colMap={realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realJajan:25};
+    const catMap={catTransport:12,catWifi:14,catOpkirimgas:16,catAir:18,catListrik:20,catPemeliharaan:22,catTisuTutup:24,catJajan:26};
+    data[p.key]=Number(r[colMap[p.key]]||0);data[p.catKey]=r[catMap[p.catKey]]||'';
+  });
   document.getElementById('opContainer').innerHTML=buildOpRows(data);
-  document.getElementById('realKulakan').value=toRupiah(r[29]);document.getElementById('catKulakan').value=r[30]||'';
-  document.getElementById('realZakat').value=toRupiah(r[31]);document.getElementById('catZakat').value=r[32]||'';
-  document.getElementById('realSetoran').value=toRupiah(r[33]);document.getElementById('catSetoran').value=r[34]||'';
-  document.getElementById('pengeluaranLain').value=toRupiah(r[35]);document.getElementById('catPengeluaranLain').value=r[36]||'';
-  document.getElementById('shodaqoh').value=toRupiah(r[37]);
+  document.getElementById('realKulakan').value=toRupiah(r[27]);document.getElementById('catKulakan').value=r[28]||'';
+  document.getElementById('realZakat').value=toRupiah(r[29]);document.getElementById('catZakat').value=r[30]||'';
+  document.getElementById('realSetoran').value=toRupiah(r[31]);document.getElementById('catSetoran').value=r[32]||'';
+  document.getElementById('pengeluaranLain').value=toRupiah(r[33]);document.getElementById('catPengeluaranLain').value=r[34]||'';
+  document.getElementById('shodaqoh').value=toRupiah(r[35]);
   document.querySelectorAll('.input-rupiah').forEach(el=>formatRupiahInput(el));
   document.getElementById('infoEdit').style.display='block';document.getElementById('btnHapusForm').style.display='block';
   document.getElementById('btnSimpan').textContent='💾 Simpan Perubahan';
@@ -439,7 +437,7 @@ async function simpanSetoran(){
 async function loadSetoran(){
   try{const r=await(await fetch(API_URL+'?action=getSetoran')).json();allSetoran=r;
     const tb=document.getElementById('setoranBody');tb.innerHTML='';let total=0;
-    [...r].reverse().forEach(s=>{total+=Number(s[2]||0);tb.innerHTML+=`<tr><td>${s[1]}</td><td>${rupiah(s[2])}</td><td>${s[3]||''}</td><td><span class="btn-delete" onclick="hapusSetoran('${s[0]}')">🗑️</span></td></tr>`;});
+    [...r].reverse().forEach(s=>{total+=Number(s[3]||0);tb.innerHTML+=`<tr><td>${s[1]}</td><td>${s[2]||''}</td><td>${rupiah(s[3])}</td><td>${s[4]||''}</td><td><span class="btn-delete" onclick="hapusSetoran('${s[0]}')">🗑️</span></td></tr>`;});
     document.getElementById('totalSetoran').innerText=rupiah(total);
   }catch(e){}
 }
@@ -450,22 +448,25 @@ function renderKasAdmin(){
   const filtered=filterData();
   let jatah={},real={};
   POS.forEach(p=>{jatah[p.key]=0;real[p.key]=0;});
-  let totalJatah=0,totalReal=0,totalKulakan=0,realKulakan=0,totalZakat=0,realZakat=0,totalSetoran=0,realSetoran=0,totalLain=0,totalShodaqoh=0;
+  let totalJatah=0,totalReal=0,jatahKulakan=0,realKulakan=0,jatahZakat=0,realZakat=0,jatahSetoran=0,realSetoran=0,totalLain=0,totalShodaqoh=0;
   filtered.forEach(r=>{
     const g=(Number(r[3])||0)+(Number(r[4])||0),gl=(Number(r[6])||0)+(Number(r[7])||0)+(Number(r[8])||0);
-    POS.forEach(p=>{jatah[p.key]+=p.jatahFn(g,gl);real[p.key]+=Number(r[({realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realTransportGalon:25,realJajan:27})[p.key]]||0);});
-    totalKulakan+=Number(r[41]||0);realKulakan+=Number(r[29]||0);
-    totalZakat+=Number(r[43]||0);realZakat+=Number(r[31]||0);
-    totalSetoran+=Number(r[44]||0);realSetoran+=Number(r[33]||0);
-    totalLain+=Number(r[35]||0);totalShodaqoh+=Number(r[37]||0);
+    POS.forEach(p=>{
+      const colMap={realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realJajan:25};
+      jatah[p.key]+=p.jatahFn(g,gl);real[p.key]+=Number(r[colMap[p.key]]||0);
+    });
+    jatahKulakan+=Number(r[39]||0);realKulakan+=Number(r[27]||0);
+    jatahZakat+=Number(r[41]||0);realZakat+=Number(r[29]||0);
+    jatahSetoran+=Number(r[42]||0);realSetoran+=Number(r[31]||0);
+    totalLain+=Number(r[33]||0);totalShodaqoh+=Number(r[35]||0);
   });
-  totalJatah=Object.values(jatah).reduce((a,b)=>a+b,0)+totalKulakan+totalZakat+totalSetoran;
+  totalJatah=Object.values(jatah).reduce((a,b)=>a+b,0)+jatahKulakan+jatahZakat+jatahSetoran;
   totalReal=Object.values(real).reduce((a,b)=>a+b,0)+realKulakan+realZakat+realSetoran+totalLain+totalShodaqoh;
   const tb=document.getElementById('kasAdminBody');tb.innerHTML='';
   POS.forEach(p=>{const sisa=(jatah[p.key]||0)-(real[p.key]||0);tb.innerHTML+=`<tr><td>${p.label}</td><td>${rupiah(jatah[p.key])}</td><td>${rupiah(real[p.key])}</td><td class="${sisa>=0?'badge-green':'badge-red'}">${sisa>=0?'+'+rupiah(sisa):rupiah(sisa)}</td></tr>`;});
-  tb.innerHTML+=`<tr><td>🔵 Kulakan</td><td>${rupiah(totalKulakan)}</td><td>${rupiah(realKulakan)}</td><td class="${totalKulakan-realKulakan>=0?'badge-green':'badge-red'}">${totalKulakan-realKulakan>=0?'+'+rupiah(totalKulakan-realKulakan):rupiah(totalKulakan-realKulakan)}</td></tr>`;
-  tb.innerHTML+=`<tr><td>🕌 Zakat</td><td>${rupiah(totalZakat)}</td><td>${rupiah(realZakat)}</td><td class="${totalZakat-realZakat>=0?'badge-green':'badge-red'}">${totalZakat-realZakat>=0?'+'+rupiah(totalZakat-realZakat):rupiah(totalZakat-realZakat)}</td></tr>`;
-  tb.innerHTML+=`<tr><td>🟡 Setoran</td><td>${rupiah(totalSetoran)}</td><td>${rupiah(realSetoran)}</td><td class="${totalSetoran-realSetoran>=0?'badge-green':'badge-red'}">${totalSetoran-realSetoran>=0?'+'+rupiah(totalSetoran-realSetoran):rupiah(totalSetoran-realSetoran)}</td></tr>`;
+  tb.innerHTML+=`<tr><td>🔵 Kulakan</td><td>${rupiah(jatahKulakan)}</td><td>${rupiah(realKulakan)}</td><td class="${jatahKulakan-realKulakan>=0?'badge-green':'badge-red'}">${jatahKulakan-realKulakan>=0?'+'+rupiah(jatahKulakan-realKulakan):rupiah(jatahKulakan-realKulakan)}</td></tr>`;
+  tb.innerHTML+=`<tr><td>🕌 Zakat</td><td>${rupiah(jatahZakat)}</td><td>${rupiah(realZakat)}</td><td class="${jatahZakat-realZakat>=0?'badge-green':'badge-red'}">${jatahZakat-realZakat>=0?'+'+rupiah(jatahZakat-realZakat):rupiah(jatahZakat-realZakat)}</td></tr>`;
+  tb.innerHTML+=`<tr><td>🟡 Setoran</td><td>${rupiah(jatahSetoran)}</td><td>${rupiah(realSetoran)}</td><td class="${jatahSetoran-realSetoran>=0?'badge-green':'badge-red'}">${jatahSetoran-realSetoran>=0?'+'+rupiah(jatahSetoran-realSetoran):rupiah(jatahSetoran-realSetoran)}</td></tr>`;
   tb.innerHTML+=`<tr><td>📦 Pengeluaran Lain</td><td>-</td><td>${rupiah(totalLain)}</td><td class="badge-red">-${rupiah(totalLain)}</td></tr>`;
   tb.innerHTML+=`<tr><td>🤲 Shodaqoh</td><td>-</td><td>${rupiah(totalShodaqoh)}</td><td class="badge-red">-${rupiah(totalShodaqoh)}</td></tr>`;
   tb.innerHTML+=`<tr style="font-weight:700;background:#f5f5f5;"><td>TOTAL</td><td>${rupiah(totalJatah)}</td><td>${rupiah(totalReal)}</td><td class="${totalJatah-totalReal>=0?'badge-green':'badge-red'}">${totalJatah-totalReal>=0?'+'+rupiah(totalJatah-totalReal):rupiah(totalJatah-totalReal)}</td></tr>`;
@@ -475,8 +476,8 @@ function renderKasAdmin(){
 // GRAFIK
 function renderGrafik(){
   const filtered=filterData();if(!filtered.length)return;
-  const labels=filtered.map(r=>r[1]||''),omzet=filtered.map(r=>r[38]||0),laba=filtered.map(r=>r[47]||0),zakat=filtered.map(r=>r[43]||0),peng=filtered.map(r=>r[46]||0);
-  let gas=0,galon=0;filtered.forEach(r=>{gas+=Number(r[39]||0);galon+=Number(r[40]||0);});
+  const labels=filtered.map(r=>r[1]||''),omzet=filtered.map(r=>r[36]||0),laba=filtered.map(r=>r[45]||0),zakat=filtered.map(r=>r[41]||0),peng=filtered.map(r=>r[44]||0);
+  let gas=0,galon=0;filtered.forEach(r=>{gas+=Number(r[37]||0);galon+=Number(r[38]||0);});
   if(charts.c1)charts.c1.destroy();const ctx1=document.getElementById('chartOmzetLaba')?.getContext('2d');if(ctx1)charts.c1=new Chart(ctx1,{type:'line',data:{labels,datasets:[{label:'Omzet',data:omzet,borderColor:'#0b5e3a'},{label:'Laba',data:laba,borderColor:'#1565c0'}]}});
   if(charts.c2)charts.c2.destroy();const ctx2=document.getElementById('chartKomposisi')?.getContext('2d');if(ctx2)charts.c2=new Chart(ctx2,{type:'doughnut',data:{labels:['Gas','Galon'],datasets:[{data:[gas,galon],backgroundColor:['#0b5e3a','#1565c0']}]}});
   if(charts.c3)charts.c3.destroy();const ctx3=document.getElementById('chartZakat')?.getContext('2d');if(ctx3)charts.c3=new Chart(ctx3,{type:'bar',data:{labels,datasets:[{label:'Zakat',data:zakat,backgroundColor:'#7b1fa2'}]}});

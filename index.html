@@ -55,6 +55,7 @@ body { font-family:'Inter',sans-serif; background:var(--bg); padding:16px; color
 .form-group label { display:block; font-size:11px; font-weight:600; color:var(--text-secondary); margin-bottom:3px; }
 .form-group input,.form-group select { width:100%; padding:9px 10px; border-radius:12px; border:1px solid var(--border); font-size:12px; background:#fafdfb; }
 .form-group input:focus,.form-group select:focus { outline:none; border-color:var(--hijau); box-shadow:0 0 0 3px rgba(11,94,58,0.08); }
+.form-group small { display:block; margin-top:3px; color:var(--text-secondary); font-size:10px; }
 .op-table { width:100%; font-size:11px; border-collapse:collapse; }
 .op-table th { background:var(--hijau-muda); padding:8px; text-align:left; font-size:10px; color:var(--hijau); }
 .op-table td { padding:6px 8px; border-bottom:1px solid var(--border); }
@@ -87,9 +88,13 @@ tr:hover { background:#f8fdf9; }
 .chart-box h3 { font-size:13px; color:var(--text-secondary); margin-bottom:10px; }
 canvas { max-height:250px; }
 .kantong-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.prediksi-stok { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; text-align:center; }
+.prediksi-stok .val { font-size:28px; font-weight:700; }
+.prediksi-stok .lbl { font-size:11px; color:var(--text-secondary); }
+.status-bar { margin-top:12px; padding:10px; border-radius:12px; text-align:center; font-weight:700; font-size:14px; color:#fff; }
 @media(max-width:640px) {
   .stat-grid { grid-template-columns:1fr 1fr; }
-  .form-grid,.form-grid-3,.chart-row,.kantong-row { grid-template-columns:1fr; }
+  .form-grid,.form-grid-3,.chart-row,.kantong-row,.prediksi-stok { grid-template-columns:1fr; }
   .brand { font-size:28px; }
 }
 </style>
@@ -108,6 +113,7 @@ canvas { max-height:250px; }
     <button id="navRekap" onclick="showPage('rekapPage')">📋 Rekap</button>
     <button id="navSetoran" onclick="showPage('setoranPage')">💵 Setoran</button>
     <button id="navKasAdmin" onclick="showPage('kasAdminPage')">💰 Kas Admin</button>
+    <button id="navStok" onclick="showPage('stokPage')">📦 Stok</button>
   </div>
 
   <div class="filter-row">
@@ -122,6 +128,18 @@ canvas { max-height:250px; }
   <!-- DASHBOARD -->
   <div id="dashboardPage">
     <div class="stat-grid" id="statContainer"></div>
+
+    <!-- PREDIKSI STOK -->
+    <div class="card" id="prediksiCard" style="display:none;">
+      <h2>📦 Prediksi Stok Gas</h2>
+      <div class="prediksi-stok">
+        <div><div class="lbl">SISA STOK</div><div class="val" id="sisaStok">0</div><div class="lbl">tabung</div></div>
+        <div><div class="lbl">RATA2/HARI</div><div class="val" id="rataRataStok">0</div><div class="lbl">tabung</div></div>
+        <div><div class="lbl">PREDIKSI HABIS</div><div class="val" id="prediksiHabis">0</div><div class="lbl">hari lagi</div></div>
+      </div>
+      <div class="status-bar" id="statusStok"></div>
+    </div>
+
     <div class="card">
       <h2>📝 Input Penjualan</h2>
       <div class="info-edit" id="infoEdit">⚡ Mode Edit - Ubah data lalu klik <b>Simpan</b></div>
@@ -157,7 +175,7 @@ canvas { max-height:250px; }
       <div class="kantong-row">
         <div class="form-group"><label>🔵 Real Kulakan (Rp)</label><input type="text" id="realKulakan" placeholder="Transfer ortu" class="input-rupiah"></div>
         <div class="form-group"><label>📝 Catatan</label><input type="text" id="catKulakan" placeholder="Keterangan"></div>
-        <div class="form-group"><label>🕌 Real Zakat (Rp)</label><input type="text" id="realZakat" placeholder="Zakat dikeluarkan" class="input-rupiah"></div>
+        <div class="form-group"><label>🕌 Real Zakat (Rp)</label><input type="text" id="realZakat" placeholder="Zakat dikeluarkan" class="input-rupiah"><small>💡 Zakat dikeluarkan saat nominalnya sudah pantas, tidak per hari</small></div>
         <div class="form-group"><label>📝 Catatan</label><input type="text" id="catZakat" placeholder="Keterangan"></div>
         <div class="form-group"><label>🟡 Real Setoran (Rp)</label><input type="text" id="realSetoran" placeholder="Disetor ke ortu" class="input-rupiah"></div>
         <div class="form-group"><label>📝 Catatan</label><input type="text" id="catSetoran" placeholder="Keterangan"></div>
@@ -220,13 +238,35 @@ canvas { max-height:250px; }
     </div>
   </div>
 
+  <!-- STOK -->
+  <div id="stokPage" style="display:none;">
+    <div class="card">
+      <h2>📦 Input Stok Gas Masuk</h2>
+      <div class="form-grid">
+        <div class="form-group"><label>📅 Tanggal</label><input type="date" id="tglStok"></div>
+        <div class="form-group"><label>🔥 Gas Masuk</label><input type="number" id="gasMasuk" placeholder="Jumlah tabung"></div>
+        <div class="form-group"><label>📝 Keterangan</label><input type="text" id="ketStok" placeholder="Truk datang"></div>
+      </div>
+      <button class="btn btn-primary" onclick="inputStok()">💾 Simpan Stok Masuk</button>
+    </div>
+    <div class="card">
+      <h2>📦 Prediksi Stok</h2>
+      <div class="prediksi-stok">
+        <div><div class="lbl">SISA STOK</div><div class="val" id="sisaStok2">0</div><div class="lbl">tabung</div></div>
+        <div><div class="lbl">RATA2/HARI</div><div class="val" id="rataRataStok2">0</div><div class="lbl">tabung</div></div>
+        <div><div class="lbl">PREDIKSI HABIS</div><div class="val" id="prediksiHabis2">0</div><div class="lbl">hari lagi</div></div>
+      </div>
+      <div class="status-bar" id="statusStok2"></div>
+    </div>
+  </div>
+
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
 // ⚠️ GANTI DENGAN URL DEPLOY
-const API_URL = 'https://script.google.com/macros/s/AKfycbwNzuEF-aV5fyxMz7XPmZxRsC9dldRdCbZMT2ZGjS1TpoMjDcm2fbmPxDQRyxyEJMHmMg/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzFkqhzOKsij8OA1zwpIqxvbZ9UFm75Otbz3njJjAzpZ8Q35CpGHDWJMVGT-Bu40YE4vg/exec';
 
 let allData=[], allSetoran=[], editId=null, charts={};
 
@@ -257,17 +297,17 @@ function filterData(){
 function applyFilter(){updateDashboard();if(document.getElementById('grafikPage').style.display!=='none')renderGrafik();if(document.getElementById('rekapPage').style.display!=='none')renderTable();if(document.getElementById('kasAdminPage').style.display!=='none')renderKasAdmin();}
 
 function showPage(page){
-  ['dashboardPage','grafikPage','rekapPage','setoranPage','kasAdminPage'].forEach(p=>document.getElementById(p).style.display='none');
+  ['dashboardPage','grafikPage','rekapPage','setoranPage','kasAdminPage','stokPage'].forEach(p=>document.getElementById(p).style.display='none');
   document.getElementById(page).style.display='block';
-  ['navDashboard','navGrafik','navRekap','navSetoran','navKasAdmin'].forEach(b=>document.getElementById(b).classList.remove('active'));
+  ['navDashboard','navGrafik','navRekap','navSetoran','navKasAdmin','navStok'].forEach(b=>document.getElementById(b).classList.remove('active'));
   if(page==='dashboardPage'){document.getElementById('navDashboard').classList.add('active');updateDashboard();}
   if(page==='grafikPage'){document.getElementById('navGrafik').classList.add('active');renderGrafik();}
   if(page==='rekapPage'){document.getElementById('navRekap').classList.add('active');renderTable();}
   if(page==='setoranPage'){document.getElementById('navSetoran').classList.add('active');loadSetoran();}
   if(page==='kasAdminPage'){document.getElementById('navKasAdmin').classList.add('active');renderKasAdmin();}
+  if(page==='stokPage'){document.getElementById('navStok').classList.add('active');loadPrediksiStokPage();}
 }
 
-// FORMAT RUPIAH
 function formatRupiahInput(el){
   el.addEventListener('focus',function(){this.value=this.value.replace(/[^0-9]/g,'');});
   el.addEventListener('blur',function(){let v=this.value.replace(/[^0-9]/g,'');this.value=v&&Number(v)>0?'Rp '+Number(v).toLocaleString('id-ID'):'';});
@@ -287,8 +327,7 @@ function buildOpRows(data){
       <td><input type="text" id="${p.catKey}" value="${data?.[p.catKey]||''}" placeholder="Catatan" style="font-size:10px;"></td>
     </tr>`;
   });
-  h+='</tbody></table>';
-  return h;
+  h+='</tbody></table>';return h;
 }
 
 function updateOpSisa(){
@@ -323,6 +362,7 @@ function updateDashboard(){
   document.querySelectorAll('.input-rupiah').forEach(el=>formatRupiahInput(el));
   document.getElementById('totalData').innerText=filtered.length;
   isiDropdownTanggal();
+  loadPrediksiStok();
 }
 
 function isiDropdownTanggal(){
@@ -448,7 +488,7 @@ function renderKasAdmin(){
   const filtered=filterData();
   let jatah={},real={};
   POS.forEach(p=>{jatah[p.key]=0;real[p.key]=0;});
-  let totalJatah=0,totalReal=0,jatahKulakan=0,realKulakan=0,jatahZakat=0,realZakat=0,jatahSetoran=0,realSetoran=0,totalLain=0,totalShodaqoh=0;
+  let jatahKulakan=0,realKulakan=0,jatahZakat=0,realZakat=0,jatahSetoran=0,realSetoran=0,totalLain=0,totalShodaqoh=0;
   filtered.forEach(r=>{
     const g=(Number(r[3])||0)+(Number(r[4])||0),gl=(Number(r[6])||0)+(Number(r[7])||0)+(Number(r[8])||0);
     POS.forEach(p=>{
@@ -460,8 +500,8 @@ function renderKasAdmin(){
     jatahSetoran+=Number(r[42]||0);realSetoran+=Number(r[31]||0);
     totalLain+=Number(r[33]||0);totalShodaqoh+=Number(r[35]||0);
   });
-  totalJatah=Object.values(jatah).reduce((a,b)=>a+b,0)+jatahKulakan+jatahZakat+jatahSetoran;
-  totalReal=Object.values(real).reduce((a,b)=>a+b,0)+realKulakan+realZakat+realSetoran+totalLain+totalShodaqoh;
+  let totalJatah=Object.values(jatah).reduce((a,b)=>a+b,0)+jatahKulakan+jatahZakat+jatahSetoran;
+  let totalReal=Object.values(real).reduce((a,b)=>a+b,0)+realKulakan+realZakat+realSetoran+totalLain+totalShodaqoh;
   const tb=document.getElementById('kasAdminBody');tb.innerHTML='';
   POS.forEach(p=>{const sisa=(jatah[p.key]||0)-(real[p.key]||0);tb.innerHTML+=`<tr><td>${p.label}</td><td>${rupiah(jatah[p.key])}</td><td>${rupiah(real[p.key])}</td><td class="${sisa>=0?'badge-green':'badge-red'}">${sisa>=0?'+'+rupiah(sisa):rupiah(sisa)}</td></tr>`;});
   tb.innerHTML+=`<tr><td>🔵 Kulakan</td><td>${rupiah(jatahKulakan)}</td><td>${rupiah(realKulakan)}</td><td class="${jatahKulakan-realKulakan>=0?'badge-green':'badge-red'}">${jatahKulakan-realKulakan>=0?'+'+rupiah(jatahKulakan-realKulakan):rupiah(jatahKulakan-realKulakan)}</td></tr>`;
@@ -482,6 +522,45 @@ function renderGrafik(){
   if(charts.c2)charts.c2.destroy();const ctx2=document.getElementById('chartKomposisi')?.getContext('2d');if(ctx2)charts.c2=new Chart(ctx2,{type:'doughnut',data:{labels:['Gas','Galon'],datasets:[{data:[gas,galon],backgroundColor:['#0b5e3a','#1565c0']}]}});
   if(charts.c3)charts.c3.destroy();const ctx3=document.getElementById('chartZakat')?.getContext('2d');if(ctx3)charts.c3=new Chart(ctx3,{type:'bar',data:{labels,datasets:[{label:'Zakat',data:zakat,backgroundColor:'#7b1fa2'}]}});
   if(charts.c4)charts.c4.destroy();const ctx4=document.getElementById('chartPengeluaran')?.getContext('2d');if(ctx4)charts.c4=new Chart(ctx4,{type:'bar',data:{labels,datasets:[{label:'Pengeluaran',data:peng,backgroundColor:'#c62828'}]}});
+}
+
+// PREDIKSI STOK
+async function loadPrediksiStok(){
+  try{
+    const res=await fetch(API_URL+'?action=getPrediksiStok');
+    const d=await res.json();
+    if(d.success){
+      document.getElementById('prediksiCard').style.display='block';
+      document.getElementById('sisaStok').innerText=d.sisaStok;
+      document.getElementById('rataRataStok').innerText=d.rataRata;
+      document.getElementById('prediksiHabis').innerText=d.prediksiHabis;
+      const s=document.getElementById('statusStok');
+      s.innerText=d.status;s.style.background=d.warna;
+    }
+  }catch(e){}
+}
+
+async function loadPrediksiStokPage(){
+  try{
+    const res=await fetch(API_URL+'?action=getPrediksiStok');
+    const d=await res.json();
+    if(d.success){
+      document.getElementById('sisaStok2').innerText=d.sisaStok;
+      document.getElementById('rataRataStok2').innerText=d.rataRata;
+      document.getElementById('prediksiHabis2').innerText=d.prediksiHabis;
+      const s=document.getElementById('statusStok2');
+      s.innerText=d.status;s.style.background=d.warna;
+    }
+  }catch(e){}
+  document.getElementById('tglStok').valueAsDate=new Date();
+}
+
+async function inputStok(){
+  const d=new FormData();d.append('action','inputStok');
+  d.append('tanggal',document.getElementById('tglStok').value);
+  d.append('gasMasuk',document.getElementById('gasMasuk').value||0);
+  d.append('keterangan',document.getElementById('ketStok').value||'🚛 Truk datang');
+  try{const r=await(await fetch(API_URL,{method:'POST',body:d})).json();toast(r.message);loadPrediksiStokPage();document.getElementById('gasMasuk').value='';document.getElementById('ketStok').value='';}catch(e){toast('Gagal');}
 }
 
 document.getElementById('tanggal').valueAsDate=new Date();

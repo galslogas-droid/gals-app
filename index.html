@@ -265,7 +265,6 @@ canvas { max-height:250px; }
 <div class="toast" id="toast"></div>
 
 <script>
-// ⚠️ GANTI DENGAN URL DEPLOY
 const API_URL = 'https://script.google.com/macros/s/AKfycbzFkqhzOKsij8OA1zwpIqxvbZ9UFm75Otbz3njJjAzpZ8Q35CpGHDWJMVGT-Bu40YE4vg/exec';
 
 let allData=[], allSetoran=[], editId=null, charts={};
@@ -319,10 +318,10 @@ function buildOpRows(data){
   const g=(data?.gas22||0)+(data?.gas23||0),gl=(data?.galon3k||0)+(data?.galon4k||0)+(data?.galon5k||0);
   let h='<table class="op-table"><thead><tr><th>Pos</th><th>Jatah</th><th>Real</th><th>Sisa</th><th>Catatan</th></tr></thead><tbody>';
   POS.forEach(p=>{
-    const jatah=p.jatahFn(g,gl),real=data?.(p.key)||0,sisa=jatah-real;
+    const jatah=p.jatahFn(g,gl),real=data?(data[p.key]||0):0,realDisplay=data?toRupiah(real):'',sisa=jatah-real;
     h+=`<tr>
-      <td>${p.label}</td><td class="jatah">${rupiah(jatah)}</td>
-      <td><input type="text" id="${p.key}" value="${toRupiah(real)}" class="input-rupiah" oninput="updateOpSisa()"></td>
+      <td>${p.label}</td><td class="jatah" id="jatah_${p.key}">${rupiah(jatah)}</td>
+      <td><input type="text" id="${p.key}" value="${realDisplay}" class="input-rupiah" oninput="updateOpSisa()" placeholder="Input real"></td>
       <td class="sisa ${sisa>=0?'plus':'minus'}" id="sisa_${p.key}">${sisa>=0?'+'+rupiah(sisa):rupiah(sisa)}</td>
       <td><input type="text" id="${p.catKey}" value="${data?.[p.catKey]||''}" placeholder="Catatan" style="font-size:10px;"></td>
     </tr>`;
@@ -337,6 +336,27 @@ function updateOpSisa(){
     const jatah=p.jatahFn(g,gl),real=getNum(p.key),sisa=jatah-real;
     const el=document.getElementById('sisa_'+p.key);
     if(el){el.textContent=sisa>=0?'+'+rupiah(sisa):rupiah(sisa);el.className='sisa '+(sisa>=0?'plus':'minus');}
+  });
+}
+
+// ✅ Update jatah real-time saat input gas/galon berubah
+['gas22','gas23','gasPink','galon3k','galon4k','galon5k'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el){el.addEventListener('input',function(){
+    const g=(Number(document.getElementById('gas22').value)||0)+(Number(document.getElementById('gas23').value)||0);
+    const gl=(Number(document.getElementById('galon3k').value)||0)+(Number(document.getElementById('galon4k').value)||0)+(Number(document.getElementById('galon5k').value)||0);
+    updateJatahDisplay(g,gl);
+  });}
+});
+
+function updateJatahDisplay(g,gl){
+  POS.forEach(p=>{
+    const jatah=p.jatahFn(g,gl);
+    const jatahEl=document.getElementById('jatah_'+p.key);
+    if(jatahEl){jatahEl.textContent=rupiah(jatah);}
+    const real=getNum(p.key),sisa=jatah-real;
+    const sisaEl=document.getElementById('sisa_'+p.key);
+    if(sisaEl){sisaEl.textContent=sisa>=0?'+'+rupiah(sisa):rupiah(sisa);sisaEl.className='sisa '+(sisa>=0?'plus':'minus');}
   });
 }
 

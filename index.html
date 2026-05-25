@@ -1,706 +1,125 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>GALS Admin | LoGas aja!</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
 <style>
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Inter', sans-serif;
-  background: linear-gradient(180deg, #e8f5e9 0%, #f1f8f4 100%);
-  padding: 20px;
-  color: #1a3b2e;
-  min-height: 100vh;
-}
-
-.container {
-  max-width: 1300px;
-  margin: auto;
-}
-
-/* ==================== HEADER ==================== */
-
-.header {
-  background: linear-gradient(135deg, #0a4d2e 0%, #0d6b3d 40%, #1a9a5e 100%);
-  padding: 40px;
-  border-radius: 28px;
-  color: white;
-  text-align: center;
-  margin-bottom: 25px;
-  box-shadow: 0 8px 32px rgba(10, 77, 46, 0.25);
-  position: relative;
-  overflow: hidden;
-}
-
-.header::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
-  animation: pulse 4s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.1); opacity: 0.8; }
-}
-
-.header * {
-  position: relative;
-  z-index: 1;
-}
-
-.brand {
-  font-size: 52px;
-  font-weight: 800;
-  letter-spacing: 10px;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-}
-
-.tagline {
-  margin-top: 8px;
-  font-size: 17px;
-  opacity: 0.95;
-  font-weight: 400;
-}
-
-.admin-badge {
-  display: inline-block;
-  background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(10px);
-  padding: 5px 16px;
-  border-radius: 20px;
-  font-size: 12px;
-  margin-top: 10px;
-  font-weight: 500;
-  letter-spacing: 1px;
-}
-
-/* ==================== NAVIGASI ==================== */
-
-.nav {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 25px;
-  flex-wrap: wrap;
-}
-
-.nav button {
-  width: auto;
-  padding: 13px 28px;
-  border: none;
-  border-radius: 20px;
-  background: white;
-  color: #0b5e3a;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-}
-
-.nav button:hover {
-  background: #0b5e3a;
-  color: white;
-  border-color: #0b5e3a;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(11,94,58,0.25);
-}
-
-.nav button.active {
-  background: #0b5e3a;
-  color: white;
-}
-
-/* ==================== STATISTIK ==================== */
-
-.dashboard {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 25px;
-}
-
-.stat {
-  background: white;
-  padding: 24px 20px;
-  border-radius: 24px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0,0,0,0.04);
-  position: relative;
-  overflow: hidden;
-}
-
-.stat:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.1);
-}
-
-.stat::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  border-radius: 4px 0 0 4px;
-}
-
-.stat:nth-child(1)::after { background: #1a9a5e; }
-.stat:nth-child(2)::after { background: #e65100; }
-.stat:nth-child(3)::after { background: #1565c0; }
-.stat:nth-child(4)::after { background: #7b1fa2; }
-
-.stat-icon {
-  font-size: 28px;
-  margin-bottom: 8px;
-}
-
-.stat-title {
-  font-size: 12px;
-  color: #78909c;
-  margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 600;
-}
-
-.stat-value {
-  font-size: 26px;
-  font-weight: 700;
-  color: #0b5e3a;
-}
-
-/* ==================== CARD ==================== */
-
-.card {
-  background: white;
-  padding: 30px;
-  border-radius: 28px;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-  margin-bottom: 25px;
-  border: 1px solid rgba(0,0,0,0.04);
-}
-
-.card h2 {
-  margin-bottom: 24px;
-  color: #0b5e3a;
-  font-size: 22px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.card h2 .icon-title {
-  font-size: 26px;
-  margin-right: 8px;
-}
-
-/* ==================== FORM ==================== */
-
-label {
-  display: block;
-  margin-top: 18px;
-  margin-bottom: 8px;
-  font-weight: 600;
-  font-size: 13px;
-  color: #455a64;
-  letter-spacing: 0.3px;
-}
-
-label .wajib {
-  color: #d93025;
-  font-weight: 400;
-  font-size: 11px;
-  margin-left: 4px;
-}
-
-input,
-select {
-  width: 100%;
-  padding: 14px 16px;
-  border-radius: 16px;
-  border: 2px solid #e8f0ec;
-  font-size: 14px;
-  background: #fafdfb;
-  transition: all 0.3s ease;
-  color: #1a3b2e;
-}
-
-input:focus,
-select:focus {
-  outline: none;
-  border-color: #1a9a5e;
-  background: #fff;
-  box-shadow: 0 0 0 4px rgba(26,154,94,0.08);
-}
-
-input::placeholder {
-  color: #b0bec5;
-}
-
-.row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-top: 14px;
-}
-
-/* ==================== BUTTON ==================== */
-
-button {
-  width: 100%;
-  padding: 16px;
-  border: none;
-  border-radius: 18px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  letter-spacing: 0.3px;
-}
-
-button:active {
-  transform: scale(0.98);
-}
-
-.btn-group {
-  display: flex;
-  gap: 10px;
-  margin-top: 24px;
-}
-
-.btn-simpan {
-  flex: 2;
-  background: linear-gradient(135deg, #0b5e3a 0%, #16834f 100%);
-  color: white;
-  box-shadow: 0 4px 16px rgba(11,94,58,0.3);
-}
-
-.btn-simpan:hover {
-  box-shadow: 0 6px 24px rgba(11,94,58,0.4);
-  transform: translateY(-1px);
-}
-
-.btn-hapus-form {
-  flex: 1;
-  background: linear-gradient(135deg, #d93025 0%, #c62828 100%);
-  color: white;
-  box-shadow: 0 4px 16px rgba(217,48,37,0.25);
-}
-
-.btn-hapus-form:hover {
-  box-shadow: 0 6px 24px rgba(217,48,37,0.35);
-}
-
-.btn-reset {
-  background: #eceff1;
-  color: #546e7a;
-  margin-top: 12px;
-  font-weight: 600;
-}
-
-.btn-reset:hover {
-  background: #cfd8dc;
-}
-
-/* ==================== INFO BOX ==================== */
-
-.biaya-otomatis {
-  background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
-  padding: 16px 20px;
-  border-radius: 18px;
-  margin-top: 18px;
-  font-size: 13px;
-  color: #2e7d32;
-  border-left: 4px solid #4caf50;
-}
-
-.biaya-otomatis span {
-  font-weight: 700;
-  font-size: 14px;
-}
-
-.info-edit {
-  background: linear-gradient(135deg, #fff8e1 0%, #fff3e0 100%);
-  padding: 14px 18px;
-  border-radius: 16px;
-  margin-bottom: 18px;
-  font-size: 13px;
-  color: #e65100;
-  display: none;
-  font-weight: 500;
-  border-left: 4px solid #ff9800;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.separator {
-  border: none;
-  border-top: 2px dashed #e0e0e0;
-  margin: 22px 0;
-}
-
-/* ==================== PILIH TANGGAL ==================== */
-
-.pilih-tanggal-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.pilih-tanggal-row button {
-  margin-top: 0;
-  background: #d93025;
-  color: white;
-  padding: 14px;
-  font-size: 14px;
-}
-
-/* ==================== TABEL REKAP ==================== */
-
-.table-wrap {
-  overflow-x: auto;
-  border-radius: 20px;
-  border: 1px solid #e8f0ec;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0;
-  font-size: 13px;
-}
-
-thead {
-  background: linear-gradient(135deg, #0b5e3a 0%, #0d6b3d 100%);
-}
-
-th {
-  color: white;
-  padding: 16px 14px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
-  text-align: left;
-}
-
-td {
-  padding: 14px;
-  border-bottom: 1px solid #f0f4f2;
-  vertical-align: middle;
-  color: #37474f;
-}
-
-tbody tr {
-  transition: all 0.2s ease;
-}
-
-tbody tr:hover {
-  background: #f8fdf9;
-}
-
-tbody tr:last-child td {
-  border-bottom: none;
-}
-
-/* Zebra stripe */
-tbody tr:nth-child(even) {
-  background: #fafdfb;
-}
-
-tbody tr:nth-child(even):hover {
-  background: #f0f7f3;
-}
-
-/* ==================== BADGE REKAP ==================== */
-
-.badge-omzet {
-  font-weight: 700;
-  color: #0b5e3a;
-}
-
-.badge-laba {
-  font-weight: 700;
-  color: #1565c0;
-}
-
-.badge-zakat {
-  font-weight: 700;
-  color: #7b1fa2;
-}
-
-.badge-pengeluaran {
-  color: #d84315;
-  font-weight: 500;
-}
-
-.kategori-tag {
-  display: inline-block;
-  background: #f5f5f5;
-  padding: 3px 10px;
-  border-radius: 12px;
-  font-size: 11px;
-  color: #616161;
-  margin-top: 3px;
-}
-
-/* ==================== TOMBOL AKSI ==================== */
-
-.btn-edit-kecil {
-  background: linear-gradient(135deg, #ff9800, #ffb300);
-  padding: 8px 14px;
-  border-radius: 10px;
-  display: inline-block;
-  cursor: pointer;
-  color: white;
-  margin-right: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(255,152,0,0.3);
-}
-
-.btn-edit-kecil:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(255,152,0,0.4);
-}
-
-.btn-hapus-kecil {
-  background: linear-gradient(135deg, #ef5350, #d93025);
-  padding: 8px 14px;
-  border-radius: 10px;
-  display: inline-block;
-  cursor: pointer;
-  color: white;
-  font-size: 12px;
-  font-weight: 600;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(217,48,37,0.3);
-}
-
-.btn-hapus-kecil:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(217,48,37,0.4);
-}
-
-/* ==================== TOAST ==================== */
-
-.toast {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #1a3b2e;
-  color: white;
-  padding: 16px 28px;
-  border-radius: 50px;
-  display: none;
-  z-index: 9999;
-  font-size: 14px;
-  font-weight: 500;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-  animation: slideUp 0.3s ease;
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-
-/* ==================== ERROR INPUT ==================== */
-
-.error-input {
-  border-color: #d93025 !important;
-  background: #fffafa !important;
-  animation: shake 0.5s ease;
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-6px); }
-  75% { transform: translateX(6px); }
-}
-
-/* ==================== EMPTY STATE ==================== */
-
-.empty-state {
-  text-align: center;
-  padding: 50px 20px;
-  color: #b0bec5;
-}
-
-.empty-state .empty-icon {
-  font-size: 60px;
-  margin-bottom: 16px;
-}
-
-.empty-state p {
-  font-size: 15px;
-  font-weight: 500;
-}
-
-/* ==================== RESPONSIVE ==================== */
-
-@media(max-width: 900px) {
-  .dashboard {
-    grid-template-columns: 1fr 1fr;
-  }
-  .row {
-    grid-template-columns: 1fr;
-  }
-  .brand {
-    font-size: 36px;
-    letter-spacing: 4px;
-  }
-  .btn-group {
-    flex-direction: column;
-  }
-  .stat-value {
-    font-size: 20px;
-  }
-  .pilih-tanggal-row {
-    grid-template-columns: 1fr;
-  }
-  .card {
-    padding: 20px;
-  }
-  th, td {
-    padding: 10px 8px;
-    font-size: 11px;
-  }
-}
-
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #edf5f0; padding: 20px; color: #18392b; }
+.container { max-width: 1300px; margin: auto; }
+.header { background: linear-gradient(135deg, #0b5e3a, #1a9a5e); padding: 40px; border-radius: 30px; color: white; text-align: center; margin-bottom: 25px; box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+.brand { font-size: 48px; font-weight: 800; letter-spacing: 8px; }
+.tagline { margin-top: 8px; font-size: 16px; opacity: 0.9; }
+.admin-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 5px 16px; border-radius: 20px; font-size: 12px; margin-top: 10px; }
+.nav { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+.nav button { width: auto; padding: 13px 28px; border: none; border-radius: 20px; background: white; color: #0b5e3a; font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: 0 2px 12px rgba(0,0,0,0.06); transition: all 0.3s; border: 2px solid transparent; }
+.nav button:hover, .nav button.active { background: #0b5e3a; color: white; }
+.dashboard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 25px; }
+.stat { background: white; padding: 24px 20px; border-radius: 24px; box-shadow: 0 2px 16px rgba(0,0,0,0.05); border-left: 4px solid #0b5e3a; }
+.stat-title { font-size: 12px; color: #78909c; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+.stat-value { font-size: 24px; font-weight: 700; color: #0b5e3a; }
+.card { background: white; padding: 28px; border-radius: 28px; box-shadow: 0 2px 20px rgba(0,0,0,0.05); margin-bottom: 25px; }
+.card h2 { margin-bottom: 20px; color: #0b5e3a; font-size: 22px; }
+label { display: block; margin-top: 16px; margin-bottom: 8px; font-weight: 600; font-size: 13px; color: #455a64; }
+label .wajib { color: #d93025; font-size: 11px; }
+input, select { width: 100%; padding: 14px 16px; border-radius: 16px; border: 2px solid #e8f0ec; font-size: 14px; background: #fafdfb; transition: all 0.3s; }
+input:focus, select:focus { outline: none; border-color: #1a9a5e; box-shadow: 0 0 0 4px rgba(26,154,94,0.08); }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+button { width: 100%; padding: 16px; border: none; border-radius: 18px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+button:active { transform: scale(0.98); }
+.btn-group { display: flex; gap: 10px; margin-top: 24px; }
+.btn-simpan { flex: 2; background: linear-gradient(135deg, #0b5e3a, #16834f); color: white; box-shadow: 0 4px 16px rgba(11,94,58,0.3); }
+.btn-hapus-form { flex: 1; background: linear-gradient(135deg, #d93025, #c62828); color: white; display: none; }
+.btn-reset { background: #eceff1; color: #546e7a; margin-top: 12px; font-weight: 600; }
+.biaya-otomatis { background: #e8f5e9; padding: 15px; border-radius: 15px; margin-top: 16px; font-size: 13px; color: #2e7d32; border-left: 4px solid #4caf50; }
+.info-edit { background: #fff3e0; padding: 14px 18px; border-radius: 16px; margin-bottom: 18px; font-size: 13px; color: #e65100; display: none; border-left: 4px solid #ff9800; }
+.separator { border: none; border-top: 2px dashed #e0e0e0; margin: 22px 0; }
+.pilih-tanggal-row { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; margin-top: 10px; }
+.pilih-tanggal-row button { margin-top: 0; background: #d93025; color: white; }
+.table-wrap { overflow-x: auto; border-radius: 20px; border: 1px solid #e8f0ec; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead { background: linear-gradient(135deg, #0b5e3a, #0d6b3d); }
+th { color: white; padding: 14px; font-size: 12px; font-weight: 600; text-transform: uppercase; text-align: left; }
+td { padding: 12px 14px; border-bottom: 1px solid #f0f4f2; vertical-align: middle; }
+tbody tr:hover { background: #f8fdf9; }
+tbody tr:nth-child(even) { background: #fafdfb; }
+.badge-omzet { font-weight: 700; color: #0b5e3a; }
+.badge-laba { font-weight: 700; color: #1565c0; }
+.badge-zakat { font-weight: 700; color: #7b1fa2; }
+.badge-pengeluaran { color: #d84315; font-weight: 500; }
+.kategori-tag { display: inline-block; background: #f5f5f5; padding: 3px 10px; border-radius: 12px; font-size: 11px; margin-top: 3px; }
+.btn-edit-kecil { background: #ff9800; padding: 8px 14px; border-radius: 10px; cursor: pointer; color: white; font-size: 12px; font-weight: 600; margin-right: 6px; display: inline-block; }
+.btn-hapus-kecil { background: #d93025; padding: 8px 14px; border-radius: 10px; cursor: pointer; color: white; font-size: 12px; font-weight: 600; display: inline-block; }
+.toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #1a3b2e; color: white; padding: 16px 28px; border-radius: 50px; display: none; z-index: 9999; font-size: 14px; box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+.error-input { border-color: #d93025 !important; background: #fffafa !important; }
+.empty-state { text-align: center; padding: 50px; color: #b0bec5; }
+@media(max-width: 900px) { .dashboard { grid-template-columns: 1fr 1fr; } .row { grid-template-columns: 1fr; } .brand { font-size: 36px; } .btn-group { flex-direction: column; } }
 </style>
-
 </head>
-
 <body>
-
 <div class="container">
 
-  <!-- HEADER -->
   <div class="header">
     <div class="brand">GALS</div>
     <div class="tagline">🔥 LoGas aja!</div>
     <div class="admin-badge">🛡️ ADMIN PANEL</div>
   </div>
 
-  <!-- NAVIGASI -->
   <div class="nav">
     <button id="navDashboard" class="active" onclick="showPage('dashboardPage')">🏠 Dashboard</button>
     <button id="navRekap" onclick="showPage('rekapPage')">📊 Rekap Penjualan</button>
   </div>
 
-  <!-- ==================== DASHBOARD PAGE ==================== -->
+  <!-- DASHBOARD -->
   <div id="dashboardPage">
-
-    <!-- STATISTIK -->
     <div class="dashboard">
-      <div class="stat">
-        <div class="stat-icon">💰</div>
-        <div class="stat-title">Total Omzet</div>
-        <div class="stat-value" id="omzet">Rp 0</div>
-      </div>
-      <div class="stat">
-        <div class="stat-icon">💸</div>
-        <div class="stat-title">Total Pengeluaran</div>
-        <div class="stat-value" id="pengeluaranTotal">Rp 0</div>
-      </div>
-      <div class="stat">
-        <div class="stat-icon">📈</div>
-        <div class="stat-title">Total Laba</div>
-        <div class="stat-value" id="laba">Rp 0</div>
-      </div>
-      <div class="stat">
-        <div class="stat-icon">🕌</div>
-        <div class="stat-title">Total Zakat (2,5%)</div>
-        <div class="stat-value" id="zakat">Rp 0</div>
-      </div>
+      <div class="stat"><div class="stat-title">💰 Total Omzet</div><div class="stat-value" id="omzet">Rp 0</div></div>
+      <div class="stat"><div class="stat-title">💸 Total Pengeluaran</div><div class="stat-value" id="pengeluaranTotal">Rp 0</div></div>
+      <div class="stat"><div class="stat-title">📈 Total Laba</div><div class="stat-value" id="laba">Rp 0</div></div>
+      <div class="stat"><div class="stat-title">🕌 Total Zakat (2,5%)</div><div class="stat-value" id="zakat">Rp 0</div></div>
     </div>
 
-    <!-- INPUT PENJUALAN -->
     <div class="card">
-      <h2>
-        <span><span class="icon-title">📝</span> Input Penjualan</span>
-      </h2>
+      <h2>📝 Input Penjualan</h2>
 
-      <!-- INFO EDIT -->
-      <div class="info-edit" id="infoEdit">
-        ⚡ Sedang mengedit data. Ubah data lalu klik <b>"💾 Simpan Data"</b>
-      </div>
+      <div class="info-edit" id="infoEdit">⚡ Sedang mengedit data. Ubah data lalu klik <b>"💾 Simpan Data"</b></div>
 
-      <!-- PILIH TANGGAL -->
       <label>🔍 Edit / Hapus Data Berdasarkan Tanggal</label>
       <div class="pilih-tanggal-row">
-        <select id="pilihTanggal" onchange="loadDataByTanggal()" style="margin-top:0;">
-          <option value="">-- Pilih Tanggal --</option>
-        </select>
+        <select id="pilihTanggal" onchange="loadDataByTanggal()"><option value="">-- Pilih Tanggal --</option></select>
         <button onclick="hapusByTanggal()">🗑️ Hapus</button>
       </div>
 
       <hr class="separator">
 
-      <!-- TANGGAL -->
       <label>📅 Tanggal <span class="wajib">*wajib</span></label>
       <input type="date" id="tanggal">
 
-      <!-- GAS -->
-      <label>🔥 Penjualan Gas</label>
+      <label>🔥 Gas</label>
       <div class="row">
         <input type="number" id="gas22" placeholder="Gas 22k (jumlah)">
         <input type="number" id="gas23" placeholder="Gas 23k (jumlah)">
       </div>
       <div class="row">
         <input type="number" id="gasPink" placeholder="Gas Pink (jumlah)">
+        <input type="number" id="pemasukanLain" placeholder="Pemasukan Lain (Rp)">
       </div>
 
-      <!-- PEMASUKAN LAIN -->
-      <label>💵 Pemasukan Lain <span class="wajib">*isi jika ada</span></label>
-      <div class="row">
-        <input type="number" id="pemasukanLainNominal" placeholder="Nominal (Rp)">
-        <input type="text" id="pemasukanLainKeterangan" placeholder="Keterangan (contoh: Jual es batu)">
-      </div>
-
-      <!-- GALON -->
-      <label>💧 Penjualan Galon</label>
+      <label>💧 Galon</label>
       <div class="row">
         <input type="number" id="galon3k" placeholder="Galon 3k (jumlah)">
         <input type="number" id="galon4k" placeholder="Galon 4k (jumlah)">
       </div>
       <div class="row">
         <input type="number" id="galon5k" placeholder="Galon 5k (jumlah)">
-        <input type="text" id="catatan" placeholder="📝 Catatan umum">
+        <input type="text" id="catatan" placeholder="📝 Catatan">
       </div>
 
-      <!-- PENGELUARAN -->
-      <label>💸 Pengeluaran Operasional <span class="wajib">*isi jika ada</span></label>
+      <label>💸 Pengeluaran Operasional</label>
       <div class="row">
-        <input type="number" id="pengeluaranNominal" placeholder="Nominal (Rp)">
+        <input type="number" id="pengeluaran" placeholder="Nominal (Rp)">
         <select id="kategoriPengeluaran">
           <option value="">-- Pilih Kategori --</option>
           <option value="Transport Gas">🚚 Transport Gas</option>
@@ -714,47 +133,26 @@ tbody tr:nth-child(even):hover {
         </select>
       </div>
 
-      <!-- BIAYA OTOMATIS -->
       <div class="biaya-otomatis">
-        📌 <span>Biaya Otomatis (dihitung sistem):</span><br>
-        • Gas (22k & 23k): Rp 900/buah &nbsp;|&nbsp;
-        • Galon (3k, 4k, 5k): Rp 2.500/buah &nbsp;|&nbsp;
-        • Jajan 2 Orang: Rp 10.000/hari
+        📌 <span>Biaya Otomatis:</span><br>
+        • Gas (22k & 23k): Rp 900/buah | • Galon: Rp 2.500/buah | • Jajan 2 Orang: Rp 10.000/hari
       </div>
 
-      <!-- TOMBOL -->
       <div class="btn-group">
         <button class="btn-simpan" onclick="simpanData()">💾 Simpan Data</button>
-        <button class="btn-hapus-form" id="btnHapusForm" onclick="hapusDataForm()" style="display:none;">🗑️ Hapus</button>
+        <button class="btn-hapus-form" id="btnHapusForm" onclick="hapusDataForm()">🗑️ Hapus Data Ini</button>
       </div>
       <button class="btn-reset" onclick="resetFormFull()">🔄 Reset Form</button>
-
     </div>
-
   </div>
 
-  <!-- ==================== REKAP PAGE ==================== -->
+  <!-- REKAP -->
   <div id="rekapPage" style="display:none;">
     <div class="card">
-      <h2>
-        <span><span class="icon-title">📊</span> Rekap Penjualan Lengkap</span>
-        <span style="font-size:12px;color:#78909c;font-weight:400;">Total: <b id="totalData">0</b> data</span>
-      </h2>
+      <h2>📊 Rekap Penjualan <span style="font-size:12px;color:#78909c;">Total: <b id="totalData">0</b> data</span></h2>
       <div class="table-wrap">
         <table>
-          <thead>
-            <tr>
-              <th>📅 Tanggal</th>
-              <th>🔥 Gas</th>
-              <th>💧 Galon</th>
-              <th>💵 Pemasukan Lain</th>
-              <th>💰 Omzet</th>
-              <th>💸 Pengeluaran</th>
-              <th>📈 Laba</th>
-              <th>🕌 Zakat</th>
-              <th>⚙️ Aksi</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Tanggal</th><th>Gas</th><th>Galon</th><th>Omzet</th><th>Pengeluaran</th><th>Laba</th><th>Zakat</th><th>Aksi</th></tr></thead>
           <tbody id="rekapBody"></tbody>
         </table>
       </div>
@@ -763,124 +161,38 @@ tbody tr:nth-child(even):hover {
 
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- ==================== SCRIPT ==================== -->
 <script>
-
-// ========================
-// KONFIGURASI
-// ========================
-
+// ⚠️ GANTI DENGAN URL BARU HASIL DEPLOY!
 const API_URL = 'https://script.google.com/macros/s/AKfycbzOLGj2YRd_Cibr5pSjSCBvXoq2pCdKIJ7vMLqWxHlRmfxayquW-QWALDkDyYXRybkg/exec';
 
 let allData = [];
 let editId = '';
 
-
-// ========================
-// TOAST
-// ========================
-
 function toast(text) {
   const t = document.getElementById('toast');
-  t.innerText = text;
-  t.style.display = 'block';
+  t.innerText = text; t.style.display = 'block';
   setTimeout(() => { t.style.display = 'none'; }, 3000);
 }
 
-
-// ========================
-// FORMAT RUPIAH
-// ========================
-
-function rupiah(n) {
-  return 'Rp ' + Number(n).toLocaleString('id-ID');
-}
-
-
-// ========================
-// SHOW PAGE
-// ========================
+function rupiah(n) { return 'Rp ' + Number(n).toLocaleString('id-ID'); }
 
 function showPage(page) {
   document.getElementById('dashboardPage').style.display = 'none';
   document.getElementById('rekapPage').style.display = 'none';
   document.getElementById(page).style.display = 'block';
-
-  // Update nav active
   document.getElementById('navDashboard').classList.remove('active');
   document.getElementById('navRekap').classList.remove('active');
   if (page === 'dashboardPage') document.getElementById('navDashboard').classList.add('active');
   if (page === 'rekapPage') document.getElementById('navRekap').classList.add('active');
-
   if (page === 'rekapPage') renderTable();
 }
 
-
-// ========================
-// VALIDASI FORM
-// ========================
-
-function validasiForm() {
-  const pemasukanLainNominal = Number(document.getElementById('pemasukanLainNominal').value) || 0;
-  const pemasukanLainKeterangan = document.getElementById('pemasukanLainKeterangan').value.trim();
-  const pengeluaranNominal = Number(document.getElementById('pengeluaranNominal').value) || 0;
-  const kategoriPengeluaran = document.getElementById('kategoriPengeluaran').value;
-
-  let valid = true;
-
-  document.querySelectorAll('.error-input').forEach(el => el.classList.remove('error-input'));
-
-  if (pemasukanLainNominal > 0 && pemasukanLainKeterangan === '') {
-    toast('⚠️ Isi keterangan pemasukan lain!');
-    document.getElementById('pemasukanLainKeterangan').classList.add('error-input');
-    valid = false;
-  }
-
-  if (pemasukanLainNominal === 0 && pemasukanLainKeterangan !== '') {
-    toast('⚠️ Isi nominal pemasukan lain!');
-    document.getElementById('pemasukanLainNominal').classList.add('error-input');
-    valid = false;
-  }
-
-  if (pengeluaranNominal > 0 && kategoriPengeluaran === '') {
-    toast('⚠️ Pilih kategori pengeluaran!');
-    document.getElementById('kategoriPengeluaran').classList.add('error-input');
-    valid = false;
-  }
-
-  if (pengeluaranNominal === 0 && kategoriPengeluaran !== '') {
-    toast('⚠️ Isi nominal pengeluaran!');
-    document.getElementById('pengeluaranNominal').classList.add('error-input');
-    valid = false;
-  }
-
-  return valid;
-}
-
-
-// ========================
-// SIMPAN DATA
-// ========================
-
 async function simpanData() {
-  if (!validasiForm()) return;
-
   const data = new FormData();
-
-  if (editId) {
-    data.append('action', 'update');
-    data.append('id', editId);
-  } else {
-    data.append('action', 'simpan');
-  }
-
-  const pemasukanLainNominal = document.getElementById('pemasukanLainNominal').value || 0;
-  const pemasukanLainKeterangan = document.getElementById('pemasukanLainKeterangan').value.trim();
-  const pengeluaranNominal = document.getElementById('pengeluaranNominal').value || 0;
-  const kategoriPengeluaran = document.getElementById('kategoriPengeluaran').value;
+  if (editId) { data.append('action', 'update'); data.append('id', editId); }
+  else { data.append('action', 'simpan'); }
 
   data.append('tanggal', document.getElementById('tanggal').value);
   data.append('gas22', document.getElementById('gas22').value || 0);
@@ -889,10 +201,9 @@ async function simpanData() {
   data.append('galon3k', document.getElementById('galon3k').value || 0);
   data.append('galon4k', document.getElementById('galon4k').value || 0);
   data.append('galon5k', document.getElementById('galon5k').value || 0);
-  data.append('pemasukanLain', pemasukanLainNominal);
-  data.append('pemasukanLainKeterangan', pemasukanLainKeterangan);
-  data.append('pengeluaran', pengeluaranNominal);
-  data.append('kategoriPengeluaran', kategoriPengeluaran);
+  data.append('pemasukanLain', document.getElementById('pemasukanLain').value || 0);
+  data.append('pengeluaran', document.getElementById('pengeluaran').value || 0);
+  data.append('kategoriPengeluaran', document.getElementById('kategoriPengeluaran').value);
   data.append('catatan', document.getElementById('catatan').value);
 
   try {
@@ -901,58 +212,35 @@ async function simpanData() {
     toast(result.message);
     resetFormFull();
     loadData();
-  } catch (err) {
-    toast('Gagal koneksi');
-    console.log(err);
-  }
+  } catch (err) { toast('Gagal koneksi'); console.log(err); }
 }
-
-
-// ========================
-// LOAD DATA
-// ========================
 
 async function loadData() {
   try {
     const response = await fetch(API_URL + '?action=getData');
     const result = await response.json();
     allData = result;
-
     let omzet = 0, pengeluaran = 0, laba = 0, zakat = 0;
-
     result.forEach(row => {
       omzet += Number(row[11] || 0);
       pengeluaran += Number(row[9] || 0);
       laba += Number(row[12] || 0);
       zakat += Number(row[13] || 0);
     });
-
     document.getElementById('omzet').innerText = rupiah(omzet);
     document.getElementById('pengeluaranTotal').innerText = rupiah(pengeluaran);
     document.getElementById('laba').innerText = rupiah(laba);
     document.getElementById('zakat').innerText = rupiah(zakat);
-
     document.getElementById('totalData').innerText = result.length;
-
     renderTable();
     isiDropdownTanggal();
-  } catch (err) {
-    toast('Gagal load data');
-    console.log(err);
-  }
+  } catch (err) { toast('Gagal load data'); console.log(err); }
 }
-
-
-// ========================
-// ISI DROPDOWN TANGGAL
-// ========================
 
 function isiDropdownTanggal() {
   const dropdown = document.getElementById('pilihTanggal');
   dropdown.innerHTML = '<option value="">-- Pilih Tanggal --</option>';
-
   const dataTerurut = [...allData].reverse();
-
   dataTerurut.forEach((row, index) => {
     const option = document.createElement('option');
     option.value = index;
@@ -961,23 +249,13 @@ function isiDropdownTanggal() {
   });
 }
 
-
-// ========================
-// LOAD DATA BY TANGGAL
-// ========================
-
 function loadDataByTanggal() {
   const dropdown = document.getElementById('pilihTanggal');
   const selectedIndex = dropdown.value;
-
-  if (selectedIndex === '') {
-    resetFormFull();
-    return;
-  }
+  if (selectedIndex === '') { resetFormFull(); return; }
 
   const dataTerurut = [...allData].reverse();
   const row = dataTerurut[selectedIndex];
-
   editId = row[0];
 
   document.getElementById('tanggal').value = row[1] || '';
@@ -987,144 +265,75 @@ function loadDataByTanggal() {
   document.getElementById('galon3k').value = row[5] || '';
   document.getElementById('galon4k').value = row[6] || '';
   document.getElementById('galon5k').value = row[7] || '';
-  document.getElementById('pemasukanLainNominal').value = Number(row[8]) || 0;
-  document.getElementById('pemasukanLainKeterangan').value = '';
-  document.getElementById('pengeluaranNominal').value = row[15] || 0;
+  document.getElementById('pemasukanLain').value = row[8] || '';
+  document.getElementById('pengeluaran').value = row[15] || 0;
   document.getElementById('kategoriPengeluaran').value = row[10] || '';
   document.getElementById('catatan').value = row[14] || '';
 
   document.getElementById('infoEdit').style.display = 'block';
   document.getElementById('btnHapusForm').style.display = 'block';
-
   toast('✏️ Edit data tanggal ' + row[1]);
 }
 
-
-// ========================
-// HAPUS DATA FORM
-// ========================
-
 function hapusDataForm() {
-  if (!editId) {
-    toast('Pilih tanggal dulu!');
-    return;
-  }
+  if (!editId) { toast('Pilih tanggal dulu!'); return; }
   hapusData(editId);
 }
-
-
-// ========================
-// HAPUS BY TANGGAL
-// ========================
 
 function hapusByTanggal() {
   const dropdown = document.getElementById('pilihTanggal');
   const selectedIndex = dropdown.value;
-
-  if (selectedIndex === '') {
-    toast('Pilih tanggal dulu!');
-    return;
-  }
-
+  if (selectedIndex === '') { toast('Pilih tanggal dulu!'); return; }
   const dataTerurut = [...allData].reverse();
   const row = dataTerurut[selectedIndex];
-
-  if (confirm('Hapus data tanggal ' + row[1] + '?')) {
-    hapusData(row[0]);
-  }
+  if (confirm('Hapus data tanggal ' + row[1] + '?')) { hapusData(row[0]); }
 }
-
-
-// ========================
-// HAPUS DATA (UMUM)
-// ========================
 
 async function hapusData(id) {
   const yakin = confirm('Yakin hapus data ini?');
   if (!yakin) return;
-
   const data = new FormData();
   data.append('action', 'hapus');
   data.append('id', id);
-
   try {
     const response = await fetch(API_URL, { method: 'POST', body: data });
     const result = await response.json();
     toast(result.message);
     resetFormFull();
     loadData();
-  } catch (err) {
-    toast('Gagal hapus');
-  }
+  } catch (err) { toast('Gagal hapus'); }
 }
-
-
-// ========================
-// RENDER TABLE REKAP
-// ========================
 
 function renderTable() {
   const tbody = document.getElementById('rekapBody');
   tbody.innerHTML = '';
-
   if (allData.length === 0) {
-    tbody.innerHTML = `
-      <tr>
-        <td colspan="9">
-          <div class="empty-state">
-            <div class="empty-icon">📭</div>
-            <p>Belum ada data penjualan</p>
-            <p style="font-size:12px;margin-top:4px;">Input data melalui Dashboard</p>
-          </div>
-        </td>
-      </tr>`;
-    document.getElementById('totalData').innerText = '0';
+    tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state">📭 Belum ada data</div></td></tr>';
     return;
   }
-
-  document.getElementById('totalData').innerText = allData.length;
-
   const dataTerurut = [...allData].reverse();
-
   dataTerurut.forEach(row => {
-    const pemasukanLain = Number(row[8]) || 0;
-    const pemasukanLainText = pemasukanLain > 0 
-      ? '<span class="badge-omzet">' + rupiah(pemasukanLain) + '</span>' 
-      : '<span style="color:#bdbdbd;">-</span>';
-
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><b>${row[1] || '-'}</b></td>
-      <td>22k: <b>${row[2]||0}</b> | 23k: <b>${row[3]||0}</b><br>Pink: <b>${row[4]||0}</b></td>
-      <td>3k: <b>${row[5]||0}</b> | 4k: <b>${row[6]||0}</b><br>5k: <b>${row[7]||0}</b></td>
-      <td>${pemasukanLainText}</td>
+      <td>22k:<b>${row[2]||0}</b> | 23k:<b>${row[3]||0}</b><br>Pink:<b>${row[4]||0}</b></td>
+      <td>3k:<b>${row[5]||0}</b> | 4k:<b>${row[6]||0}</b><br>5k:<b>${row[7]||0}</b></td>
       <td><span class="badge-omzet">${rupiah(row[11])}</span></td>
-      <td>
-        <span class="badge-pengeluaran">${rupiah(row[9])}</span>
-        ${row[10] ? '<br><span class="kategori-tag">' + row[10] + '</span>' : ''}
-      </td>
+      <td><span class="badge-pengeluaran">${rupiah(row[9])}</span>${row[10]?'<br><span class="kategori-tag">'+row[10]+'</span>':''}</td>
       <td><span class="badge-laba">${rupiah(row[12])}</span></td>
       <td><span class="badge-zakat">${rupiah(row[13])}</span></td>
       <td>
         <span class="btn-edit-kecil" onclick="editDariRekap('${row[0]}')">✏️ Edit</span>
         <span class="btn-hapus-kecil" onclick="hapusData('${row[0]}')">🗑️</span>
-      </td>
-    `;
+      </td>`;
     tbody.appendChild(tr);
   });
 }
 
-
-// ========================
-// EDIT DARI REKAP
-// ========================
-
 function editDariRekap(id) {
   const row = allData.find(r => r[0] == id);
   if (!row) return;
-
   editId = row[0];
-
   document.getElementById('tanggal').value = row[1] || '';
   document.getElementById('gas22').value = row[2] || '';
   document.getElementById('gas23').value = row[3] || '';
@@ -1132,24 +341,16 @@ function editDariRekap(id) {
   document.getElementById('galon3k').value = row[5] || '';
   document.getElementById('galon4k').value = row[6] || '';
   document.getElementById('galon5k').value = row[7] || '';
-  document.getElementById('pemasukanLainNominal').value = Number(row[8]) || 0;
-  document.getElementById('pemasukanLainKeterangan').value = '';
-  document.getElementById('pengeluaranNominal').value = row[15] || 0;
+  document.getElementById('pemasukanLain').value = row[8] || '';
+  document.getElementById('pengeluaran').value = row[15] || 0;
   document.getElementById('kategoriPengeluaran').value = row[10] || '';
   document.getElementById('catatan').value = row[14] || '';
-
   document.getElementById('infoEdit').style.display = 'block';
   document.getElementById('btnHapusForm').style.display = 'block';
   document.getElementById('pilihTanggal').value = '';
-
   showPage('dashboardPage');
   toast('✏️ Edit data tanggal ' + row[1]);
 }
-
-
-// ========================
-// RESET FORM
-// ========================
 
 function resetFormFull() {
   editId = '';
@@ -1160,27 +361,17 @@ function resetFormFull() {
   document.getElementById('galon3k').value = '';
   document.getElementById('galon4k').value = '';
   document.getElementById('galon5k').value = '';
-  document.getElementById('pemasukanLainNominal').value = '';
-  document.getElementById('pemasukanLainKeterangan').value = '';
-  document.getElementById('pengeluaranNominal').value = '';
+  document.getElementById('pemasukanLain').value = '';
+  document.getElementById('pengeluaran').value = '';
   document.getElementById('kategoriPengeluaran').value = '';
   document.getElementById('catatan').value = '';
   document.getElementById('infoEdit').style.display = 'none';
   document.getElementById('btnHapusForm').style.display = 'none';
   document.getElementById('pilihTanggal').value = '';
-
-  document.querySelectorAll('.error-input').forEach(el => el.classList.remove('error-input'));
 }
-
-
-// ========================
-// AUTO LOAD
-// ========================
 
 document.getElementById('tanggal').valueAsDate = new Date();
 loadData();
-
 </script>
-
 </body>
 </html>

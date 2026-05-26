@@ -288,7 +288,7 @@ canvas { max-height:250px; }
 <script>
 const API_URL = 'https://script.google.com/macros/s/AKfycbzsm0P5ONZJZdA17Zu8PwEgUgEJH3Wmajjd7Zu-KkdUF7nbOvA2y1Kr2u0AeFTBvG9ajw/exec';
 
-let allData=[], allSetoran=[], editId=null, charts={}, popupChart=null;
+let allData=[], allSetoran=[], editId=null, charts={}, popupChart=null, currentStats={};
 
 function toast(m){const t=document.getElementById('toast');t.innerText=m;t.style.display='block';setTimeout(()=>t.style.display='none',2500);}
 function rupiah(n){return'Rp '+Number(n).toLocaleString('id-ID');}
@@ -493,10 +493,10 @@ function updateDashboard(){
     });
   });
   
-  const stats={omzet,kulakan,ops,galon3k,galon4k,galon5k,totalGalon,jajan,zakat,shodaqoh,laba,setoran,omzetGas,omzetGalon,totalReal};
-  POS.forEach(p=>{stats['jatah_'+p.key]=jatahAcc[p.key];stats['real_'+p.key]=realAcc[p.key];});
+  currentStats={omzet,kulakan,ops,galon3k,galon4k,galon5k,totalGalon,jajan,zakat,shodaqoh,laba,setoran,omzetGas,omzetGalon,totalReal};
+  POS.forEach(p=>{currentStats['jatah_'+p.key]=jatahAcc[p.key];currentStats['real_'+p.key]=realAcc[p.key];});
   
-  document.getElementById('statContainer').innerHTML=[
+  const cards=[
     {cls:'c-omzet',title:'💰 Omzet',value:rupiah(omzet),jenis:'omzet'},
     {cls:'c-kulakan',title:'🔵 Kulakan',value:rupiah(kulakan),jenis:'kulakan'},
     {cls:'c-ops',title:'🟢 Operasional',value:rupiah(ops),jenis:'ops'},
@@ -506,7 +506,22 @@ function updateDashboard(){
     {cls:'c-shodaqoh',title:'🤲 Shodaqoh',value:rupiah(shodaqoh),jenis:'shodaqoh'},
     {cls:'c-laba',title:'📈 Laba',value:rupiah(laba),jenis:'laba'},
     {cls:'c-setoran',title:'🟡 Setoran',value:rupiah(setoran),jenis:'setoran'},
-  ].map(c=>`<div class="stat-card ${c.cls}" onclick="showDetailPopup('${c.title}',stats,'${c.jenis}')"><div class="title">${c.title}</div><div class="value">${c.value}</div></div>`).join('');
+  ];
+  
+  let htmlCards='';
+  cards.forEach(c=>{
+    htmlCards+=`<div class="stat-card ${c.cls}" data-jenis="${c.jenis}"><div class="title">${c.title}</div><div class="value">${c.value}</div></div>`;
+  });
+  document.getElementById('statContainer').innerHTML=htmlCards;
+  
+  // Pasang event listener
+  document.querySelectorAll('.stat-card').forEach(card=>{
+    card.addEventListener('click',function(){
+      const jenis=this.getAttribute('data-jenis');
+      const title=this.querySelector('.title').textContent;
+      showDetailPopup(title,currentStats,jenis);
+    });
+  });
   
   document.getElementById('opContainer').innerHTML=buildOpRows(null);
   document.querySelectorAll('.input-rupiah').forEach(el=>formatRupiahInput(el));

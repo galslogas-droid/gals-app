@@ -33,6 +33,7 @@ body { font-family:'Inter',sans-serif; background:var(--bg); padding:16px; color
 .filter-row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:16px; background:var(--card); padding:12px 14px; border-radius:18px; box-shadow:var(--shadow); }
 .filter-row input { padding:8px 10px; border-radius:12px; border:1px solid var(--border); font-size:11px; background:#fafdfb; }
 .filter-row button { padding:8px 14px; border-radius:12px; border:none; font-size:11px; font-weight:600; cursor:pointer; background:var(--hijau); color:#fff; }
+.filter-row select { padding:8px 10px; border-radius:12px; border:1px solid var(--border); font-size:11px; }
 .stat-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:18px; }
 .stat-card { background:var(--card); padding:14px 10px; border-radius:18px; box-shadow:var(--shadow); cursor:pointer; transition:all 0.2s; border-left:4px solid var(--hijau); }
 .stat-card:active { transform:scale(0.97); }
@@ -47,6 +48,10 @@ body { font-family:'Inter',sans-serif; background:var(--bg); padding:16px; color
 .stat-card.c-shodaqoh { border-left-color:var(--teal); } .stat-card.c-shodaqoh .value { color:var(--teal); }
 .stat-card.c-laba { border-left-color:var(--biru); } .stat-card.c-laba .value { color:var(--biru); }
 .stat-card.c-setoran { border-left-color:var(--emas); } .stat-card.c-setoran .value { color:var(--emas); }
+.galon-card-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.galon-card-item { text-align:center; padding:6px 4px; border-radius:10px; background:var(--biru-muda); }
+.galon-card-item .glbl { font-size:8px; color:var(--text-secondary); }
+.galon-card-item .gval { font-size:16px; font-weight:700; color:var(--biru); }
 .card { background:var(--card); padding:18px; border-radius:20px; box-shadow:var(--shadow); margin-bottom:18px; }
 .card h2 { font-size:16px; color:var(--hijau); margin-bottom:14px; }
 .card h3 { font-size:13px; color:var(--text); margin:14px 0 8px; border-bottom:1px solid var(--border); padding-bottom:6px; }
@@ -86,7 +91,8 @@ tr:hover { background:#f8fdf9; }
 .empty-state { text-align:center; padding:30px; color:#b0bec5; }
 .chart-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:18px; }
 .chart-box { background:var(--card); padding:14px; border-radius:18px; box-shadow:var(--shadow); }
-.chart-box h3 { font-size:13px; color:var(--text-secondary); margin-bottom:10px; }
+.chart-box h3 { font-size:13px; color:var(--text-secondary); margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; }
+.chart-box h3 select { padding:4px 8px; border-radius:8px; border:1px solid var(--border); font-size:10px; }
 canvas { max-height:250px; }
 .kantong-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .prediksi-stok { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; text-align:center; }
@@ -158,6 +164,7 @@ canvas { max-height:250px; }
   <!-- DASHBOARD -->
   <div id="dashboardPage">
     <div class="stat-grid" id="statContainer"></div>
+    
     <div class="card" id="prediksiCard" style="display:none;">
       <h2>📦 Prediksi Stok Gas</h2>
       <div class="prediksi-stok">
@@ -222,6 +229,26 @@ canvas { max-height:250px; }
     <div class="chart-row">
       <div class="chart-box"><h3>🕌 Zakat Bulanan</h3><canvas id="chartZakat"></canvas></div>
       <div class="chart-box"><h3>💸 Pengeluaran</h3><canvas id="chartPengeluaran"></canvas></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-box">
+        <h3>🔧 Real vs Jatah Operasional</h3>
+        <canvas id="chartRealVsJatah"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>💵 Real Setoran</h3>
+        <canvas id="chartRealSetoran"></canvas>
+      </div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-box">
+        <h3>🔥 Penjualan Gas <select id="filterGasGrafik" onchange="renderGrafik()"><option value="harian">Harian</option><option value="mingguan">Mingguan</option><option value="bulanan">Bulanan</option><option value="tahunan">Tahunan</option></select></h3>
+        <canvas id="chartPenjualanGas"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>💧 Penjualan Galon <select id="filterGalonGrafik" onchange="renderGrafik()"><option value="harian">Harian</option><option value="mingguan">Mingguan</option><option value="bulanan">Bulanan</option><option value="tahunan">Tahunan</option></select></h3>
+        <canvas id="chartPenjualanGalon"></canvas>
+      </div>
     </div>
   </div>
 
@@ -337,6 +364,32 @@ function showPage(page){
   if(page==='stokPage'){document.getElementById('navStok').classList.add('active');loadPrediksiStokPage();}
 }
 
+function getPeriodData(data,jenis){
+  const now=new Date();let start=new Date(now);
+  if(jenis==='hari'){start.setHours(0,0,0,0);}
+  else if(jenis==='minggu'){const hari=now.getDay();start.setDate(now.getDate()-hari);start.setHours(0,0,0,0);}
+  else if(jenis==='bulan'){start.setDate(1);start.setHours(0,0,0,0);}
+  else if(jenis==='tahun'){start.setMonth(0);start.setDate(1);start.setHours(0,0,0,0);}
+  else return data;
+  const tglStart=start.toISOString().split('T')[0];
+  return data.filter(d=>d[1]>=tglStart);
+}
+
+function aggregateByPeriod(data,jenis){
+  let groups={};
+  data.forEach(d=>{
+    let key='';
+    const tgl=new Date(d[1]);
+    if(jenis==='harian') key=d[1];
+    else if(jenis==='mingguan'){const start=new Date(tgl);start.setDate(tgl.getDate()-tgl.getDay());key=start.toISOString().split('T')[0];}
+    else if(jenis==='bulanan') key=tgl.getFullYear()+'-'+String(tgl.getMonth()+1).padStart(2,'0');
+    else if(jenis==='tahunan') key=String(tgl.getFullYear());
+    if(!groups[key]) groups[key]=0;
+    groups[key]+=(Number(d[3])||0)+(Number(d[4])||0)+(Number(d[5])||0);
+  });
+  return Object.entries(groups).sort((a,b)=>a[0].localeCompare(b[0]));
+}
+
 // POPUP
 function openPopup(html){document.getElementById('popupContent').innerHTML=html;document.getElementById('popupOverlay').classList.add('show');}
 function closePopup(e){if(e&&e.target!==document.getElementById('popupOverlay'))return;document.getElementById('popupOverlay').classList.remove('show');if(popupChart){popupChart.destroy();popupChart=null;}}
@@ -344,86 +397,41 @@ function closePopup(e){if(e&&e.target!==document.getElementById('popupOverlay'))
 function showDetailPopup(title,stats,jenis){
   const filtered=filterData();
   let html=`<h2>${title}</h2>`;
-  
   if(jenis==='omzet'){
     html+='<canvas id="popupCanvas" class="popup-canvas"></canvas>';
-    html+='<table class="popup-table"><thead><tr><th>Rincian</th><th>Jumlah</th></tr></thead><tbody>';
-    html+=`<tr><td>Omzet Gas</td><td class="badge-green">${rupiah(stats.omzetGas)}</td></tr>`;
-    html+=`<tr><td>Omzet Galon</td><td class="badge-blue">${rupiah(stats.omzetGalon)}</td></tr>`;
-    html+=`<tr><td>Pemasukan Lain</td><td>${rupiah(stats.omzet-stats.omzetGas-stats.omzetGalon)}</td></tr>`;
-    html+=`<tr style="font-weight:700;"><td>TOTAL</td><td class="badge-green">${rupiah(stats.omzet)}</td></tr></tbody></table>`;
+    html+=`<table class="popup-table"><tr><td>Omzet Gas</td><td class="badge-green">${rupiah(stats.omzetGas)}</td></tr><tr><td>Omzet Galon</td><td class="badge-blue">${rupiah(stats.omzetGalon)}</td></tr><tr style="font-weight:700;"><td>TOTAL</td><td class="badge-green">${rupiah(stats.omzet)}</td></tr></table>`;
     openPopup(html);
-    setTimeout(()=>{
-      const ctx=document.getElementById('popupCanvas')?.getContext('2d');
-      if(ctx){popupChart=new Chart(ctx,{type:'line',data:{labels:filtered.map(r=>r[1]||''),datasets:[{label:'Omzet',data:filtered.map(r=>r[36]||0),borderColor:'#0b5e3a',fill:true,backgroundColor:'rgba(11,94,58,0.1)'}]}});}
-    },200);
+    setTimeout(()=>{const ctx=document.getElementById('popupCanvas')?.getContext('2d');if(ctx){popupChart=new Chart(ctx,{type:'line',data:{labels:filtered.map(r=>r[1]||''),datasets:[{label:'Omzet',data:filtered.map(r=>r[36]||0),borderColor:'#0b5e3a',fill:true,backgroundColor:'rgba(11,94,58,0.1)'}]}});}},200);
   }else if(jenis==='kulakan'){
     html+='<canvas id="popupCanvas" class="popup-canvas"></canvas>';
-    html+=`<p style="font-size:14px;">Total Kulakan: <b class="badge-red">${rupiah(stats.kulakan)}</b></p>`;
-    html+=`<p style="font-size:12px;color:var(--text-secondary);">Kulakan Gas 22/23: Rp 15.833/tbg | Gas Pink: Rp 110.000/tbg</p>`;
+    html+=`<p>Total Kulakan: <b class="badge-red">${rupiah(stats.kulakan)}</b></p>`;
     openPopup(html);
-    setTimeout(()=>{
-      const ctx=document.getElementById('popupCanvas')?.getContext('2d');
-      if(ctx){popupChart=new Chart(ctx,{type:'bar',data:{labels:filtered.map(r=>r[1]||''),datasets:[{label:'Kulakan',data:filtered.map(r=>r[39]||0),backgroundColor:'#c62828'}]}});}
-    },200);
+    setTimeout(()=>{const ctx=document.getElementById('popupCanvas')?.getContext('2d');if(ctx){popupChart=new Chart(ctx,{type:'bar',data:{labels:filtered.map(r=>r[1]||''),datasets:[{label:'Kulakan',data:filtered.map(r=>r[39]||0),backgroundColor:'#c62828'}]}});}},200);
   }else if(jenis==='ops'){
-    html+='<table class="popup-table"><thead><tr><th>Pos</th><th>Jatah</th><th>Real</th><th>Sisa</th></tr></thead><tbody>';
-    POS.forEach(p=>{
-      const jatah=stats['jatah_'+p.key]||0,real=stats['real_'+p.key]||0,sisa=jatah-real;
-      html+=`<tr><td>${p.label}</td><td>${rupiah(jatah)}</td><td>${rupiah(real)}</td><td class="${sisa>=0?'badge-green':'badge-red'}">${sisa>=0?'+'+rupiah(sisa):rupiah(sisa)}</td></tr>`;
-    });
-    html+=`<tr style="font-weight:700;"><td>TOTAL</td><td>${rupiah(stats.ops)}</td><td>${rupiah(stats.totalReal||0)}</td><td class="${(stats.ops-(stats.totalReal||0))>=0?'badge-green':'badge-red'}">${(stats.ops-(stats.totalReal||0))>=0?'+'+rupiah(stats.ops-(stats.totalReal||0)):rupiah(stats.ops-(stats.totalReal||0))}</td></tr></tbody></table>`;
-    openPopup(html);
+    html+='<table class="popup-table"><tr><th>Pos</th><th>Jatah</th><th>Real</th><th>Sisa</th></tr>';
+    POS.forEach(p=>{const j=stats['jatah_'+p.key]||0,r=stats['real_'+p.key]||0,s=j-r;html+=`<tr><td>${p.label}</td><td>${rupiah(j)}</td><td>${rupiah(r)}</td><td class="${s>=0?'badge-green':'badge-red'}">${s>=0?'+'+rupiah(s):rupiah(s)}</td></tr>`;});
+    html+='</table>';openPopup(html);
   }else if(jenis==='galon'){
     html+='<canvas id="popupCanvas" class="popup-canvas"></canvas>';
-    html+='<table class="popup-table"><thead><tr><th>Jenis</th><th>Jumlah</th><th>Omzet</th></tr></thead><tbody>';
-    html+=`<tr><td>Galon 3k</td><td>${stats.galon3k||0}</td><td>${rupiah((stats.galon3k||0)*3000)}</td></tr>`;
-    html+=`<tr><td>Galon 4k</td><td>${stats.galon4k||0}</td><td>${rupiah((stats.galon4k||0)*4000)}</td></tr>`;
-    html+=`<tr><td>Galon 5k</td><td>${stats.galon5k||0}</td><td>${rupiah((stats.galon5k||0)*5000)}</td></tr>`;
-    html+=`<tr style="font-weight:700;"><td>TOTAL</td><td>${stats.totalGalon||0} galon</td><td>${rupiah(stats.omzetGalon||0)}</td></tr></tbody></table>`;
+    html+=`<table class="popup-table"><tr><td>Galon 3k</td><td>${stats.galon3k||0}</td><td>${rupiah((stats.galon3k||0)*3000)}</td></tr><tr><td>Galon 4k</td><td>${stats.galon4k||0}</td><td>${rupiah((stats.galon4k||0)*4000)}</td></tr><tr><td>Galon 5k</td><td>${stats.galon5k||0}</td><td>${rupiah((stats.galon5k||0)*5000)}</td></tr><tr style="font-weight:700;"><td>TOTAL</td><td>${stats.totalGalon||0} galon</td><td>${rupiah(stats.omzetGalon||0)}</td></tr></table>`;
     openPopup(html);
-    setTimeout(()=>{
-      const ctx=document.getElementById('popupCanvas')?.getContext('2d');
-      if(ctx){popupChart=new Chart(ctx,{type:'bar',data:{labels:filtered.map(r=>r[1]||''),datasets:[{label:'Galon',data:filtered.map(r=>(Number(r[6])||0)+(Number(r[7])||0)+(Number(r[8])||0)),backgroundColor:'#1565c0'}]}});}
-    },200);
-  }else if(jenis==='jajan'){
-    html+=`<p style="font-size:14px;">Jatah Jajan 2 Orang: <b>Rp 10.000/hari</b></p>`;
-    html+=`<p style="font-size:14px;">Total Periode: <b style="color:#ad1457;">${rupiah(stats.jajan)}</b></p>`;
-    html+=`<p style="font-size:12px;color:var(--text-secondary);">2 orang × Rp 5.000/orang/hari</p>`;
-    openPopup(html);
+    setTimeout(()=>{const ctx=document.getElementById('popupCanvas')?.getContext('2d');if(ctx){popupChart=new Chart(ctx,{type:'bar',data:{labels:filtered.map(r=>r[1]||''),datasets:[{label:'Galon',data:filtered.map(r=>(Number(r[6])||0)+(Number(r[7])||0)+(Number(r[8])||0)),backgroundColor:'#1565c0'}]}});}},200);
   }else if(jenis==='zakat'){
     html+='<canvas id="popupCanvas" class="popup-canvas"></canvas>';
-    html+=`<p style="font-size:14px;">Jatah Zakat: <b class="badge-purple">${rupiah(stats.zakat)}</b></p>`;
-    html+=`<p style="font-size:12px;color:var(--text-secondary);">2.5% × (Omzet Galon + Laba Gas)</p>`;
-    html+=`<p style="font-size:11px;color:var(--text-secondary);">💡 Zakat dikeluarkan saat nominalnya sudah pantas, tidak per hari</p>`;
+    html+=`<p>Jatah Zakat: <b class="badge-purple">${rupiah(stats.zakat)}</b></p><p style="font-size:11px;color:var(--text-secondary);">2.5% × (Omzet Galon + Laba Gas)</p><p style="font-size:11px;color:var(--text-secondary);">💡 Zakat dikeluarkan saat nominalnya sudah pantas, tidak per hari</p>`;
     openPopup(html);
-    setTimeout(()=>{
-      const ctx=document.getElementById('popupCanvas')?.getContext('2d');
-      if(ctx){popupChart=new Chart(ctx,{type:'bar',data:{labels:filtered.map(r=>r[1]||''),datasets:[{label:'Zakat',data:filtered.map(r=>r[41]||0),backgroundColor:'#7b1fa2'}]}});}
-    },200);
-  }else if(jenis==='shodaqoh'){
-    html+=`<p style="font-size:14px;">Total Shodaqoh: <b style="color:#00bfa5;">${rupiah(stats.shodaqoh)}</b></p>`;
-    html+=`<p style="font-size:12px;color:var(--text-secondary);">Input manual, tidak ada jatah otomatis</p>`;
-    openPopup(html);
+    setTimeout(()=>{const ctx=document.getElementById('popupCanvas')?.getContext('2d');if(ctx){popupChart=new Chart(ctx,{type:'bar',data:{labels:filtered.map(r=>r[1]||''),datasets:[{label:'Zakat',data:filtered.map(r=>r[41]||0),backgroundColor:'#7b1fa2'}]}});}},200);
   }else if(jenis==='laba'){
     html+='<canvas id="popupCanvas" class="popup-canvas"></canvas>';
-    html+=`<p style="font-size:14px;">Laba Bersih: <b class="badge-blue">${rupiah(stats.laba)}</b></p>`;
-    html+=`<p style="font-size:12px;color:var(--text-secondary);">Omzet - Kulakan - Operasional - Zakat - Shodaqoh</p>`;
+    html+=`<p>Laba Bersih: <b class="badge-blue">${rupiah(stats.laba)}</b></p>`;
     openPopup(html);
-    setTimeout(()=>{
-      const ctx=document.getElementById('popupCanvas')?.getContext('2d');
-      if(ctx){popupChart=new Chart(ctx,{type:'line',data:{labels:filtered.map(r=>r[1]||''),datasets:[{label:'Laba',data:filtered.map(r=>r[45]||0),borderColor:'#1565c0',fill:true,backgroundColor:'rgba(21,101,192,0.1)'}]}});}
-    },200);
+    setTimeout(()=>{const ctx=document.getElementById('popupCanvas')?.getContext('2d');if(ctx){popupChart=new Chart(ctx,{type:'line',data:{labels:filtered.map(r=>r[1]||''),datasets:[{label:'Laba',data:filtered.map(r=>r[45]||0),borderColor:'#1565c0',fill:true,backgroundColor:'rgba(21,101,192,0.1)'}]}});}},200);
   }else if(jenis==='setoran'){
     html+='<canvas id="popupCanvas" class="popup-canvas"></canvas>';
-    html+=`<p style="font-size:14px;">Jatah Setoran: <b class="badge-gold">${rupiah(stats.setoran)}</b></p>`;
-    html+=`<p style="font-size:12px;color:var(--text-secondary);">Omzet - Kulakan - Jatah Operasional - Zakat - Shodaqoh</p>`;
+    html+=`<p>Jatah Setoran: <b class="badge-gold">${rupiah(stats.setoran)}</b></p>`;
     openPopup(html);
-    setTimeout(()=>{
-      const ctx=document.getElementById('popupCanvas')?.getContext('2d');
-      if(ctx){popupChart=new Chart(ctx,{type:'bar',data:{labels:filtered.map(r=>r[1]||''),datasets:[{label:'Setoran',data:filtered.map(r=>r[42]||0),backgroundColor:'#f9a825'}]}});}
-    },200);
-  }
+    setTimeout(()=>{const ctx=document.getElementById('popupCanvas')?.getContext('2d');if(ctx){popupChart=new Chart(ctx,{type:'bar',data:{labels:filtered.map(r=>r[1]||''),datasets:[{label:'Setoran',data:filtered.map(r=>r[42]||0),backgroundColor:'#f9a825'}]}});}},200);
+  }else{html+=`<p>${rupiah(stats[jenis]||0)}</p>`;openPopup(html);}
 }
 
 function formatRupiahInput(el){
@@ -446,36 +454,28 @@ function buildOpRows(data){
 function updateOpSisa(){
   const g=(Number(document.getElementById('gas22').value)||0)+(Number(document.getElementById('gas23').value)||0);
   const gl=(Number(document.getElementById('galon3k').value)||0)+(Number(document.getElementById('galon4k').value)||0)+(Number(document.getElementById('galon5k').value)||0);
-  POS.forEach(p=>{
-    const jatah=p.jatahFn(g,gl),real=getNum(p.key),sisa=jatah-real;
-    const el=document.getElementById('sisa_'+p.key);
-    if(el){el.textContent=sisa>=0?'+'+rupiah(sisa):rupiah(sisa);el.className='sisa '+(sisa>=0?'plus':'minus');}
-  });
+  POS.forEach(p=>{const jatah=p.jatahFn(g,gl),real=getNum(p.key),sisa=jatah-real;const el=document.getElementById('sisa_'+p.key);if(el){el.textContent=sisa>=0?'+'+rupiah(sisa):rupiah(sisa);el.className='sisa '+(sisa>=0?'plus':'minus');}});
 }
 
 ['gas22','gas23','gasPink','galon3k','galon4k','galon5k'].forEach(id=>{
   const el=document.getElementById(id);
-  if(el){el.addEventListener('input',function(){
-    const g=(Number(document.getElementById('gas22').value)||0)+(Number(document.getElementById('gas23').value)||0);
-    const gl=(Number(document.getElementById('galon3k').value)||0)+(Number(document.getElementById('galon4k').value)||0)+(Number(document.getElementById('galon5k').value)||0);
-    updateJatahDisplay(g,gl);
-  });}
+  if(el){el.addEventListener('input',function(){const g=(Number(document.getElementById('gas22').value)||0)+(Number(document.getElementById('gas23').value)||0);const gl=(Number(document.getElementById('galon3k').value)||0)+(Number(document.getElementById('galon4k').value)||0)+(Number(document.getElementById('galon5k').value)||0);updateJatahDisplay(g,gl);});}
 });
 
 function updateJatahDisplay(g,gl){
-  POS.forEach(p=>{
-    const jatah=p.jatahFn(g,gl),jatahEl=document.getElementById('jatah_'+p.key);
-    if(jatahEl){jatahEl.textContent=rupiah(jatah);}
-    const real=getNum(p.key),sisa=jatah-real,sisaEl=document.getElementById('sisa_'+p.key);
-    if(sisaEl){sisaEl.textContent=sisa>=0?'+'+rupiah(sisa):rupiah(sisa);sisaEl.className='sisa '+(sisa>=0?'plus':'minus');}
-  });
+  POS.forEach(p=>{const jatah=p.jatahFn(g,gl),jatahEl=document.getElementById('jatah_'+p.key);if(jatahEl){jatahEl.textContent=rupiah(jatah);}const real=getNum(p.key),sisa=jatah-real,sisaEl=document.getElementById('sisa_'+p.key);if(sisaEl){sisaEl.textContent=sisa>=0?'+'+rupiah(sisa):rupiah(sisa);sisaEl.className='sisa '+(sisa>=0?'plus':'minus');}});
 }
 
 function updateDashboard(){
   const filtered=filterData();
   let omzet=0,kulakan=0,ops=0,galon3k=0,galon4k=0,galon5k=0,totalGalon=0,jajan=0,zakat=0,shodaqoh=0,laba=0,setoran=0,omzetGas=0,omzetGalon=0,totalReal=0;
-  let jatahAcc={},realAcc={};
-  POS.forEach(p=>{jatahAcc[p.key]=0;realAcc[p.key]=0;});
+  let jatahAcc={},realAcc={};POS.forEach(p=>{jatahAcc[p.key]=0;realAcc[p.key]=0;});
+  
+  // Galon per periode
+  const galonHari=getPeriodData(allData,'hari').reduce((s,r)=>s+(Number(r[6])||0)+(Number(r[7])||0)+(Number(r[8])||0),0);
+  const galonMinggu=getPeriodData(allData,'minggu').reduce((s,r)=>s+(Number(r[6])||0)+(Number(r[7])||0)+(Number(r[8])||0),0);
+  const galonBulan=getPeriodData(allData,'bulan').reduce((s,r)=>s+(Number(r[6])||0)+(Number(r[7])||0)+(Number(r[8])||0),0);
+  const galonTahun=getPeriodData(allData,'tahun').reduce((s,r)=>s+(Number(r[6])||0)+(Number(r[7])||0)+(Number(r[8])||0),0);
   
   filtered.forEach(r=>{
     omzet+=Number(r[36]||0);kulakan+=Number(r[39]||0);ops+=Number(r[40]||0);
@@ -485,12 +485,8 @@ function updateDashboard(){
     laba+=Number(r[45]||0);setoran+=Number(r[42]||0);
     omzetGas+=Number(r[37]||0);omzetGalon+=Number(r[38]||0);
     totalReal+=Number(r[43]||0);
-    
     const g=(Number(r[3])||0)+(Number(r[4])||0),gl=(Number(r[6])||0)+(Number(r[7])||0)+(Number(r[8])||0);
-    POS.forEach(p=>{
-      const colMap={realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realJajan:25};
-      jatahAcc[p.key]+=p.jatahFn(g,gl);realAcc[p.key]+=Number(r[colMap[p.key]]||0);
-    });
+    POS.forEach(p=>{const colMap={realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realJajan:25};jatahAcc[p.key]+=p.jatahFn(g,gl);realAcc[p.key]+=Number(r[colMap[p.key]]||0);});
   });
   
   currentStats={omzet,kulakan,ops,galon3k,galon4k,galon5k,totalGalon,jajan,zakat,shodaqoh,laba,setoran,omzetGas,omzetGalon,totalReal};
@@ -500,7 +496,7 @@ function updateDashboard(){
     {cls:'c-omzet',title:'💰 Omzet',value:rupiah(omzet),jenis:'omzet'},
     {cls:'c-kulakan',title:'🔵 Kulakan',value:rupiah(kulakan),jenis:'kulakan'},
     {cls:'c-ops',title:'🟢 Operasional',value:rupiah(ops),jenis:'ops'},
-    {cls:'c-galon',title:'💧 Galon',value:totalGalon+' galon',jenis:'galon'},
+    {cls:'c-galon',title:'💧 Galon',value:totalGalon+' galon',jenis:'galon',isGalon:true,galonHari,galonMinggu,galonBulan,galonTahun},
     {cls:'c-jajan',title:'🟠 Jajan',value:rupiah(jajan),jenis:'jajan'},
     {cls:'c-zakat',title:'🕌 Zakat',value:rupiah(zakat),jenis:'zakat'},
     {cls:'c-shodaqoh',title:'🤲 Shodaqoh',value:rupiah(shodaqoh),jenis:'shodaqoh'},
@@ -510,11 +506,22 @@ function updateDashboard(){
   
   let htmlCards='';
   cards.forEach(c=>{
-    htmlCards+=`<div class="stat-card ${c.cls}" data-jenis="${c.jenis}"><div class="title">${c.title}</div><div class="value">${c.value}</div></div>`;
+    if(c.isGalon){
+      htmlCards+=`<div class="stat-card ${c.cls}" data-jenis="${c.jenis}">
+        <div class="title">${c.title}</div>
+        <div class="galon-card-grid">
+          <div class="galon-card-item"><div class="glbl">Hari Ini</div><div class="gval">${c.galonHari}</div></div>
+          <div class="galon-card-item"><div class="glbl">Minggu Ini</div><div class="gval">${c.galonMinggu}</div></div>
+          <div class="galon-card-item"><div class="glbl">Bulan Ini</div><div class="gval">${c.galonBulan}</div></div>
+          <div class="galon-card-item"><div class="glbl">Tahun Ini</div><div class="gval">${c.galonTahun}</div></div>
+        </div>
+      </div>`;
+    }else{
+      htmlCards+=`<div class="stat-card ${c.cls}" data-jenis="${c.jenis}"><div class="title">${c.title}</div><div class="value">${c.value}</div></div>`;
+    }
   });
   document.getElementById('statContainer').innerHTML=htmlCards;
   
-  // Pasang event listener
   document.querySelectorAll('.stat-card').forEach(card=>{
     card.addEventListener('click',function(){
       const jenis=this.getAttribute('data-jenis');
@@ -530,25 +537,15 @@ function updateDashboard(){
   loadPrediksiStok();
 }
 
-function isiDropdownTanggal(){
-  const dd=document.getElementById('pilihTanggal');dd.innerHTML='<option value="">-- Pilih Tanggal --</option>';
-  [...allData].reverse().forEach((r,i)=>{const o=document.createElement('option');o.value=allData.indexOf(r);o.textContent=r[1]||'Tanpa Tanggal';dd.appendChild(o);});
-}
-
+function isiDropdownTanggal(){const dd=document.getElementById('pilihTanggal');dd.innerHTML='<option value="">-- Pilih Tanggal --</option>';[...allData].reverse().forEach((r,i)=>{const o=document.createElement('option');o.value=allData.indexOf(r);o.textContent=r[1]||'Tanpa Tanggal';dd.appendChild(o);});}
 function loadByTanggal(){
-  const idx=document.getElementById('pilihTanggal').value;
-  if(idx===''){resetForm();return;}
+  const idx=document.getElementById('pilihTanggal').value;if(idx===''){resetForm();return;}
   const r=allData[idx];editId=r[0];
-  document.getElementById('tanggal').value=r[1]||'';
-  document.getElementById('gas22').value=r[3]||'';document.getElementById('gas23').value=r[4]||'';document.getElementById('gasPink').value=r[5]||'';
+  document.getElementById('tanggal').value=r[1]||'';document.getElementById('gas22').value=r[3]||'';document.getElementById('gas23').value=r[4]||'';document.getElementById('gasPink').value=r[5]||'';
   document.getElementById('galon3k').value=r[6]||'';document.getElementById('galon4k').value=r[7]||'';document.getElementById('galon5k').value=r[8]||'';
   document.getElementById('pemasukanLain').value=toRupiah(r[9]);document.getElementById('ketPemasukanLain').value=r[10]||'';
   const data={gas22:Number(r[3]),gas23:Number(r[4]),galon3k:Number(r[6]),galon4k:Number(r[7]),galon5k:Number(r[8])};
-  POS.forEach(p=>{
-    const colMap={realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realJajan:25};
-    const catMap={catTransport:12,catWifi:14,catOpkirimgas:16,catAir:18,catListrik:20,catPemeliharaan:22,catTisuTutup:24,catJajan:26};
-    data[p.key]=Number(r[colMap[p.key]]||0);data[p.catKey]=r[catMap[p.catKey]]||'';
-  });
+  POS.forEach(p=>{const colMap={realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realJajan:25};const catMap={catTransport:12,catWifi:14,catOpkirimgas:16,catAir:18,catListrik:20,catPemeliharaan:22,catTisuTutup:24,catJajan:26};data[p.key]=Number(r[colMap[p.key]]||0);data[p.catKey]=r[catMap[p.catKey]]||'';});
   document.getElementById('opContainer').innerHTML=buildOpRows(data);
   document.getElementById('realKulakan').value=toRupiah(r[27]);document.getElementById('catKulakan').value=r[28]||'';
   document.getElementById('realZakat').value=toRupiah(r[29]);document.getElementById('catZakat').value=r[30]||'';
@@ -557,8 +554,7 @@ function loadByTanggal(){
   document.getElementById('shodaqoh').value=toRupiah(r[35]);
   document.querySelectorAll('.input-rupiah').forEach(el=>formatRupiahInput(el));
   document.getElementById('infoEdit').style.display='block';document.getElementById('btnHapusForm').style.display='block';
-  document.getElementById('btnSimpan').textContent='💾 Simpan Perubahan';
-  toast('✏️ Edit data '+r[1]);
+  document.getElementById('btnSimpan').textContent='💾 Simpan Perubahan';toast('✏️ Edit data '+r[1]);
 }
 
 function hapusDataForm(){if(editId)hapusData(editId);else toast('Pilih tanggal dulu!');}
@@ -574,8 +570,7 @@ function resetForm(){
 }
 
 async function simpanData(){
-  const d=new FormData();
-  if(editId){d.append('action','update');d.append('id',editId);}else d.append('action','simpan');
+  const d=new FormData();if(editId){d.append('action','update');d.append('id',editId);}else d.append('action','simpan');
   d.append('tanggal',document.getElementById('tanggal').value);
   d.append('gas22',document.getElementById('gas22').value||0);d.append('gas23',document.getElementById('gas23').value||0);
   d.append('gasPink',document.getElementById('gasPink').value||0);d.append('galon3k',document.getElementById('galon3k').value||0);
@@ -596,77 +591,37 @@ function renderTable(){
   const filtered=filterData(),tb=document.getElementById('rekapBody');tb.innerHTML='';
   if(!filtered.length){tb.innerHTML='<tr><td colspan="10"><div class="empty-state">📭 Tidak ada data</div></td></tr>';return;}
   document.getElementById('totalData').innerText=filtered.length;
-  [...filtered].reverse().forEach(r=>{
-    tb.innerHTML+=`<tr>
-      <td><b>${r[1]||'-'}</b></td><td>22k:${r[3]||0} 23k:${r[4]||0}<br>Pink:${r[5]||0}</td>
-      <td>3k:${r[6]||0} 4k:${r[7]||0}<br>5k:${r[8]||0}</td>
-      <td class="badge badge-green">${rupiah(r[36])}</td><td class="badge badge-red">${rupiah(r[39])}</td>
-      <td>${rupiah(r[40])}</td><td class="badge badge-purple">${rupiah(r[41])}</td>
-      <td class="badge badge-gold">${rupiah(r[42])}</td><td class="badge badge-blue">${rupiah(r[45])}</td>
-      <td><span class="btn-edit" onclick="editFromRekap('${r[0]}')">✏️</span><span class="btn-delete" onclick="hapusData('${r[0]}')">🗑️</span></td>
-    </tr>`;
-  });
+  [...filtered].reverse().forEach(r=>{tb.innerHTML+=`<tr><td><b>${r[1]||'-'}</b></td><td>22k:${r[3]||0} 23k:${r[4]||0}<br>Pink:${r[5]||0}</td><td>3k:${r[6]||0} 4k:${r[7]||0}<br>5k:${r[8]||0}</td><td class="badge badge-green">${rupiah(r[36])}</td><td class="badge badge-red">${rupiah(r[39])}</td><td>${rupiah(r[40])}</td><td class="badge badge-purple">${rupiah(r[41])}</td><td class="badge badge-gold">${rupiah(r[42])}</td><td class="badge badge-blue">${rupiah(r[45])}</td><td><span class="btn-edit" onclick="editFromRekap('${r[0]}')">✏️</span><span class="btn-delete" onclick="hapusData('${r[0]}')">🗑️</span></td></tr>`;});
 }
 
 function editFromRekap(id){
-  const r=allData.find(d=>d[0]==id);if(!r)return;
-  editId=r[0];document.getElementById('tanggal').value=r[1]||'';
+  const r=allData.find(d=>d[0]==id);if(!r)return;editId=r[0];document.getElementById('tanggal').value=r[1]||'';
   document.getElementById('gas22').value=r[3]||'';document.getElementById('gas23').value=r[4]||'';document.getElementById('gasPink').value=r[5]||'';
   document.getElementById('galon3k').value=r[6]||'';document.getElementById('galon4k').value=r[7]||'';document.getElementById('galon5k').value=r[8]||'';
   document.getElementById('pemasukanLain').value=toRupiah(r[9]);document.getElementById('ketPemasukanLain').value=r[10]||'';
   const data={gas22:Number(r[3]),gas23:Number(r[4]),galon3k:Number(r[6]),galon4k:Number(r[7]),galon5k:Number(r[8])};
-  POS.forEach(p=>{
-    const colMap={realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realJajan:25};
-    const catMap={catTransport:12,catWifi:14,catOpkirimgas:16,catAir:18,catListrik:20,catPemeliharaan:22,catTisuTutup:24,catJajan:26};
-    data[p.key]=Number(r[colMap[p.key]]||0);data[p.catKey]=r[catMap[p.catKey]]||'';
-  });
+  POS.forEach(p=>{const colMap={realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realJajan:25};const catMap={catTransport:12,catWifi:14,catOpkirimgas:16,catAir:18,catListrik:20,catPemeliharaan:22,catTisuTutup:24,catJajan:26};data[p.key]=Number(r[colMap[p.key]]||0);data[p.catKey]=r[catMap[p.catKey]]||'';});
   document.getElementById('opContainer').innerHTML=buildOpRows(data);
   document.getElementById('realKulakan').value=toRupiah(r[27]);document.getElementById('catKulakan').value=r[28]||'';
   document.getElementById('realZakat').value=toRupiah(r[29]);document.getElementById('catZakat').value=r[30]||'';
   document.getElementById('realSetoran').value=toRupiah(r[31]);document.getElementById('catSetoran').value=r[32]||'';
   document.getElementById('pengeluaranLain').value=toRupiah(r[33]);document.getElementById('catPengeluaranLain').value=r[34]||'';
-  document.getElementById('shodaqoh').value=toRupiah(r[35]);
-  document.querySelectorAll('.input-rupiah').forEach(el=>formatRupiahInput(el));
+  document.getElementById('shodaqoh').value=toRupiah(r[35]);document.querySelectorAll('.input-rupiah').forEach(el=>formatRupiahInput(el));
   document.getElementById('infoEdit').style.display='block';document.getElementById('btnHapusForm').style.display='block';
-  document.getElementById('btnSimpan').textContent='💾 Simpan Perubahan';
-  showPage('dashboardPage');toast('✏️ Edit data '+r[1]);
+  document.getElementById('btnSimpan').textContent='💾 Simpan Perubahan';showPage('dashboardPage');toast('✏️ Edit data '+r[1]);
 }
 
-async function simpanSetoran(){
-  const d=new FormData();d.append('action','simpanSetoran');
-  d.append('tanggal',document.getElementById('tglSetoran').value);
-  d.append('jumlah',getNum('jumlahSetoran'));d.append('keterangan',document.getElementById('ketSetoran').value);
-  try{await fetch(API_URL,{method:'POST',body:d});toast('Setoran tersimpan');document.getElementById('jumlahSetoran').value='';document.getElementById('ketSetoran').value='';loadSetoran();}catch(e){toast('Gagal');}
-}
-async function loadSetoran(){
-  try{const r=await(await fetch(API_URL+'?action=getSetoran')).json();allSetoran=r;
-    const tb=document.getElementById('setoranBody');tb.innerHTML='';let total=0;
-    [...r].reverse().forEach(s=>{total+=Number(s[3]||0);tb.innerHTML+=`<tr><td>${s[1]}</td><td>${s[2]||''}</td><td>${rupiah(s[3])}</td><td>${s[4]||''}</td><td><span class="btn-delete" onclick="hapusSetoran('${s[0]}')">🗑️</span></td></tr>`;});
-    document.getElementById('totalSetoran').innerText=rupiah(total);
-  }catch(e){}
-}
+async function simpanSetoran(){const d=new FormData();d.append('action','simpanSetoran');d.append('tanggal',document.getElementById('tglSetoran').value);d.append('jumlah',getNum('jumlahSetoran'));d.append('keterangan',document.getElementById('ketSetoran').value);try{await fetch(API_URL,{method:'POST',body:d});toast('Setoran tersimpan');document.getElementById('jumlahSetoran').value='';document.getElementById('ketSetoran').value='';loadSetoran();}catch(e){toast('Gagal');}}
+async function loadSetoran(){try{const r=await(await fetch(API_URL+'?action=getSetoran')).json();allSetoran=r;const tb=document.getElementById('setoranBody');tb.innerHTML='';let total=0;[...r].reverse().forEach(s=>{total+=Number(s[3]||0);tb.innerHTML+=`<tr><td>${s[1]}</td><td>${s[2]||''}</td><td>${rupiah(s[3])}</td><td>${s[4]||''}</td><td><span class="btn-delete" onclick="hapusSetoran('${s[0]}')">🗑️</span></td></tr>`;});document.getElementById('totalSetoran').innerText=rupiah(total);}catch(e){}}
 async function hapusSetoran(id){if(!confirm('Hapus?'))return;const d=new FormData();d.append('action','hapusSetoran');d.append('id',id);try{await fetch(API_URL,{method:'POST',body:d});loadSetoran();}catch(e){}}
 
 function renderKasAdmin(){
-  const filtered=filterData();
-  let jatah={},real={};
-  POS.forEach(p=>{jatah[p.key]=0;real[p.key]=0;});
+  const filtered=filterData();let jatah={},real={};POS.forEach(p=>{jatah[p.key]=0;real[p.key]=0;});
   let jatahKulakan=0,realKulakan=0,jatahZakat=0,realZakat=0,jatahSetoran=0,realSetoran=0,totalLain=0,totalShodaqoh=0;
-  filtered.forEach(r=>{
-    const g=(Number(r[3])||0)+(Number(r[4])||0),gl=(Number(r[6])||0)+(Number(r[7])||0)+(Number(r[8])||0);
-    POS.forEach(p=>{
-      const colMap={realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realJajan:25};
-      jatah[p.key]+=p.jatahFn(g,gl);real[p.key]+=Number(r[colMap[p.key]]||0);
-    });
-    jatahKulakan+=Number(r[39]||0);realKulakan+=Number(r[27]||0);
-    jatahZakat+=Number(r[41]||0);realZakat+=Number(r[29]||0);
-    jatahSetoran+=Number(r[42]||0);realSetoran+=Number(r[31]||0);
-    totalLain+=Number(r[33]||0);totalShodaqoh+=Number(r[35]||0);
-  });
+  filtered.forEach(r=>{const g=(Number(r[3])||0)+(Number(r[4])||0),gl=(Number(r[6])||0)+(Number(r[7])||0)+(Number(r[8])||0);POS.forEach(p=>{const colMap={realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realJajan:25};jatah[p.key]+=p.jatahFn(g,gl);real[p.key]+=Number(r[colMap[p.key]]||0);});jatahKulakan+=Number(r[39]||0);realKulakan+=Number(r[27]||0);jatahZakat+=Number(r[41]||0);realZakat+=Number(r[29]||0);jatahSetoran+=Number(r[42]||0);realSetoran+=Number(r[31]||0);totalLain+=Number(r[33]||0);totalShodaqoh+=Number(r[35]||0);});
   let totalJatah=Object.values(jatah).reduce((a,b)=>a+b,0)+jatahKulakan+jatahZakat+jatahSetoran;
   let totalReal=Object.values(real).reduce((a,b)=>a+b,0)+realKulakan+realZakat+realSetoran+totalLain+totalShodaqoh;
-  const tb=document.getElementById('kasAdminBody');tb.innerHTML='';
-  POS.forEach(p=>{const sisa=(jatah[p.key]||0)-(real[p.key]||0);tb.innerHTML+=`<tr><td>${p.label}</td><td>${rupiah(jatah[p.key])}</td><td>${rupiah(real[p.key])}</td><td class="${sisa>=0?'badge-green':'badge-red'}">${sisa>=0?'+'+rupiah(sisa):rupiah(sisa)}</td></tr>`;});
+  const tb=document.getElementById('kasAdminBody');tb.innerHTML='';POS.forEach(p=>{const sisa=(jatah[p.key]||0)-(real[p.key]||0);tb.innerHTML+=`<tr><td>${p.label}</td><td>${rupiah(jatah[p.key])}</td><td>${rupiah(real[p.key])}</td><td class="${sisa>=0?'badge-green':'badge-red'}">${sisa>=0?'+'+rupiah(sisa):rupiah(sisa)}</td></tr>`;});
   tb.innerHTML+=`<tr><td>🔵 Kulakan</td><td>${rupiah(jatahKulakan)}</td><td>${rupiah(realKulakan)}</td><td class="${jatahKulakan-realKulakan>=0?'badge-green':'badge-red'}">${jatahKulakan-realKulakan>=0?'+'+rupiah(jatahKulakan-realKulakan):rupiah(jatahKulakan-realKulakan)}</td></tr>`;
   tb.innerHTML+=`<tr><td>🕌 Zakat</td><td>${rupiah(jatahZakat)}</td><td>${rupiah(realZakat)}</td><td class="${jatahZakat-realZakat>=0?'badge-green':'badge-red'}">${jatahZakat-realZakat>=0?'+'+rupiah(jatahZakat-realZakat):rupiah(jatahZakat-realZakat)}</td></tr>`;
   tb.innerHTML+=`<tr><td>🟡 Setoran</td><td>${rupiah(jatahSetoran)}</td><td>${rupiah(realSetoran)}</td><td class="${jatahSetoran-realSetoran>=0?'badge-green':'badge-red'}">${jatahSetoran-realSetoran>=0?'+'+rupiah(jatahSetoran-realSetoran):rupiah(jatahSetoran-realSetoran)}</td></tr>`;
@@ -684,44 +639,45 @@ function renderGrafik(){
   if(charts.c2)charts.c2.destroy();const ctx2=document.getElementById('chartKomposisi')?.getContext('2d');if(ctx2)charts.c2=new Chart(ctx2,{type:'doughnut',data:{labels:['Gas','Galon'],datasets:[{data:[gas,galon],backgroundColor:['#0b5e3a','#1565c0']}]}});
   if(charts.c3)charts.c3.destroy();const ctx3=document.getElementById('chartZakat')?.getContext('2d');if(ctx3)charts.c3=new Chart(ctx3,{type:'bar',data:{labels,datasets:[{label:'Zakat',data:zakat,backgroundColor:'#7b1fa2'}]}});
   if(charts.c4)charts.c4.destroy();const ctx4=document.getElementById('chartPengeluaran')?.getContext('2d');if(ctx4)charts.c4=new Chart(ctx4,{type:'bar',data:{labels,datasets:[{label:'Pengeluaran',data:peng,backgroundColor:'#c62828'}]}});
+  
+  // Real vs Jatah Ops
+  let jatahTotal=[],realTotal=[];
+  filtered.forEach(r=>{const g=(Number(r[3])||0)+(Number(r[4])||0),gl=(Number(r[6])||0)+(Number(r[7])||0)+(Number(r[8])||0);let jt=0,rt=0;POS.forEach(p=>{const colMap={realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realJajan:25};jt+=p.jatahFn(g,gl);rt+=Number(r[colMap[p.key]]||0);});jatahTotal.push(jt);realTotal.push(rt);});
+  if(charts.c5)charts.c5.destroy();const ctx5=document.getElementById('chartRealVsJatah')?.getContext('2d');if(ctx5)charts.c5=new Chart(ctx5,{type:'bar',data:{labels,datasets:[{label:'Jatah',data:jatahTotal,backgroundColor:'#e65100'},{label:'Real',data:realTotal,backgroundColor:'#1565c0'}]}});
+  
+  // Real Setoran
+  const realSetoran=filtered.map(r=>r[31]||0);
+  if(charts.c6)charts.c6.destroy();const ctx6=document.getElementById('chartRealSetoran')?.getContext('2d');if(ctx6)charts.c6=new Chart(ctx6,{type:'bar',data:{labels,datasets:[{label:'Real Setoran',data:realSetoran,backgroundColor:'#f9a825'}]}});
+  
+  // Penjualan Gas
+  const filterGas=document.getElementById('filterGasGrafik').value;
+  const gasAgg=aggregateByPeriod(filtered,filterGas);
+  if(charts.c7)charts.c7.destroy();const ctx7=document.getElementById('chartPenjualanGas')?.getContext('2d');if(ctx7)charts.c7=new Chart(ctx7,{type:'line',data:{labels:gasAgg.map(a=>a[0]),datasets:[{label:'Gas',data:gasAgg.map(a=>a[1]),borderColor:'#0b5e3a',fill:true,backgroundColor:'rgba(11,94,58,0.1)'}]}});
+  
+  // Penjualan Galon
+  const filterGalon=document.getElementById('filterGalonGrafik').value;
+  const galonAgg=aggregateByPeriod(filtered.map(r=>{const nr=[...r];nr[3]=0;nr[4]=0;nr[5]=0;return nr;}),filterGalon);
+  const galonReal=aggregateByPeriod(filtered,filterGalon);
+  const galonData=galonReal.map((a,i)=>{const g=galonAgg[i]?galonAgg[i][1]:0;return a[1]-g;});
+  if(charts.c8)charts.c8.destroy();const ctx8=document.getElementById('chartPenjualanGalon')?.getContext('2d');if(ctx8)charts.c8=new Chart(ctx8,{type:'line',data:{labels:galonReal.map(a=>a[0]),datasets:[{label:'Galon',data:galonReal.map(a=>a[1]),borderColor:'#1565c0',fill:true,backgroundColor:'rgba(21,101,192,0.1)'}]}});
 }
 
 async function loadPrediksiStok(){
-  try{
-    const res=await fetch(API_URL+'?action=getPrediksiStok');
-    const d=await res.json();
-    if(d.success){
-      document.getElementById('prediksiCard').style.display='block';
-      document.getElementById('sisaStok').innerText=d.sisaStok;document.getElementById('rataRataStok').innerText=d.rataRata;
-      document.getElementById('prediksiHabis').innerText=d.prediksiHabis;
-      const s=document.getElementById('statusStok');s.innerText=d.status;s.style.background=d.warna;
-    }
-  }catch(e){}
+  try{const res=await fetch(API_URL+'?action=getPrediksiStok');const d=await res.json();if(d.success){document.getElementById('prediksiCard').style.display='block';document.getElementById('sisaStok').innerText=d.sisaStok;document.getElementById('rataRataStok').innerText=d.rataRata;document.getElementById('prediksiHabis').innerText=d.prediksiHabis;const s=document.getElementById('statusStok');s.innerText=d.status;s.style.background=d.warna;}}catch(e){}
 }
 
 async function loadPrediksiStokPage(){
-  try{
-    const res=await fetch(API_URL+'?action=getPrediksiStok');const d=await res.json();
-    if(d.success){
-      document.getElementById('sisaStok2').innerText=d.sisaStok;document.getElementById('rataRataStok2').innerText=d.rataRata;
-      document.getElementById('prediksiHabis2').innerText=d.prediksiHabis;
-      const s=document.getElementById('statusStok2');s.innerText=d.status;s.style.background=d.warna;
-    }
-  }catch(e){}
+  try{const res=await fetch(API_URL+'?action=getPrediksiStok');const d=await res.json();if(d.success){document.getElementById('sisaStok2').innerText=d.sisaStok;document.getElementById('rataRataStok2').innerText=d.rataRata;document.getElementById('prediksiHabis2').innerText=d.prediksiHabis;const s=document.getElementById('statusStok2');s.innerText=d.status;s.style.background=d.warna;}}catch(e){}
   document.getElementById('tglStok').valueAsDate=new Date();
 }
 
 async function inputStok(){
-  const d=new FormData();d.append('action','inputStok');
-  d.append('tanggal',document.getElementById('tglStok').value);
-  d.append('gasMasuk',document.getElementById('gasMasuk').value||0);
-  d.append('keterangan',document.getElementById('ketStok').value||'🚛 Truk datang');
+  const d=new FormData();d.append('action','inputStok');d.append('tanggal',document.getElementById('tglStok').value);d.append('gasMasuk',document.getElementById('gasMasuk').value||0);d.append('keterangan',document.getElementById('ketStok').value||'🚛 Truk datang');
   try{const r=await(await fetch(API_URL,{method:'POST',body:d})).json();toast(r.message);loadPrediksiStokPage();document.getElementById('gasMasuk').value='';document.getElementById('ketStok').value='';}catch(e){toast('Gagal');}
 }
 
 document.getElementById('tanggal').valueAsDate=new Date();
-loadAllData();
-loadSetoran();
+loadAllData();loadSetoran();
 </script>
 </body>
 </html>

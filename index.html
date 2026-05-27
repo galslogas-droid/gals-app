@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>GALS NextGen Ultra • v5.5 Final</title>
+<title>GALS NextGen Ultra • Final v5.5</title>
 
 <meta name="theme-color" content="#0f766e">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -45,7 +45,7 @@ body {
   transition: background 0.3s, color 0.3s;
 }
 
-/* DARK TOGGLE - KANAN ATAS */
+/* DARK TOGGLE */
 .dark-toggle {
   position: fixed; top: 12px; right: 12px;
   width: 36px; height: 36px; border: none; border-radius: 50%;
@@ -457,7 +457,7 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
       <h1>🚀 GALS NextGen</h1>
       <p class="hero-greeting" id="heroGreeting">Selamat datang! Memuat data...</p>
     </div>
-    <span class="version-badge">v5.5</span>
+    <span class="version-badge">v5.5 Final</span>
   </div>
 </header>
 
@@ -589,7 +589,7 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
 
 <script>
 // =====================================
-// GALS NEXTGEN v5.5 - FULL JS
+// GALS NEXTGEN v5.5 FINAL - FULL JS
 // =====================================
 const API_URL='https://script.google.com/macros/s/AKfycbyIsHI_Au2m95AuukMuL-U3gbneWkENswET3cdTwAuMg1bhxINuLXRSXG1dgCTfkcqLwQ/exec';
 const TOKEN='GALS2026'; const DEFAULT_STOK=60;
@@ -912,15 +912,26 @@ function toggleDarkMode(){const h=document.documentElement;const isDark=h.getAtt
 let lastScroll=0;window.addEventListener('scroll',()=>{const cs=window.pageYOffset,nav=document.getElementById('bottomNav');if(cs>lastScroll&&cs>200)nav.style.transform='translateX(-50%) translateY(100px)';else nav.style.transform='translateX(-50%) translateY(0)';lastScroll=cs;});
 
 function updateClock(){if(DOM.clock)DOM.clock.textContent=new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});}
-setInterval(updateClock,30000);
 
 document.addEventListener('DOMContentLoaded',()=>{
-  DOM={galonHari:document.getElementById('galonHari'),galonMinggu:document.getElementById('galonMinggu'),galonBulan:document.getElementById('galonBulan'),galonTahun:document.getElementById('galonTahun'),galonSummary:document.getElementById('galonSummary'),statusTop:document.getElementById('statusTop'),totalTop:document.getElementById('totalTop'),clock:document.getElementById('clock'),toast:document.getElementById('toast')};
+  // 1. Render navigasi & top info dulu
   document.getElementById('bottomNav').innerHTML=buildBottomNav();
   document.getElementById('topInfo').innerHTML='<div class="mini-card"><div class="mlabel">📅 Jam</div><div class="mvalue" id="clock">00:00</div></div><div class="mini-card"><div class="mlabel">📦 Stok</div><div class="mvalue" id="statusTop" style="color:var(--success)">-</div></div><div class="mini-card"><div class="mlabel">📋 Data</div><div class="mvalue" id="totalTop">0</div></div><div class="mini-card"><div class="mlabel">💾 Versi</div><div class="mvalue" style="font-size:16px;">v5.5</div></div>';
+  
+  // 2. Cache DOM setelah elemen tersedia
+  DOM={
+    galonHari:document.getElementById('galonHari'),galonMinggu:document.getElementById('galonMinggu'),
+    galonBulan:document.getElementById('galonBulan'),galonTahun:document.getElementById('galonTahun'),
+    galonSummary:document.getElementById('galonSummary'),statusTop:document.getElementById('statusTop'),
+    totalTop:document.getElementById('totalTop'),clock:document.getElementById('clock'),
+    toast:document.getElementById('toast')
+  };
+  
+  // 3. Init data & jam
   document.getElementById('tanggal').valueAsDate=new Date();
   loadAllData();
-  setTimeout(()=>{ updateClock(); }, 500);
+  updateClock();
+  setInterval(updateClock,30000);
 });
 </script>
 

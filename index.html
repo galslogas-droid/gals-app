@@ -45,22 +45,26 @@ body {
   transition: background 0.3s, color 0.3s;
 }
 
-/* DARK TOGGLE - KIRI ATAS */
+/* DARK TOGGLE - KANAN ATAS */
 .dark-toggle {
-  position: fixed; top: 12px; left: 12px;
+  position: fixed; top: 12px; right: 12px;
   width: 36px; height: 36px; border: none; border-radius: 50%;
-  background: var(--glass); backdrop-filter: blur(12px);
-  color: var(--dark); font-size: 18px; cursor: pointer; z-index: 999;
-  border: 1px solid var(--glass-border);
+  background: rgba(255,255,255,0.25); backdrop-filter: blur(12px);
+  color: #fff; font-size: 18px; cursor: pointer; z-index: 999;
+  border: 1px solid rgba(255,255,255,0.3);
   display: flex; align-items: center; justify-content: center;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+[data-theme="dark"] .dark-toggle {
+  background: var(--glass); color: var(--dark);
+  border: 1px solid var(--glass-border);
 }
 
 /* HEADER */
 .header {
   position: relative; overflow: hidden;
   background: linear-gradient(135deg, var(--primary), var(--primary2));
-  color: #fff; padding: 22px 16px 40px;
+  color: #fff; padding: 22px 50px 40px 16px;
   border-radius: 0 0 28px 28px; margin-bottom: -30px;
 }
 .header::before {
@@ -80,7 +84,7 @@ body {
 }
 .header .hero-greeting { font-size: 11px; opacity: 0.9; margin-top: 4px; }
 
-/* FLOATING TOTAL - DI BAWAH HEADER (DALAM CONTAINER) */
+/* FLOATING TOTAL */
 .floating-total {
   background: var(--glass); backdrop-filter: blur(20px);
   padding: 10px 14px; border-radius: 16px;
@@ -242,9 +246,6 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
   padding: 9px 10px; border-radius: 8px; font-size: 11px;
   outline: none; transition: all 0.2s; font-family: inherit;
 }
-.input-group input:focus, .input-group select:focus {
-  border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15,118,110,0.08);
-}
 [data-theme="dark"] .input-group input,
 [data-theme="dark"] .input-group select {
   background: #1e293b; color: #f8fafc; border-color: #334155;
@@ -256,10 +257,6 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
 .op-table th { background: #f0fdfa; padding: 3px 5px; font-size: 7px; color: var(--primary); font-weight: 700; }
 .op-table td { padding: 2px 5px; border-bottom: 1px solid var(--border); }
 .op-table input { width: 70px; padding: 3px 5px; border-radius: 5px; border: 1.5px solid var(--border); font-size: 8px; }
-.op-table .jatah { text-align: right; font-weight: 700; color: var(--warning); }
-.op-table .sisa { text-align: right; font-weight: 700; }
-.op-table .sisa.plus { color: var(--success); }
-.op-table .sisa.minus { color: var(--danger); }
 [data-theme="dark"] .op-table th { background: #1e293b; color: #14b8a6; }
 [data-theme="dark"] .op-table input { background: #1e293b; color: #f8fafc; border-color: #334155; }
 
@@ -318,9 +315,7 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
 @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 .kpi-item { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; }
 .kpi-dot { width: 7px; height: 7px; border-radius: 50%; animation: pulse 2s infinite; }
-.kpi-dot.green { background: #4ade80; }
-.kpi-dot.blue { background: #38bdf8; }
-.kpi-dot.yellow { background: #fbbf24; }
+.kpi-dot.green { background: #4ade80; } .kpi-dot.blue { background: #38bdf8; } .kpi-dot.yellow { background: #fbbf24; }
 @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.5); } }
 
 /* BUSINESS SCORE */
@@ -345,16 +340,10 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
 }
 .score-text { margin-top: 6px; font-size: 11px; opacity: 0.8; }
 .score-details { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 16px; }
-.metric-card {
-  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
-  padding: 12px; border-radius: 16px;
-}
+.metric-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); padding: 12px; border-radius: 16px; }
 .metric-card small { font-size: 9px; opacity: 0.6; text-transform: uppercase; }
 .metric-card h3 { margin-top: 4px; font-size: 22px; font-weight: 900; }
-.progress {
-  width: 100%; height: 6px; border-radius: 999px; overflow: hidden;
-  background: rgba(255,255,255,0.08); margin-top: 8px;
-}
+.progress { width: 100%; height: 6px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,0.08); margin-top: 8px; }
 .progress-fill { height: 100%; border-radius: 999px; transition: width 1.5s ease; }
 .progress-fill.green { background: linear-gradient(90deg, #22c55e, #4ade80); }
 .progress-fill.blue { background: linear-gradient(90deg, #0ea5e9, #38bdf8); }
@@ -369,10 +358,7 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
 .prediction-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
 @media(max-width:768px){ .prediction-grid { grid-template-columns: 1fr; } }
 .prediction-chart-wrap { position: relative; height: 260px; }
-.prediction-item {
-  background: var(--glass); border-radius: var(--radius-md);
-  padding: 12px; border: 1px solid var(--glass-border);
-}
+.prediction-item { background: var(--glass); border-radius: var(--radius-md); padding: 12px; border: 1px solid var(--glass-border); }
 .prediction-item .pi-label { font-size: 8px; color: var(--gray); text-transform: uppercase; font-weight: 700; }
 .prediction-item .pi-value { font-size: 18px; font-weight: 900; margin-top: 2px; }
 
@@ -387,23 +373,19 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
 .insight-card-v5:hover { transform: translateY(-3px); }
 .insight-top { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
 .insight-icon-v5 { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-.insight-icon-v5.green { background: #dcfce7; }
-.insight-icon-v5.yellow { background: #fef3c7; }
-.insight-icon-v5.red { background: #fee2e2; }
-.insight-icon-v5.blue { background: #dbeafe; }
+.insight-icon-v5.green { background: #dcfce7; } .insight-icon-v5.yellow { background: #fef3c7; }
+.insight-icon-v5.red { background: #fee2e2; } .insight-icon-v5.blue { background: #dbeafe; }
 .insight-card-v5 h3 { font-size: 14px; font-weight: 800; }
 .big-number { font-size: 30px; font-weight: 900; }
 .badge-status { display: inline-flex; align-items: center; margin-top: 6px; padding: 4px 10px; border-radius: 999px; font-size: 9px; font-weight: 700; }
-.badge-status.green { background: #dcfce7; color: #166534; }
-.badge-status.yellow { background: #fef3c7; color: #92400e; }
+.badge-status.green { background: #dcfce7; color: #166534; } .badge-status.yellow { background: #fef3c7; color: #92400e; }
 .badge-status.red { background: #fee2e2; color: #991b1b; }
 .ai-box {
   margin-top: 12px; background: linear-gradient(135deg, rgba(20,184,166,0.06), rgba(14,165,233,0.06));
   border: 1px solid rgba(20,184,166,0.1); border-radius: 14px;
   padding: 10px; display: flex; gap: 8px; align-items: flex-start;
 }
-.ai-box span { font-size: 18px; }
-.ai-box p { font-size: 10px; line-height: 1.5; color: var(--gray); font-weight: 600; }
+.ai-box span { font-size: 18px; } .ai-box p { font-size: 10px; line-height: 1.5; color: var(--gray); font-weight: 600; }
 
 /* ANOMALY */
 .anomaly-alert {
@@ -422,10 +404,8 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
   border: 1px solid var(--glass-border); box-shadow: var(--shadow-md);
 }
 .summary-card .sc-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 10px; }
-.summary-card:nth-child(1) .sc-icon { background: #dcfce7; }
-.summary-card:nth-child(2) .sc-icon { background: #dbeafe; }
-.summary-card:nth-child(3) .sc-icon { background: #fef3c7; }
-.summary-card:nth-child(4) .sc-icon { background: #ede9fe; }
+.summary-card:nth-child(1) .sc-icon { background: #dcfce7; } .summary-card:nth-child(2) .sc-icon { background: #dbeafe; }
+.summary-card:nth-child(3) .sc-icon { background: #fef3c7; } .summary-card:nth-child(4) .sc-icon { background: #ede9fe; }
 .summary-card .sc-label { font-size: 9px; color: var(--gray); text-transform: uppercase; font-weight: 700; }
 .summary-card .sc-value { font-size: 24px; font-weight: 900; margin-top: 2px; }
 .summary-card .sc-change { display: inline-flex; align-items: center; gap: 3px; padding: 3px 8px; border-radius: 999px; font-size: 9px; font-weight: 700; margin-top: 8px; }
@@ -482,34 +462,20 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
 </header>
 
 <div class="container">
-
-  <!-- FLOATING TOTAL -->
-  <div class="floating-total" id="floatingTotal">
-    <small>Omzet Hari Ini</small>
-    <strong>Rp 0</strong>
-  </div>
-
-  <!-- TOP INFO -->
+  <div class="floating-total" id="floatingTotal"><small>Omzet Hari Ini</small><strong>Rp 0</strong></div>
   <div class="top-info" id="topInfo"></div>
-
-  <!-- GALON SUMMARY -->
   <div class="galon-summary" id="galonSummary" style="display:none;">
     <div class="galon-item"><div class="g-label">💧 Hari Ini</div><div class="g-value" id="galonHari">0</div></div>
     <div class="galon-item"><div class="g-label">📅 Minggu Ini</div><div class="g-value" id="galonMinggu">0</div></div>
     <div class="galon-item"><div class="g-label">📆 Bulan Ini</div><div class="g-value" id="galonBulan">0</div></div>
     <div class="galon-item"><div class="g-label">📊 Tahun Ini</div><div class="g-value" id="galonTahun">0</div></div>
   </div>
-
-  <!-- STOK ALERT -->
   <div class="stok-alert" id="stokAlert"></div>
-
-  <!-- TARGET TRACKER -->
   <div id="targetTracker"></div>
 
   <!-- DASHBOARD -->
   <div id="dashboardPage">
-    <div class="section-title">
-      <div class="sicon">🏠</div><div><h2>Dashboard</h2><p id="filterLabel">Semua data</p></div>
+    <div class="section-title"><div class="sicon">🏠</div><div><h2>Dashboard</h2><p id="filterLabel">Semua data</p></div>
       <div style="margin-left:auto;display:flex;gap:5px;" class="filter-row">
         <button class="filter-btn active" onclick="setFilter('semua',this)">Semua</button>
         <button class="filter-btn" onclick="setFilter('hari',this)">Hari Ini</button>
@@ -518,7 +484,6 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
       </div>
     </div>
     <div class="stats-grid" id="statContainer"></div>
-
     <div class="section-title"><div class="sicon">📝</div><div><h2>Input Penjualan</h2></div></div>
     <div class="chart-card" style="margin-bottom:12px;">
       <div class="info-edit" id="infoEdit">⚡ Mode Edit Aktif</div>
@@ -557,10 +522,7 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
   </div>
 
   <!-- GRAFIK -->
-  <div id="grafikPage" style="display:none;">
-    <div class="section-title"><div class="sicon">📊</div><div><h2>Grafik Premium</h2></div></div>
-    <div class="chart-grid" id="chartsContainer"></div>
-  </div>
+  <div id="grafikPage" style="display:none;"><div class="section-title"><div class="sicon">📊</div><div><h2>Grafik Premium</h2></div></div><div class="chart-grid" id="chartsContainer"></div></div>
 
   <!-- REKAP -->
   <div id="rekapPage" style="display:none;">
@@ -581,7 +543,7 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
     <div class="chart-grid" id="analisisChartGrid"></div>
   </div>
 
-  <!-- RIWAYAT SETORAN (READ-ONLY) -->
+  <!-- RIWAYAT SETORAN -->
   <div id="setoranPage" style="display:none;">
     <div class="section-title"><div class="sicon">💵</div><div><h2>Riwayat Setoran</h2><p>Total: <b id="totalSetoran">Rp 0</b></p></div></div>
     <div class="table-card"><div class="table-responsive"><table><thead><tr><th>Tanggal</th><th>Jumlah</th><th>Catatan</th></tr></thead><tbody id="setoranBody"></tbody></table></div></div>
@@ -603,7 +565,7 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
         <div class="input-group"><label>📝 Keterangan</label><input type="text" id="ketStok" placeholder="🚛 Truk datang"></div>
       </div>
       <button class="btn btn-primary" style="margin-top:10px;" onclick="inputStok()">💾 Simpan Stok Masuk</button>
-      <p style="font-size:9px;color:var(--gray);margin-top:8px;">💡 Input stok setiap Sabtu (60 tabung). Stok awal diinput sekali saja.</p>
+      <p style="font-size:9px;color:var(--gray);margin-top:8px;">💡 Input stok setiap Sabtu (60 tabung).</p>
     </div>
     <div class="section-title"><div class="sicon">📊</div><div><h2>Prediksi Stok</h2></div></div>
     <div class="chart-card"><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;">
@@ -612,40 +574,30 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
       <div><small style="color:var(--gray);">Prediksi Habis</small><div style="font-size:24px;font-weight:800;" id="prediksiHabis2">0</div></div>
     </div></div>
   </div>
-
 </div>
 
-<!-- BOTTOM NAV -->
 <nav class="bottom-nav" id="bottomNav"></nav>
 <div class="toast" id="toast"></div>
 
 <div class="popup-overlay" id="popupOverlay">
   <div class="popup-box">
     <button class="popup-close-btn" onclick="closePopup()">×</button>
-    <div class="popup-header">
-      <h1 class="popup-title" id="popupTitle">Detail</h1>
-      <p class="popup-subtitle" id="popupSubtitle">Informasi</p>
-      <div class="popup-icon" id="popupIcon">💰</div>
-    </div>
+    <div class="popup-header"><h1 class="popup-title" id="popupTitle">Detail</h1><p class="popup-subtitle" id="popupSubtitle">Informasi</p><div class="popup-icon" id="popupIcon">💰</div></div>
     <div class="popup-body" id="popupContent"></div>
   </div>
 </div>
 
 <script>
 // =====================================
-// GALS NEXTGEN v5.5 - JS BAGIAN 1
+// GALS NEXTGEN v5.5 - FULL JS
 // =====================================
 const API_URL='https://script.google.com/macros/s/AKfycbyIsHI_Au2m95AuukMuL-U3gbneWkENswET3cdTwAuMg1bhxINuLXRSXG1dgCTfkcqLwQ/exec';
-const TOKEN='GALS2026';
-const DEFAULT_STOK=60;
-
+const TOKEN='GALS2026'; const DEFAULT_STOK=60;
 const COL={id:0,tanggal:1,gas22:3,gas23:4,gasPink:5,galon3k:6,galon4k:7,galon5k:8,pemasukanLain:9,realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realJajan:25,realKulakan:27,realZakat:29,realSetoran:31,pengeluaranLain:33,shodaqoh:35,totalOmzet:36,omzetGas:37,omzetGalon:38,jatahKulakan:39,jatahOps:40,jatahZakat:41,jatahSetoran:42,totalReal:43,totalPengeluaran:44,labaBersih:45};
-
-let allData=[],allSetoran=[],editId=null,charts={},currentStats={},currentAnalisisFilter='minggu',currentPage='dashboardPage',stokData=null;
+let allData=[],editId=null,charts={},currentStats={},currentAnalisisFilter='minggu',currentPage='dashboardPage',stokData=null;
 let DOM={},toastTimer=null;
 const STOCK_LIMIT={aman:20,warning:10};
 const LIMITS={omzetHigh:500000,omzetMedium:300000,opsWarning:25,opsDanger:50,marginWarning:10,marginDanger:5,prediksiHabisWarning:3,anomalyThreshold:1.5,forecastDays:7,confidenceRange:0.15};
-
 const POS=[{key:'realTransport',catKey:'catTransport',label:'🚚 Transport',jatahFn:(g,gl)=>(g*400)+(gl*500)},{key:'realWifi',catKey:'catWifi',label:'🌐 Wifi',jatahFn:(g)=>g*500},{key:'realOpkirimgas',catKey:'catOpkirimgas',label:'📦 Op.Kirim Gas',jatahFn:(g)=>g*833},{key:'realAir',catKey:'catAir',label:'💧 Air',jatahFn:(_,gl)=>gl*500},{key:'realListrik',catKey:'catListrik',label:'⚡ Listrik',jatahFn:(_,gl)=>gl*500},{key:'realPemeliharaan',catKey:'catPemeliharaan',label:'🔧 Pemeliharaan',jatahFn:(_,gl)=>gl*500},{key:'realTisuTutup',catKey:'catTisuTutup',label:'🧻 Tutup & Tisu',jatahFn:(_,gl)=>gl*500},{key:'realJajan',catKey:'catJajan',label:'🟠 Jajan 2 Orang',jatahFn:()=>10000}];
 
 function formatDateLocal(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
@@ -657,7 +609,6 @@ function getNum(id){const el=document.getElementById(id);if(!el)return 0;return 
 function sum(d,i){return d.reduce((s,r)=>s+Number(r[i]||0),0);}
 Chart.defaults.font.family='Inter';
 
-// FILTER
 document._filter=null;
 function setFilter(j,btn){
   document.querySelectorAll('#dashboardPage .filter-btn').forEach(b=>b.classList.remove('active'));
@@ -667,20 +618,17 @@ function setFilter(j,btn){
   if(j==='hari'){m.setHours(0,0,0,0);a.setHours(23,59,59,999);document.getElementById('filterLabel').textContent='Data hari ini';}
   else if(j==='minggu'){const h=now.getDay()||7;m.setDate(now.getDate()-h+1);m.setHours(0,0,0,0);a.setHours(23,59,59,999);document.getElementById('filterLabel').textContent='Data minggu ini';}
   else if(j==='bulan'){m.setDate(1);m.setHours(0,0,0,0);a.setHours(23,59,59,999);document.getElementById('filterLabel').textContent='Data bulan ini';}
-  document._filter={mulai:m.toISOString().split('T')[0],akhir:a.toISOString().split('T')[0]};
-  updateDashboard();renderTable();
+  document._filter={mulai:m.toISOString().split('T')[0],akhir:a.toISOString().split('T')[0]};updateDashboard();renderTable();
 }
 function filterData(){const f=document._filter;if(!f)return allData;return allData.filter(d=>{const t=String(d[1]||'').split('T')[0];return t>=f.mulai&&t<=f.akhir;});}
 
-// NAVIGATION
 function buildBottomNav(){
   const items=[{id:'dashboardPage',icon:'🏠',label:'Home'},{id:'grafikPage',icon:'📊',label:'Grafik'},{id:'rekapPage',icon:'📋',label:'Rekap'},{id:'analisisPage',icon:'🔬',label:'Analisis'},{id:'setoranPage',icon:'💵',label:'Riwayat'},{id:'kasAdminPage',icon:'💰',label:'Kas'},{id:'stokPage',icon:'📦',label:'Stok'}];
   return items.map(i=>`<button class="nav-btn2${currentPage===i.id?' active':''}" onclick="showMainPage('${i.id}',this)"><span class="nav-icon">${i.icon}</span><span class="nav-text">${i.label}</span></button>`).join('');
 }
 function showMainPage(p,btn){
   ['dashboardPage','grafikPage','rekapPage','analisisPage','setoranPage','kasAdminPage','stokPage'].forEach(x=>{const el=document.getElementById(x);if(el)el.style.display='none';});
-  const el=document.getElementById(p);if(el)el.style.display='block';
-  currentPage=p;
+  const el=document.getElementById(p);if(el)el.style.display='block';currentPage=p;
   document.getElementById('bottomNav').innerHTML=buildBottomNav();
   if(p==='dashboardPage')updateDashboard();
   if(p==='grafikPage')setTimeout(()=>renderGrafikPremium(),200);
@@ -691,14 +639,12 @@ function showMainPage(p,btn){
   if(p==='stokPage')loadPrediksiStokPage();
 }
 
-// FORMAT RUPIAH
 function bindOpEvents(){
   document.querySelectorAll('.input-rupiah').forEach(el=>{if(el.dataset.binded!=='1'){el.dataset.binded='1';el.addEventListener('input',function(){let cp=this.selectionStart,bl=this.value.length,a=this.value.replace(/\D/g,'');if(!a){this.value='';return;}this.value='Rp '+Number(a).toLocaleString('id-ID');let al=this.value.length;cp=cp+(al-bl);this.setSelectionRange(cp,cp);});}});
   ['gas22','gas23','gasPink','galon3k','galon4k','galon5k'].forEach(id=>{const el=document.getElementById(id);if(el){el.removeEventListener('input',handleInputUpdate);el.addEventListener('input',handleInputUpdate);}});
 }
 function handleInputUpdate(){const g=getNum('gas22')+getNum('gas23')+getNum('gasPink'),gl=getNum('galon3k')+getNum('galon4k')+getNum('galon5k');updateJatahDisplay(g,gl);}
 
-// OPERASIONAL TABLE
 function buildOpRows(data){
   const g=(data?.gas22||0)+(data?.gas23||0)+(data?.gasPink||0),gl=(data?.galon3k||0)+(data?.galon4k||0)+(data?.galon5k||0);
   let h='<table class="op-table"><thead><tr><th>Pos</th><th>Jatah</th><th>Real</th><th>Sisa</th><th>Catatan</th></tr></thead><tbody>';
@@ -709,7 +655,6 @@ function buildOpRows(data){
 function updateOpSisa(){const g=getNum('gas22')+getNum('gas23')+getNum('gasPink'),gl=getNum('galon3k')+getNum('galon4k')+getNum('galon5k');POS.forEach(p=>{const j=p.jatahFn(g,gl),r=getNum(p.key),s=j-r;const el=document.getElementById('sisa_'+p.key);if(el){el.textContent=s>=0?'+'+rupiah(s):rupiah(s);el.className='sisa '+(s>=0?'plus':'minus');}});}
 function updateJatahDisplay(g,gl){POS.forEach(p=>{const j=p.jatahFn(g,gl);const el=document.getElementById('jatah_'+p.key);if(el)el.textContent=rupiah(j);});updateOpSisa();}
 
-// FILL FORM
 function fillForm(r){
   editId=r[0];const setVal=(id,val)=>{const el=document.getElementById(id);if(el)el.value=val;};
   setVal('tanggal',(r[1]||'').split('T')[0]);
@@ -730,7 +675,6 @@ function isiDropdownTanggal(){const dd=document.getElementById('pilihTanggal');i
 function loadByTanggal(){const idx=document.getElementById('pilihTanggal')?.value;if(!idx||idx===''){cekDataHariIni();return;}fillForm(allData[idx]);}
 function editFromRekap(id){const r=allData.find(d=>d[0]==id);if(!r)return;fillForm(r);showMainPage('dashboardPage');}
 
-// CRUD
 function hapusDataForm(){if(editId)hapusData(editId);}
 async function hapusData(id){if(!confirm('Yakin?'))return;const d=new FormData();d.append('token',TOKEN);d.append('action','hapus');d.append('id',id);try{await fetch(API_URL,{method:'POST',body:d});toast('✅ Dihapus');resetForm();loadAllData();}catch(e){toast('❌ Gagal');}}
 function resetForm(){
@@ -763,7 +707,6 @@ function getDemoData(){
   return[['1',t.replace(/(\d+)$/,n=>Number(n)-6),'',8,5,2,10,5,3,0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',450000,350000,100000,250000,50000,25000,150000,40000,300000,150000],['2',t.replace(/(\d+)$/,n=>Number(n)-5),'',10,6,3,12,7,4,0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',580000,450000,130000,300000,60000,30000,180000,50000,350000,230000],['3',t.replace(/(\d+)$/,n=>Number(n)-4),'',7,4,1,8,4,2,0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',320000,240000,80000,180000,45000,20000,100000,35000,220000,100000],['4',t.replace(/(\d+)$/,n=>Number(n)-3),'',12,8,4,15,10,5,50000,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',750000,600000,150000,380000,70000,35000,250000,60000,450000,300000],['5',t.replace(/(\d+)$/,n=>Number(n)-2),'',15,10,5,18,12,6,0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',920000,720000,200000,450000,80000,45000,320000,70000,550000,370000],['6',t.replace(/(\d+)$/,n=>Number(n)-1),'',20,12,6,20,15,8,100000,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',1200000,950000,250000,550000,95000,55000,450000,85000,700000,500000],['7',t,'',6,3,1,5,2,1,0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',0,'',220000,160000,60000,120000,35000,15000,60000,25000,160000,60000]];
 }
 
-// REKAP
 function renderTable(){
   const filtered=filterData(),tb=document.getElementById('rekapBody');if(!tb)return;
   if(!filtered.length){tb.innerHTML='<tr><td colspan="10"><div style="text-align:center;padding:40px;">📭 Belum ada data</div></td></tr>';return;}
@@ -772,29 +715,23 @@ function renderTable(){
   tb.innerHTML=html;
 }
 
-// EXPORT PDF
 async function exportPDF(){
   const bulan=prompt('Bulan (YYYY-MM)?',new Date().toISOString().slice(0,7));
   if(!bulan)return;
   try{const r=await fetch(API_URL+'?action=exportPDF&token='+TOKEN+'&bulan='+bulan);const text=await r.text();const win=window.open('','_blank');win.document.write('<pre>'+text+'</pre>');toast('✅ Laporan berhasil!');}catch(e){toast('❌ Gagal export');}
 }
 
-// RIWAYAT SETORAN (READ-ONLY)
 function renderRiwayatSetoran(){
   const tb=document.getElementById('setoranBody');if(!tb)return;
   let total=0,html='';
   [...allData].reverse().forEach(r=>{
-    const tgl=(r[1]||'').split('T')[0];
-    const jumlah=Number(r[COL.realSetoran]||0);
-    const cat=r[COL.catSetoran]||'';
+    const tgl=(r[1]||'').split('T')[0],jumlah=Number(r[COL.realSetoran]||0),cat=r[COL.catSetoran]||'';
     if(jumlah>0){total+=jumlah;html+=`<tr><td>${tgl}</td><td>${rupiah(jumlah)}</td><td>${cat}</td></tr>`;}
   });
   if(!html)html='<tr><td colspan="3"><div style="text-align:center;padding:40px;">📭 Belum ada setoran</div></td></tr>';
-  tb.innerHTML=html;
-  document.getElementById('totalSetoran').innerText=rupiah(total);
+  tb.innerHTML=html;document.getElementById('totalSetoran').innerText=rupiah(total);
 }
 
-// KAS ADMIN
 function renderKasAdmin(){
   const filtered=filterData();let ja={},ra={};POS.forEach(p=>{ja[p.key]=0;ra[p.key]=0;});let jk=0,rk=0,jz=0,rz=0,js=0,rs=0,tl=0,ts=0;
   filtered.forEach(r=>{const g=(Number(r[3]||0))+(Number(r[4]||0))+(Number(r[5]||0)),gl=(Number(r[6]||0))+(Number(r[7]||0))+(Number(r[8]||0));
@@ -811,19 +748,16 @@ function renderKasAdmin(){
   document.getElementById('kasAdminBody').innerHTML=html;document.getElementById('totalKasAdmin').innerText='Total di Admin: '+rupiah(tj-tr);
 }
 
-// STOK
 async function loadPrediksiStok(){
   if(DOM.statusTop)DOM.statusTop.textContent='Loading...';
-  try{const r=await(await fetch(API_URL+'?action=getPrediksiStok&token='+TOKEN)).json();if(r&&r.success){stokData=r;updateStokReal();checkStokAlert();}else{throw new Error('Invalid');}}catch(e){console.log(e);if(DOM.statusTop){DOM.statusTop.textContent='Error';DOM.statusTop.style.color='var(--danger)';}toast('⚠️ Gagal memuat stok');}
+  try{const r=await(await fetch(API_URL+'?action=getPrediksiStok&token='+TOKEN)).json();if(r&&r.success){stokData=r;updateStokReal();checkStokAlert();}}catch(e){if(DOM.statusTop){DOM.statusTop.textContent='Error';DOM.statusTop.style.color='var(--danger)';}toast('⚠️ Gagal memuat stok');}
 }
 async function loadPrediksiStokPage(){try{const r=await(await fetch(API_URL+'?action=getPrediksiStok&token='+TOKEN)).json();if(r.success){document.getElementById('sisaStok2').innerText=r.sisaStok;document.getElementById('rataRataStok2').innerText=r.rataRata;document.getElementById('prediksiHabis2').innerText=r.prediksiHabis;}}catch(e){}document.getElementById('tglStok').valueAsDate=new Date();}
 async function inputStok(){const d=new FormData();d.append('token',TOKEN);d.append('action','inputStok');d.append('tanggal',document.getElementById('tglStok')?.value||'');d.append('gasMasuk',document.getElementById('gasMasuk')?.value||0);d.append('keterangan',document.getElementById('ketStok')?.value||'Truk datang');try{const r=await(await fetch(API_URL,{method:'POST',body:d})).json();toast(r.message);loadPrediksiStokPage();}catch(e){toast('❌ Gagal');}}
 
-// GALON + STOK
 function hitungGalon(){
   const now=new Date(),today=getToday();
-  const awalBulan=formatDateLocal(new Date(now.getFullYear(),now.getMonth(),1));
-  const awalTahun=formatDateLocal(new Date(now.getFullYear(),0,1));
+  const awalBulan=formatDateLocal(new Date(now.getFullYear(),now.getMonth(),1)),awalTahun=formatDateLocal(new Date(now.getFullYear(),0,1));
   const day=now.getDay()||7;const senin=new Date(now);senin.setDate(now.getDate()-day+1);const seninStr=formatDateLocal(senin);
   let hari=0,minggu=0,bulan=0,tahun=0;
   allData.forEach(r=>{const t=(r[1]||'').split('T')[0];const total=(Number(r[COL.galon3k])||0)+(Number(r[COL.galon4k])||0)+(Number(r[COL.galon5k])||0);if(t===today)hari+=total;if(t>=seninStr&&t<=today)minggu+=total;if(t>=awalBulan&&t<=today)bulan+=total;if(t>=awalTahun&&t<=today)tahun+=total;});
@@ -839,65 +773,45 @@ function updateGalonSummary(){
 }
 function updateStokReal(){
   const sisaStok=stokData?.sisaStok||0;
-  if(DOM.statusTop){
-    const newText=sisaStok+' tabung';
-    if(DOM.statusTop.textContent!==newText)DOM.statusTop.textContent=newText;
-    if(sisaStok>STOCK_LIMIT.aman)DOM.statusTop.style.color='var(--success)';
-    else if(sisaStok>STOCK_LIMIT.warning)DOM.statusTop.style.color='var(--warning)';
-    else DOM.statusTop.style.color='var(--danger)';
-  }
+  if(DOM.statusTop){const nt=sisaStok+' tabung';if(DOM.statusTop.textContent!==nt)DOM.statusTop.textContent=nt;
+    if(sisaStok>STOCK_LIMIT.aman)DOM.statusTop.style.color='var(--success)';else if(sisaStok>STOCK_LIMIT.warning)DOM.statusTop.style.color='var(--warning)';else DOM.statusTop.style.color='var(--danger)';}
   if(DOM.totalTop){const nt=allData.length;if(DOM.totalTop.textContent!=nt)DOM.totalTop.textContent=nt;}
 }
 function checkStokAlert(){
   const sisaStok=stokData?.sisaStok||0;const el=document.getElementById('stokAlert');if(!el)return;
   if(sisaStok<=5){el.innerHTML='<div class="anomaly-alert danger"><span>🔴</span> STOK HAMPIR HABIS! Sisa '+sisaStok+' tabung. SEGERA KULAKAN!</div>';}
-  else if(sisaStok<=10){el.innerHTML='<div class="anomaly-alert warning"><span>⚠️</span> Stok menipis! Sisa '+sisaStok+' tabung. Jadwalkan kulakan.</div>';}
+  else if(sisaStok<=10){el.innerHTML='<div class="anomaly-alert warning"><span>⚠️</span> Stok menipis! Sisa '+sisaStok+' tabung.</div>';}
   else{el.innerHTML='';}
 }
 async function loadTarget(){
-  try{const r=await(await fetch(API_URL+'?action=getTarget&token='+TOKEN)).json();if(r.success&&r.target){const target=r.target;const omzetBulanIni=sum(allData.filter(d=>(d[1]||'').startsWith(r.bulanIni)),COL.totalOmzet);const progress=target[2]>0?Math.round((omzetBulanIni/target[2])*100):0;document.getElementById('targetTracker').innerHTML=`<div class="target-card"><h3>🎯 Target Bulan Ini</h3><div class="target-progress"><span>Progress: ${rupiah(omzetBulanIni)} / ${rupiah(target[2])}</span><span style="font-weight:800;">${progress}%</span></div><div class="progress"><div class="progress-fill green" style="width:${Math.min(100,progress)}%"></div></div></div>`;}}catch(e){}
+  try{const r=await(await fetch(API_URL+'?action=getTarget&token='+TOKEN)).json();if(r.success&&r.target){const target=r.target,omzetBulanIni=sum(allData.filter(d=>(d[1]||'').startsWith(r.bulanIni)),COL.totalOmzet),progress=target[2]>0?Math.round((omzetBulanIni/target[2])*100):0;document.getElementById('targetTracker').innerHTML=`<div class="target-card"><h3>🎯 Target Bulan Ini</h3><div class="target-progress"><span>Progress: ${rupiah(omzetBulanIni)} / ${rupiah(target[2])}</span><span style="font-weight:800;">${progress}%</span></div><div class="progress"><div class="progress-fill green" style="width:${Math.min(100,progress)}%"></div></div></div>`;}}catch(e){}
 }
-</script>
 
-<script>
-// =====================================
-// GALS NEXTGEN v5.5 - JS BAGIAN 2 (DASHBOARD + ANALISIS)
-// =====================================
 function hexToRgba(hex,alpha){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return`rgba(${r},${g},${b},${alpha})`;}
 function getGreeting(){const j=new Date().getHours();if(j<12)return'Selamat pagi';if(j<15)return'Selamat siang';if(j<18)return'Selamat sore';return'Selamat malam';}
 function destroyAllCharts(){Object.values(charts).forEach(c=>{if(c)c.destroy();});charts={};}
 
 function calculateStats(filtered){
-  let omzet=0,kulakan=0,ops=0,totalGalon=0,zakat=0,shodaqoh=0,laba=0,setoran=0,omGas=0,omGal=0;
-  let ja={},ra={};POS.forEach(p=>{ja[p.key]=0;ra[p.key]=0;});
+  let omzet=0,kulakan=0,ops=0,tg=0,zakat=0,sh=0,laba=0,setoran=0,omGas=0,omGal=0,ja={},ra={};POS.forEach(p=>{ja[p.key]=0;ra[p.key]=0;});
   let rkt=0,rzt=0,rst=0;
   filtered.forEach(r=>{
     omzet+=Number(r[COL.totalOmzet]||0);kulakan+=Number(r[COL.jatahKulakan]||0);ops+=Number(r[COL.jatahOps]||0);
-    totalGalon+=(Number(r[COL.galon3k]||0))+(Number(r[COL.galon4k]||0))+(Number(r[COL.galon5k]||0));
-    zakat+=Number(r[COL.jatahZakat]||0);shodaqoh+=Number(r[COL.shodaqoh]||0);laba+=Number(r[COL.labaBersih]||0);
+    tg+=(Number(r[COL.galon3k]||0))+(Number(r[COL.galon4k]||0))+(Number(r[COL.galon5k]||0));
+    zakat+=Number(r[COL.jatahZakat]||0);sh+=Number(r[COL.shodaqoh]||0);laba+=Number(r[COL.labaBersih]||0);
     setoran+=Number(r[COL.jatahSetoran]||0);omGas+=Number(r[COL.omzetGas]||0);omGal+=Number(r[COL.omzetGalon]||0);
     rkt+=Number(r[COL.realKulakan]||0);rzt+=Number(r[COL.realZakat]||0);rst+=Number(r[COL.realSetoran]||0);
     const g=(Number(r[COL.gas22]||0))+(Number(r[COL.gas23]||0))+(Number(r[COL.gasPink]||0)),gl=(Number(r[COL.galon3k]||0))+(Number(r[COL.galon4k]||0))+(Number(r[COL.galon5k]||0));
     POS.forEach(p=>{const cm={realTransport:11,realWifi:13,realOpkirimgas:15,realAir:17,realListrik:19,realPemeliharaan:21,realTisuTutup:23,realJajan:25};ja[p.key]+=p.jatahFn(g,gl);ra[p.key]+=Number(r[cm[p.key]]||0);});
   });
-  currentStats={omzet,kulakan,ops,totalGalon,jajan:filtered.length*10000,zakat,shodaqoh,laba,setoran,omzetGas:omGas,omzetGalon:omGal,realKulakan:rkt,realZakat:rzt,realSetoran:rst};
+  currentStats={omzet,kulakan,ops,totalGalon:tg,jajan:filtered.length*10000,zakat,shodaqoh:sh,laba,setoran,omzetGas:omGas,omzetGalon:omGal,realKulakan:rkt,realZakat:rzt,realSetoran:rst};
   POS.forEach(p=>{currentStats['jatah_'+p.key]=ja[p.key];currentStats['real_'+p.key]=ra[p.key];});
   const sk=kulakan-rkt,sops=ops-Object.values(ra).reduce((a,b)=>a+b,0),sj=filtered.length*10000-(ra.realJajan||0),sz=zakat-rzt,ss=setoran-rst;
   const lc=laba>LIMITS.omzetHigh?'profit-good':laba>0?'profit-ok':'profit-bad',le=laba>LIMITS.omzetHigh?'🟢':laba>0?'🟠':'🔴';
-  return{omzet,kulakan,ops,totalGalon,zakat,shodaqoh,laba,setoran,omGas,omGal,rkt,rzt,rst,sk,sops,sj,sz,ss,lc,le,totalReal:Object.values(ra).reduce((a,b)=>a+b,0)};
+  return{omzet,kulakan,ops,totalGalon:tg,zakat,shodaqoh:sh,laba,setoran,omGas,omGal,rkt,rzt,rst,sk,sops,sj,sz,ss,lc,le,totalReal:Object.values(ra).reduce((a,b)=>a+b,0)};
 }
 
 function renderCards(stats){
-  const cards=[
-    {cls:'card-green',title:'💰 Omzet',value:rupiah(stats.omzet),sub:`Gas: ${rupiah(stats.omGas)} | Galon: ${rupiah(stats.omGal)}`,icon:'💵'},
-    {cls:'card-red',title:'🔵 Kulakan',value:rupiah(stats.kulakan),sub:`Real: ${rupiah(stats.rkt)}`,sisa:stats.sk>=0?'+'+rupiah(stats.sk):rupiah(stats.sk),sisaUp:stats.sk>=0,icon:'🛒'},
-    {cls:'card-orange',title:'🟢 Operasional',value:rupiah(stats.ops),sub:`Real: ${rupiah(stats.totalReal)}`,sisa:stats.sops>=0?'+'+rupiah(stats.sops):rupiah(stats.sops),sisaUp:stats.sops>=0,icon:'🔧'},
-    {cls:'card-pink',title:'🟠 Jajan',value:rupiah(stats.jajan),sub:`Real: ${rupiah(currentStats['real_realJajan']||0)}`,sisa:stats.sj>=0?'+'+rupiah(stats.sj):rupiah(stats.sj),sisaUp:stats.sj>=0,icon:'🍽️'},
-    {cls:'card-purple',title:'🕌 Zakat',value:rupiah(stats.zakat),sub:`Real: ${rupiah(stats.rzt)}`,sisa:stats.sz>=0?'+'+rupiah(stats.sz):rupiah(stats.sz),sisaUp:stats.sz>=0,icon:'🕌'},
-    {cls:'card-teal',title:'🤲 Shodaqoh',value:rupiah(stats.shodaqoh),icon:'🤲'},
-    {cls:`card-blue ${stats.lc}`,title:`${stats.le} Laba`,value:rupiah(stats.laba),sub:'Omzet - Pengeluaran',icon:'📊'},
-    {cls:'card-gold',title:'🟡 Setoran',value:rupiah(stats.setoran),sub:`Real: ${rupiah(stats.rst)}`,sisa:stats.ss>=0?'+'+rupiah(stats.ss):rupiah(stats.ss),sisaUp:stats.ss>=0,icon:'💸'}
-  ];
+  const cards=[{cls:'card-green',title:'💰 Omzet',value:rupiah(stats.omzet),sub:`Gas: ${rupiah(stats.omGas)} | Galon: ${rupiah(stats.omGal)}`,icon:'💵'},{cls:'card-red',title:'🔵 Kulakan',value:rupiah(stats.kulakan),sub:`Real: ${rupiah(stats.rkt)}`,sisa:stats.sk>=0?'+'+rupiah(stats.sk):rupiah(stats.sk),sisaUp:stats.sk>=0,icon:'🛒'},{cls:'card-orange',title:'🟢 Operasional',value:rupiah(stats.ops),sub:`Real: ${rupiah(stats.totalReal)}`,sisa:stats.sops>=0?'+'+rupiah(stats.sops):rupiah(stats.sops),sisaUp:stats.sops>=0,icon:'🔧'},{cls:'card-pink',title:'🟠 Jajan',value:rupiah(stats.jajan),sub:`Real: ${rupiah(currentStats['real_realJajan']||0)}`,sisa:stats.sj>=0?'+'+rupiah(stats.sj):rupiah(stats.sj),sisaUp:stats.sj>=0,icon:'🍽️'},{cls:'card-purple',title:'🕌 Zakat',value:rupiah(stats.zakat),sub:`Real: ${rupiah(stats.rzt)}`,sisa:stats.sz>=0?'+'+rupiah(stats.sz):rupiah(stats.sz),sisaUp:stats.sz>=0,icon:'🕌'},{cls:'card-teal',title:'🤲 Shodaqoh',value:rupiah(stats.shodaqoh),icon:'🤲'},{cls:`card-blue ${stats.lc}`,title:`${stats.le} Laba`,value:rupiah(stats.laba),sub:'Omzet - Pengeluaran',icon:'📊'},{cls:'card-gold',title:'🟡 Setoran',value:rupiah(stats.setoran),sub:`Real: ${rupiah(stats.rst)}`,sisa:stats.ss>=0?'+'+rupiah(stats.ss):rupiah(stats.ss),sisaUp:stats.ss>=0,icon:'💸'}];
   document.getElementById('statContainer').innerHTML=cards.map(c=>`<div class="stat-card ${c.cls}" onclick="showDetailPopup('${c.title}',currentStats,'${c.cls}')"><div class="card-icon-bg">${c.icon}</div><div class="stat-title">${c.title}</div><div class="stat-value">${c.value}</div><div class="stat-sub">${c.sub||''}</div>${c.sisa?`<div class="badge ${c.sisaUp?'success':'danger'}">${c.sisa}</div>`:''}</div>`).join('');
 }
 
@@ -911,7 +825,6 @@ function updateDashboard(){
   isiDropdownTanggal();updateGalonSummary();updateStokReal();loadPrediksiStok();loadTarget();
 }
 
-// POPUP
 function openPopup(html){document.getElementById('popupContent').innerHTML=html;document.getElementById('popupOverlay').classList.add('active');}
 function closePopup(e){if(e&&e.target!==document.getElementById('popupOverlay'))return;document.getElementById('popupOverlay').classList.remove('active');}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closePopup();});
@@ -924,7 +837,6 @@ function showDetailPopup(title,stats,jenis){
   html+='<div class="popup-footer" style="margin-top:12px;"><button class="btn btn-secondary" onclick="closePopup()">Tutup</button></div>';openPopup(html);
 }
 
-// GRAFIK
 function renderGrafikPremium(){
   const filtered=filterData();if(!filtered.length)return;destroyAllCharts();
   const labels=filtered.map(r=>(r[1]||'').split('T')[0]),omzet=filtered.map(r=>Number(r[COL.totalOmzet]||0)),laba=filtered.map(r=>Number(r[COL.labaBersih]||0)),zakat=filtered.map(r=>Number(r[COL.jatahZakat]||0)),peng=filtered.map(r=>Number(r[COL.totalPengeluaran]||0));
@@ -938,7 +850,6 @@ function renderGrafikPremium(){
   },200);
 }
 
-// ANALISIS
 function getWeekRange(o=0){const n=new Date();n.setDate(n.getDate()+o*7);const d=n.getDay()||7;const s=new Date(n);s.setDate(n.getDate()-d+1);const e=new Date(s);e.setDate(s.getDate()+6);return{mulai:s.toISOString().split('T')[0],akhir:e.toISOString().split('T')[0]};}
 function getMonthRange(o=0){const n=new Date();n.setMonth(n.getMonth()+o);return{mulai:new Date(n.getFullYear(),n.getMonth(),1).toISOString().split('T')[0],akhir:new Date(n.getFullYear(),n.getMonth()+1,0).toISOString().split('T')[0]};}
 function getYearRange(){const n=new Date();return{mulai:new Date(n.getFullYear(),0,1).toISOString().split('T')[0],akhir:new Date(n.getFullYear(),11,31).toISOString().split('T')[0]};}
@@ -995,24 +906,21 @@ function renderAnalisisV5(){
   },300);
 }
 
-// DARK MODE
 function toggleDarkMode(){const h=document.documentElement;const isDark=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',isDark?'light':'dark');document.querySelector('.dark-toggle').textContent=isDark?'🌙':'☀️';localStorage.setItem('gals-dark',isDark?'light':'dark');}
 (function(){if(localStorage.getItem('gals-dark')==='dark'){document.documentElement.setAttribute('data-theme','dark');document.querySelector('.dark-toggle').textContent='☀️';}})();
 
-// SCROLL HIDE NAV
 let lastScroll=0;window.addEventListener('scroll',()=>{const cs=window.pageYOffset,nav=document.getElementById('bottomNav');if(cs>lastScroll&&cs>200)nav.style.transform='translateX(-50%) translateY(100px)';else nav.style.transform='translateX(-50%) translateY(0)';lastScroll=cs;});
 
-// CLOCK
 function updateClock(){if(DOM.clock)DOM.clock.textContent=new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});}
 setInterval(updateClock,30000);
 
-// INIT
 document.addEventListener('DOMContentLoaded',()=>{
   DOM={galonHari:document.getElementById('galonHari'),galonMinggu:document.getElementById('galonMinggu'),galonBulan:document.getElementById('galonBulan'),galonTahun:document.getElementById('galonTahun'),galonSummary:document.getElementById('galonSummary'),statusTop:document.getElementById('statusTop'),totalTop:document.getElementById('totalTop'),clock:document.getElementById('clock'),toast:document.getElementById('toast')};
   document.getElementById('bottomNav').innerHTML=buildBottomNav();
   document.getElementById('topInfo').innerHTML='<div class="mini-card"><div class="mlabel">📅 Jam</div><div class="mvalue" id="clock">00:00</div></div><div class="mini-card"><div class="mlabel">📦 Stok</div><div class="mvalue" id="statusTop" style="color:var(--success)">-</div></div><div class="mini-card"><div class="mlabel">📋 Data</div><div class="mvalue" id="totalTop">0</div></div><div class="mini-card"><div class="mlabel">💾 Versi</div><div class="mvalue" style="font-size:16px;">v5.5</div></div>';
   document.getElementById('tanggal').valueAsDate=new Date();
-  loadAllData();updateClock();
+  loadAllData();
+  setTimeout(()=>{ updateClock(); }, 500);
 });
 </script>
 

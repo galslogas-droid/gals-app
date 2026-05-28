@@ -3,429 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GALS NextGen v12.8 • Gas & Galon Management</title>
-    
+    <title>GALS NextGen v12.8 • Complete</title>
     <meta name="theme-color" content="#0f766e">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    
     <style>
         :root {
-            --primary: #0f766e;
-            --primary-dark: #115e59;
-            --primary-light: #14b8a6;
-            --danger: #dc2626;
-            --warning: #f59e0b;
-            --success: #16a34a;
-            --bg: #f8fafc;
-            --surface: #ffffff;
-            --text: #1e293b;
-            --text-secondary: #64748b;
-            --border: #e2e8f0;
-            --shadow: 0 1px 3px rgba(0,0,0,0.1);
-            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
-            --radius: 12px;
-            --radius-sm: 8px;
+            --primary: #0f766e; --primary-dark: #115e59; --danger: #dc2626;
+            --warning: #f59e0b; --success: #16a34a; --bg: #f1f5f9;
+            --surface: #ffffff; --text: #1e293b; --text2: #64748b; --border: #e2e8f0;
+            --radius: 14px; --shadow: 0 1px 3px rgba(0,0,0,0.06);
         }
-
         [data-theme="dark"] {
-            --bg: #0f172a;
-            --surface: #1e293b;
-            --text: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --border: #334155;
+            --bg: #0f172a; --surface: #1e293b; --text: #f1f5f9;
+            --text2: #94a3b8; --border: #334155;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            padding-bottom: 80px;
-            transition: background 0.3s, color 0.3s;
+            font-family:'Inter',sans-serif; background:var(--bg); color:var(--text);
+            min-height:100vh; padding-bottom:85px; transition:background .3s,color .3s;
         }
-
-        /* Header */
         .header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 16px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 20px rgba(15, 118, 110, 0.3);
+            background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+            color:#fff; padding:14px 18px; position:sticky; top:0; z-index:100;
+            display:flex; align-items:center; justify-content:space-between;
+            box-shadow:0 4px 20px rgba(15,118,110,.25);
         }
-        .header-left { display: flex; align-items: center; gap: 8px; }
-        .header h1 { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
+        .header h1 { font-size:18px; font-weight:800; }
         .version-badge {
-            background: rgba(255,255,255,0.2);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 700;
+            background:rgba(255,255,255,.18); padding:4px 10px;
+            border-radius:20px; font-size:10px; font-weight:700;
         }
         .icon-btn {
-            background: rgba(255,255,255,0.15);
-            border: none;
-            color: white;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
+            background:rgba(255,255,255,.15); border:none; color:#fff;
+            width:36px; height:36px; border-radius:50%; cursor:pointer;
+            font-size:16px; display:flex; align-items:center; justify-content:center;
+            transition:all .2s;
         }
-        .icon-btn:hover { background: rgba(255,255,255,0.25); }
-
-        /* Bottom Navigation */
+        .icon-btn:hover { background:rgba(255,255,255,.25); }
         .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-around;
-            padding: 6px 0;
-            z-index: 100;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            position:fixed; bottom:0; left:0; right:0; background:var(--surface);
+            border-top:1px solid var(--border); display:flex; justify-content:space-around;
+            padding:6px 0; z-index:100; box-shadow:0 -4px 20px rgba(0,0,0,.08);
         }
         .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 3px;
-            padding: 6px 12px;
-            border: none;
-            background: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            border-radius: 12px;
-            transition: all 0.2s;
-            font-size: 10px;
-            font-weight: 500;
-            font-family: inherit;
+            display:flex; flex-direction:column; align-items:center; gap:2px;
+            padding:6px 10px; border:none; background:none; color:var(--text2);
+            cursor:pointer; border-radius:10px; font-size:10px; font-weight:500;
+            font-family:inherit; transition:all .2s;
         }
-        .nav-item.active {
-            color: var(--primary);
-            background: rgba(15, 118, 110, 0.1);
-            font-weight: 700;
-        }
-        .nav-item .nav-icon { font-size: 20px; }
-
-        /* Main Content */
-        .main-content {
-            padding: 16px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .page { display: none; animation: fadeIn 0.3s ease; }
-        .page.active { display: block; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Cards */
+        .nav-item.active { color:var(--primary); background:rgba(15,118,110,.08); font-weight:700; }
+        .nav-icon { font-size:18px; }
+        .main-content { padding:14px; max-width:700px; margin:0 auto; }
+        .page { display:none; animation:fadeIn .25s ease; }
+        .page.active { display:block; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
         .card {
-            background: var(--surface);
-            border-radius: var(--radius);
-            padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
+            background:var(--surface); border-radius:var(--radius); padding:16px;
+            margin-bottom:14px; box-shadow:var(--shadow); border:1px solid var(--border);
         }
-        .card-header {
-            font-weight: 700;
-            font-size: 15px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Stats */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-        @media (min-width: 600px) {
-            .stats-grid { grid-template-columns: repeat(3, 1fr); }
-        }
+        .card-header { font-weight:700; font-size:14px; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+        .stats-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-bottom:14px; }
+        @media(min-width:500px){ .stats-grid { grid-template-columns:repeat(3,1fr); } }
         .stat-card {
-            background: var(--surface);
-            border-radius: var(--radius);
-            padding: 14px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            text-align: center;
-            border-left: 4px solid var(--primary);
+            background:var(--surface); border-radius:var(--radius); padding:12px;
+            box-shadow:var(--shadow); border:1px solid var(--border); text-align:center;
+            border-left:4px solid var(--primary);
         }
-        .stat-card.green { border-left-color: var(--success); }
-        .stat-card.red { border-left-color: var(--danger); }
-        .stat-card.blue { border-left-color: #0ea5e9; }
-        .stat-card.gold { border-left-color: var(--warning); }
-        .stat-value {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 2px;
-        }
-        .stat-label {
-            font-size: 10px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Forms */
-        .form-group { margin-bottom: 12px; }
-        .form-label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 4px;
-            font-size: 12px;
-        }
+        .stat-card.green { border-left-color:var(--success); }
+        .stat-card.red { border-left-color:var(--danger); }
+        .stat-card.blue { border-left-color:#0ea5e9; }
+        .stat-card.gold { border-left-color:var(--warning); }
+        .stat-value { font-size:20px; font-weight:800; color:var(--primary); }
+        .stat-label { font-size:10px; color:var(--text2); text-transform:uppercase; letter-spacing:.5px; }
+        .form-group { margin-bottom:10px; }
+        .form-label { display:block; font-weight:600; margin-bottom:3px; font-size:11px; }
         .form-input {
-            width: 100%;
-            padding: 10px 14px;
-            border: 2px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 14px;
-            background: var(--surface);
-            color: var(--text);
-            font-family: inherit;
-            transition: all 0.2s;
+            width:100%; padding:10px 12px; border:2px solid var(--border);
+            border-radius:8px; font-size:13px; background:var(--surface); color:var(--text);
+            font-family:inherit; transition:all .2s;
         }
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
-        }
-        .input-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .input-row-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-        }
-
-        /* Buttons */
+        .form-input:focus { outline:none; border-color:var(--primary); box-shadow:0 0 0 3px rgba(15,118,110,.08); }
+        .input-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+        .input-row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
         .btn {
-            padding: 12px 20px;
-            border: none;
-            border-radius: var(--radius-sm);
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 13px;
-            font-family: inherit;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
+            padding:11px 16px; border:none; border-radius:8px; font-weight:600;
+            cursor:pointer; font-size:12px; font-family:inherit; transition:all .2s;
+            display:inline-flex; align-items:center; justify-content:center; gap:5px;
         }
-        .btn:active { transform: scale(0.97); }
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            width: 100%;
-        }
-        .btn-primary:hover { background: var(--primary-dark); }
-        .btn-danger {
-            background: var(--danger);
-            color: white;
-        }
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            width: 100%;
-        }
-        .btn-sm {
-            padding: 6px 10px;
-            font-size: 11px;
-        }
-
-        /* Tables */
-        .table-container { overflow-x: auto; }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-        }
-        th {
-            background: var(--bg);
-            padding: 8px 10px;
-            text-align: left;
-            font-weight: 700;
-            font-size: 10px;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            white-space: nowrap;
-        }
-        td {
-            padding: 8px 10px;
-            border-bottom: 1px solid var(--border);
-            white-space: nowrap;
-        }
-
-        /* Toast */
-        .toast-container {
-            position: fixed;
-            top: 80px;
-            right: 16px;
-            z-index: 300;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .toast {
-            padding: 12px 18px;
-            border-radius: var(--radius-sm);
-            color: white;
-            font-weight: 600;
-            font-size: 13px;
-            animation: slideIn 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-        .toast-success { background: var(--success); }
-        .toast-error { background: var(--danger); }
-        .toast-info { background: #0ea5e9; }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        /* Loading */
-        .loading-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.4);
-            z-index: 250;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-        .loading-overlay.show { display: flex; }
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255,255,255,0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
-            z-index: 200;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-        }
-        .modal-overlay.show { display: flex; }
-        .modal {
-            background: var(--surface);
-            border-radius: var(--radius);
-            padding: 24px;
-            width: 100%;
-            max-width: 450px;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow-lg);
-        }
-        .modal h3 { margin-bottom: 16px; }
-
-        /* Prediksi */
-        .prediction-box {
-            padding: 14px;
-            border-radius: var(--radius-sm);
-            font-weight: 700;
-            font-size: 14px;
-            margin: 8px 0;
-            text-align: center;
-        }
-
-        /* Responsive */
-        @media (max-width: 400px) {
-            .input-row, .input-row-3 { grid-template-columns: 1fr; }
-            .header h1 { font-size: 16px; }
-        }
+        .btn:active { transform:scale(.97); }
+        .btn-primary { background:var(--primary); color:#fff; width:100%; }
+        .btn-primary:hover { background:var(--primary-dark); }
+        .btn-danger { background:var(--danger); color:#fff; width:100%; }
+        .btn-outline { background:transparent; border:2px solid var(--primary); color:var(--primary); width:100%; }
+        .btn-sm { padding:5px 8px; font-size:10px; width:auto; }
+        .table-container { overflow-x:auto; }
+        table { width:100%; border-collapse:collapse; font-size:11px; }
+        th { background:var(--bg); padding:7px 8px; text-align:left; font-weight:700; font-size:9px; text-transform:uppercase; color:var(--text2); white-space:nowrap; }
+        td { padding:7px 8px; border-bottom:1px solid var(--border); white-space:nowrap; }
+        tr:hover td { background:rgba(15,118,110,.03); }
+        .toast-container { position:fixed; top:70px; right:12px; z-index:300; display:flex; flex-direction:column; gap:6px; }
+        .toast { padding:10px 16px; border-radius:8px; color:#fff; font-weight:600; font-size:12px; animation:slideIn .3s ease; box-shadow:0 4px 15px rgba(0,0,0,.25); }
+        .toast-success { background:var(--success); } .toast-error { background:var(--danger); } .toast-info { background:#0ea5e9; }
+        @keyframes slideIn { from{transform:translateX(100%);opacity:0;} to{transform:translateX(0);opacity:1;} }
+        .loading-overlay { position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:250; display:none; align-items:center; justify-content:center; }
+        .loading-overlay.show { display:flex; }
+        .loading-spinner { width:36px; height:36px; border:3px solid rgba(255,255,255,.3); border-top-color:#fff; border-radius:50%; animation:spin .6s linear infinite; }
+        @keyframes spin { to{transform:rotate(360deg);} }
+        .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:200; display:none; align-items:center; justify-content:center; padding:14px; }
+        .modal-overlay.show { display:flex; }
+        .modal { background:var(--surface); border-radius:var(--radius); padding:20px; width:100%; max-width:420px; max-height:80vh; overflow-y:auto; box-shadow:0 10px 25px rgba(0,0,0,.15); }
+        .modal h3 { margin-bottom:14px; }
+        .prediction-box { padding:12px; border-radius:8px; font-weight:700; font-size:13px; margin:6px 0; text-align:center; }
+        .text-sm { font-size:10px; color:var(--text2); }
+        .text-center { text-align:center; }
+        .mt-2 { margin-top:8px; }
+        @media(max-width:380px){ .input-row,.input-row-3 { grid-template-columns:1fr; } .header h1 { font-size:15px; } }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- HEADER -->
     <header class="header">
-        <div class="header-left">
-            <span style="font-size:24px;">⛽</span>
+        <div style="display:flex;align-items:center;gap:6px;">
+            <span style="font-size:20px;">⛽</span>
             <h1>GALS NextGen</h1>
         </div>
         <div style="display:flex;align-items:center;gap:8px;">
             <span class="version-badge">v12.8</span>
-            <button class="icon-btn" onclick="toggleTheme()" title="Toggle Theme">🌓</button>
+            <button class="icon-btn" onclick="toggleTheme()" title="Ganti Tema">🌓</button>
         </div>
     </header>
 
-    <!-- Toast Container -->
+    <!-- TOAST -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- Loading -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
-    </div>
+    <!-- LOADING -->
+    <div class="loading-overlay" id="loadingOverlay"><div class="loading-spinner"></div></div>
 
-    <!-- Main Content -->
+    <!-- MAIN CONTENT -->
     <main class="main-content">
-        
-        <!-- Dashboard Page -->
+
+        <!-- DASHBOARD PAGE -->
         <div class="page active" id="page-dashboard">
             <div class="stats-grid" id="dashboardStats">
                 <div class="stat-card"><div class="stat-value">-</div><div class="stat-label">Omzet</div></div>
                 <div class="stat-card green"><div class="stat-value">-</div><div class="stat-label">Laba</div></div>
                 <div class="stat-card blue"><div class="stat-value">-</div><div class="stat-label">Gas Terjual</div></div>
-                <div class="stat-card gold"><div class="stat-value">-</div><div class="stat-label">Galon Terjual</div></div>
+                <div class="stat-card gold"><div class="stat-value">-</div><div class="stat-label">Galon</div></div>
                 <div class="stat-card"><div class="stat-value">-</div><div class="stat-label">Transaksi</div></div>
                 <div class="stat-card red"><div class="stat-value">-</div><div class="stat-label">Prediksi Stok</div></div>
             </div>
-            
             <div class="card">
                 <div class="card-header">📊 Grafik Penjualan 7 Hari Terakhir</div>
-                <canvas id="salesChart" height="250"></canvas>
+                <canvas id="salesChart" height="220"></canvas>
             </div>
-            
-            <div class="card" id="predictionCard">
+            <div class="card">
                 <div class="card-header">🔮 Prediksi Stok</div>
-                <div id="predictionContent">Memuat...</div>
+                <div id="predictionContent">Memuat data prediksi...</div>
             </div>
         </div>
 
-        <!-- Input Page -->
+        <!-- INPUT PAGE -->
         <div class="page" id="page-input">
             <div class="card">
                 <div class="card-header">📝 Input Penjualan</div>
@@ -434,13 +175,12 @@
                         <label class="form-label">📅 Tanggal</label>
                         <input type="date" class="form-input" id="inputTanggal" required>
                     </div>
-                    
+                    <!-- GAS 22-23K GABUNGAN (backend auto split 55/45) -->
                     <div class="form-group">
-                        <label class="form-label">🔥 Gas 22/23K (Total)</label>
-                        <input type="number" class="form-input" id="inputGas2223" placeholder="0" min="0" value="0" required>
-                        <small style="color:var(--text-secondary);">Auto split: 55% Gas 22K + 45% Gas 23K</small>
+                        <label class="form-label">🔥 Gas 22-23K (Total)</label>
+                        <input type="number" class="form-input" id="inputGas2223" placeholder="Jumlah total gas 22K + 23K" min="0" value="0" required>
+                        <span class="text-sm">Auto split: 55% Gas 22K + 45% Gas 23K oleh backend</span>
                     </div>
-                    
                     <div class="input-row">
                         <div class="form-group">
                             <label class="form-label">💗 Gas Pink</label>
@@ -451,7 +191,6 @@
                             <input type="number" class="form-input" id="inputShodaqoh" placeholder="0" min="0" value="0">
                         </div>
                     </div>
-                    
                     <div class="input-row-3">
                         <div class="form-group">
                             <label class="form-label">💧 Galon 3K</label>
@@ -466,61 +205,45 @@
                             <input type="number" class="form-input" id="inputGalon5k" placeholder="0" min="0" value="0">
                         </div>
                     </div>
-                    
                     <div class="form-group">
                         <label class="form-label">💰 Pemasukan Lain</label>
                         <input type="number" class="form-input" id="inputPemasukanLain" placeholder="0" min="0" value="0">
-                        <input type="text" class="form-input" id="inputKetPemasukan" placeholder="Keterangan pemasukan lain" style="margin-top:6px;">
+                        <input type="text" class="form-input" id="inputKetPemasukan" placeholder="Keterangan pemasukan lain" style="margin-top:4px;">
                     </div>
-                    
                     <input type="hidden" id="editingId">
                     <input type="hidden" id="editingVersion">
-                    
                     <button type="submit" class="btn btn-primary" id="btnSimpan">💾 Simpan Penjualan</button>
-                    <button type="button" class="btn btn-danger" id="btnHapusForm" style="display:none;width:100%;margin-top:8px;" onclick="deleteEntry()">🗑️ Hapus Data Ini</button>
-                    <button type="button" class="btn btn-outline" style="margin-top:8px;" onclick="resetForm()">🔄 Reset Form</button>
+                    <button type="button" class="btn btn-danger" id="btnHapusForm" style="display:none;margin-top:6px;" onclick="deleteEntry()">🗑️ Hapus Data Ini</button>
+                    <button type="button" class="btn btn-outline" style="margin-top:6px;" onclick="resetForm()">🔄 Reset Form</button>
                 </form>
             </div>
         </div>
 
-        <!-- History Page -->
+        <!-- HISTORY PAGE -->
         <div class="page" id="page-history">
             <div class="card">
                 <div class="card-header">
                     📋 Riwayat Transaksi
-                    <select class="form-input" id="historyMonth" onchange="loadHistory()" style="width:auto;margin-left:auto;">
-                        <!-- Populated by JS -->
-                    </select>
+                    <select class="form-input" id="historyMonth" onchange="loadHistory()" style="width:auto;margin-left:auto;"></select>
                 </div>
                 <div class="table-container">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>Tanggal</th>
-                                <th>Gas</th>
-                                <th>Galon</th>
-                                <th>Omzet</th>
-                                <th>Laba</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="historyTableBody">
-                            <tr><td colspan="6" style="text-align:center;">Memuat data...</td></tr>
-                        </tbody>
+                        <thead><tr><th>Tanggal</th><th>Gas 22</th><th>Gas 23</th><th>Pink</th><th>Galon</th><th>Omzet</th><th>Laba</th><th>Aksi</th></tr></thead>
+                        <tbody id="historyBody"><tr><td colspan="8" class="text-center">Memuat data...</td></tr></tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- Settings Page -->
+        <!-- TOOLS PAGE -->
         <div class="page" id="page-settings">
             <div class="card">
                 <div class="card-header">⚙️ Pengaturan & Tools</div>
-                <button class="btn btn-outline" onclick="openSetoranModal()" style="margin-bottom:8px;">💵 Kelola Setoran</button>
-                <button class="btn btn-outline" onclick="openTargetModal()" style="margin-bottom:8px;">🎯 Set Target Bulanan</button>
-                <button class="btn btn-outline" onclick="openStokModal()" style="margin-bottom:8px;">📦 Input Stok Masuk</button>
-                <button class="btn btn-outline" onclick="exportData()" style="margin-bottom:8px;">📄 Export Laporan</button>
-                <button class="btn btn-outline" onclick="checkHealth()" style="margin-bottom:8px;">💓 Cek Kesehatan Sistem</button>
+                <button class="btn btn-outline" onclick="openSetoranModal()" style="margin-bottom:6px;">💵 Kelola Setoran</button>
+                <button class="btn btn-outline" onclick="openTargetModal()" style="margin-bottom:6px;">🎯 Set Target Bulanan</button>
+                <button class="btn btn-outline" onclick="openStokModal()" style="margin-bottom:6px;">📦 Input Stok Masuk</button>
+                <button class="btn btn-outline" onclick="exportData()" style="margin-bottom:6px;">📄 Export Laporan Bulanan</button>
+                <button class="btn btn-outline" onclick="checkHealth()">💓 Cek Kesehatan Sistem</button>
             </div>
             <div class="card">
                 <div class="card-header">ℹ️ Informasi Sistem</div>
@@ -529,7 +252,7 @@
         </div>
     </main>
 
-    <!-- Bottom Navigation -->
+    <!-- BOTTOM NAVIGATION -->
     <nav class="bottom-nav">
         <button class="nav-item active" onclick="switchPage('dashboard')">
             <span class="nav-icon">📊</span> Dashboard
@@ -545,25 +268,32 @@
         </button>
     </nav>
 
-    <!-- Modal Container -->
+    <!-- MODAL -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
         <div class="modal" id="modalContent" onclick="event.stopPropagation()"></div>
     </div>
 
     <script>
-        // ==================== CONFIGURATION ====================
+        // ==================== KONFIGURASI ====================
         const API_URL = 'https://script.google.com/macros/s/AKfycbzUUWlalC98MA1SrN-jEHR1VPhmzx1FLEt_Z5xcrKmYJGcwjc6wyHkUh_LdNobhIcdoJg/exec';
         const TOKEN = 'GALS2026';
 
-        let currentPage = 'dashboard';
-        let salesChart = null;
+        // State
         let allData = [];
+        let salesChart = null;
+        let editingId = null;
+        let editingVersion = null;
 
-        // ==================== INITIALIZATION ====================
+        // ==================== INIT ====================
         document.addEventListener('DOMContentLoaded', () => {
+            // Set tanggal default hari ini
             document.getElementById('inputTanggal').value = new Date().toISOString().split('T')[0];
+            
+            // Load tema tersimpan
             const savedTheme = localStorage.getItem('gals_theme') || 'light';
             document.documentElement.setAttribute('data-theme', savedTheme);
+            
+            // Load data
             loadDashboard();
             populateMonthSelector();
         });
@@ -579,10 +309,11 @@
         // ==================== NAVIGATION ====================
         function switchPage(page) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(`page-${page}`).classList.add('active');
+            document.getElementById('page-' + page).classList.add('active');
+            
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.querySelector(`.nav-item[onclick="switchPage('${page}')"]`).classList.add('active');
-            currentPage = page;
+            
             if (page === 'dashboard') loadDashboard();
             if (page === 'history') loadHistory();
             if (page === 'settings') loadSystemInfo();
@@ -592,10 +323,10 @@
         function showToast(message, type = 'info') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
+            toast.className = 'toast toast-' + type;
             toast.textContent = message;
             container.appendChild(toast);
-            setTimeout(() => { toast.remove(); }, 3000);
+            setTimeout(() => toast.remove(), 3000);
         }
 
         // ==================== LOADING ====================
@@ -603,34 +334,32 @@
             document.getElementById('loadingOverlay').classList.toggle('show', show);
         }
 
-        // ==================== API CALLS ====================
+        // ==================== FORMAT ====================
+        function formatRupiah(n) {
+            return Number(n || 0).toLocaleString('id-ID');
+        }
+
+        // ==================== API CALL ====================
         async function apiCall(action, params = {}, method = 'GET') {
             const url = new URL(API_URL);
-            url.searchParams.append('action', action);
-            url.searchParams.append('token', TOKEN);
+            url.searchParams.set('action', action);
+            url.searchParams.set('token', TOKEN);
             
             if (method === 'GET') {
-                Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-            }
-            
-            const options = { method };
-            if (method === 'POST') {
-                options.body = new URLSearchParams(params);
+                Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
             }
             
             try {
-                const response = await fetch(url, options);
+                const response = await fetch(url, {
+                    method,
+                    body: method === 'POST' ? new URLSearchParams(params) : null
+                });
                 const result = await response.json();
                 return result;
             } catch (error) {
                 console.error('API Error:', error);
-                return { success: false, error: { message: 'Gagal terhubung ke server' } };
+                return { success: false, error: { message: 'Gagal terhubung ke server. Cek koneksi internet.' } };
             }
-        }
-
-        // ==================== FORMAT RUPIAH ====================
-        function formatRupiah(amount) {
-            return Number(amount || 0).toLocaleString('id-ID');
         }
 
         // ==================== DASHBOARD ====================
@@ -643,16 +372,22 @@
                 ]);
                 
                 if (dataRes.success) {
-                    allData = dataRes.data;
+                    allData = dataRes.data || [];
                     renderDashboardStats(allData);
                     renderSalesChart(allData);
+                } else {
+                    allData = [];
+                    renderDashboardStats([]);
                 }
                 
                 if (prediksiRes && prediksiRes.success) {
                     renderPrediction(prediksiRes);
+                } else {
+                    document.getElementById('predictionContent').innerHTML = '<p class="text-center">⚠️ Gagal memuat prediksi stok</p>';
                 }
             } catch (error) {
                 console.error('Dashboard error:', error);
+                showToast('Gagal memuat dashboard', 'error');
             }
             showLoading(false);
         }
@@ -667,18 +402,40 @@
                 totalGalon += Number(row[6] || 0) + Number(row[7] || 0) + Number(row[8] || 0);
             });
             
-            const stats = document.getElementById('dashboardStats').children;
-            stats[0].querySelector('.stat-value').textContent = 'Rp ' + formatRupiah(totalOmzet);
-            stats[1].querySelector('.stat-value').textContent = 'Rp ' + formatRupiah(totalLaba);
-            stats[2].querySelector('.stat-value').textContent = totalGas;
-            stats[3].querySelector('.stat-value').textContent = totalGalon;
-            stats[4].querySelector('.stat-value').textContent = data.length;
+            const stats = document.getElementById('dashboardStats');
+            stats.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-value">Rp ${formatRupiah(totalOmzet)}</div>
+                    <div class="stat-label">💰 Total Omzet</div>
+                </div>
+                <div class="stat-card green">
+                    <div class="stat-value">Rp ${formatRupiah(totalLaba)}</div>
+                    <div class="stat-label">📈 Total Laba</div>
+                </div>
+                <div class="stat-card blue">
+                    <div class="stat-value">${totalGas}</div>
+                    <div class="stat-label">🔥 Gas Terjual</div>
+                </div>
+                <div class="stat-card gold">
+                    <div class="stat-value">${totalGalon}</div>
+                    <div class="stat-label">💧 Galon Terjual</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${data.length}</div>
+                    <div class="stat-label">📋 Total Transaksi</div>
+                </div>
+                <div class="stat-card red">
+                    <div class="stat-value">${data.length ? 'Rp ' + formatRupiah(totalOmzet / data.length) : '0'}</div>
+                    <div class="stat-label">📊 Rata-rata Omzet</div>
+                </div>
+            `;
         }
 
         function renderSalesChart(data) {
             const ctx = document.getElementById('salesChart').getContext('2d');
             if (salesChart) salesChart.destroy();
             
+            // 7 hari terakhir
             const last7Days = [];
             for (let i = 6; i >= 0; i--) {
                 const d = new Date();
@@ -696,13 +453,15 @@
                 return total;
             });
             
+            const labels = last7Days.map(d => {
+                const date = new Date(d);
+                return date.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric' });
+            });
+            
             salesChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: last7Days.map(d => {
-                        const date = new Date(d);
-                        return date.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric' });
-                    }),
+                    labels,
                     datasets: [{
                         label: 'Omzet Harian',
                         data: dailyTotals,
@@ -715,15 +474,11 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
+                    plugins: { legend: { display: false } },
                     scales: {
                         y: {
                             beginAtZero: true,
-                            ticks: {
-                                callback: value => 'Rp ' + formatRupiah(value)
-                            }
+                            ticks: { callback: value => 'Rp ' + formatRupiah(value) }
                         }
                     }
                 }
@@ -733,19 +488,26 @@
         function renderPrediction(prediksi) {
             const container = document.getElementById('predictionContent');
             const bgColor = prediksi.warna || '#dc2626';
+            
+            let detailHTML = '';
+            if (prediksi.detail) {
+                detailHTML = `
+                    <div style="display:flex;gap:12px;justify-content:center;margin-top:8px;font-size:11px;">
+                        <span>🔥 22K: <b>${prediksi.detail.GAS22 || 0}</b></span>
+                        <span>🔥 23K: <b>${prediksi.detail.GAS23 || 0}</b></span>
+                        <span>💗 Pink: <b>${prediksi.detail.GASPINK || 0}</b></span>
+                    </div>
+                `;
+            }
+            
             container.innerHTML = `
                 <div class="prediction-box" style="background:${bgColor}20;color:${bgColor};border:2px solid ${bgColor};">
-                    ${prediksi.status || '-'}
+                    ${prediksi.status || '🔴 Tidak ada data'}
                 </div>
                 <p style="margin:4px 0;">📦 Sisa Stok: <strong>${prediksi.sisaStok || 0} tabung</strong></p>
                 <p style="margin:4px 0;">📊 Rata-rata Penjualan/Hari: <strong>${prediksi.rataRata || 0} tabung</strong></p>
-                ${prediksi.prediksiHabis ? `<p style="margin:4px 0;">⏰ Prediksi Habis: <strong>${prediksi.prediksiHabis} hari lagi</strong></p>` : ''}
-                ${prediksi.detail ? `
-                    <p style="margin:4px 0;font-size:11px;color:var(--text-secondary);">
-                        Gas 22K: ${prediksi.detail.GAS22 || 0} | 
-                        Gas 23K: ${prediksi.detail.GAS23 || 0} | 
-                        Pink: ${prediksi.detail.GASPINK || 0}
-                    </p>` : ''}
+                ${prediksi.prediksiHabis ? `<p style="margin:4px 0;">⏰ Prediksi Habis: <strong>${prediksi.prediksiHabis} hari lagi</strong></p>` : '<p style="margin:4px 0;">⏰ Prediksi Habis: <strong>Belum bisa dihitung</strong></p>'}
+                ${detailHTML}
             `;
         }
 
@@ -753,7 +515,7 @@
         async function submitSales(event) {
             event.preventDefault();
             
-            const editingId = document.getElementById('editingId').value;
+            // Ambil nilai dari form
             const params = {
                 gas2223: document.getElementById('inputGas2223').value || 0,
                 gasPink: document.getElementById('inputGasPink').value || 0,
@@ -769,7 +531,7 @@
             const action = editingId ? 'update' : 'simpan';
             if (editingId) {
                 params.id = editingId;
-                params.version = document.getElementById('editingVersion').value;
+                params.version = editingVersion;
             }
             
             showLoading(true);
@@ -781,26 +543,29 @@
                 resetForm();
                 loadDashboard();
             } else {
-                showToast('❌ ' + (result.error?.message || 'Gagal menyimpan'), 'error');
+                const errorMsg = result.error?.message || 'Gagal menyimpan data';
+                showToast('❌ ' + errorMsg, 'error');
             }
         }
 
         function resetForm() {
             document.getElementById('salesForm').reset();
             document.getElementById('inputTanggal').value = new Date().toISOString().split('T')[0];
-            document.getElementById('editingId').value = '';
-            document.getElementById('editingVersion').value = '';
+            editingId = null;
+            editingVersion = null;
             document.getElementById('btnSimpan').textContent = '💾 Simpan Penjualan';
             document.getElementById('btnHapusForm').style.display = 'none';
         }
 
         async function deleteEntry() {
-            const id = document.getElementById('editingId').value;
-            if (!id) return;
-            if (!confirm('Yakin ingin menghapus data ini?')) return;
+            if (!editingId) {
+                showToast('⚠️ Tidak ada data yang dipilih', 'error');
+                return;
+            }
+            if (!confirm('Yakin ingin menghapus data ini? Data akan di-soft delete.')) return;
             
             showLoading(true);
-            const result = await apiCall('hapus', { id }, 'POST');
+            const result = await apiCall('hapus', { id: editingId }, 'POST');
             showLoading(false);
             
             if (result.success) {
@@ -813,30 +578,39 @@
         }
 
         function editEntry(id, version) {
-            const data = allData.find(row => String(row[0]) === id);
-            if (!data) return;
+            const row = allData.find(r => String(r[0]) === id);
+            if (!row) {
+                showToast('⚠️ Data tidak ditemukan', 'error');
+                return;
+            }
             
-            document.getElementById('editingId').value = id;
-            document.getElementById('editingVersion').value = version;
-            document.getElementById('inputTanggal').value = data[1] || '';
-            document.getElementById('inputGas2223').value = (Number(data[3] || 0) + Number(data[4] || 0));
-            document.getElementById('inputGasPink').value = data[5] || 0;
-            document.getElementById('inputGalon3k').value = data[6] || 0;
-            document.getElementById('inputGalon4k').value = data[7] || 0;
-            document.getElementById('inputGalon5k').value = data[8] || 0;
-            document.getElementById('inputPemasukanLain').value = data[9] || 0;
-            document.getElementById('inputKetPemasukan').value = data[10] || '';
-            document.getElementById('inputShodaqoh').value = data[35] || 0;
+            editingId = id;
+            editingVersion = version || row[49] || 1;
+            
+            document.getElementById('inputTanggal').value = String(row[1] || '').split('T')[0];
+            document.getElementById('inputGas2223').value = Number(row[3] || 0) + Number(row[4] || 0);
+            document.getElementById('inputGasPink').value = row[5] || 0;
+            document.getElementById('inputGalon3k').value = row[6] || 0;
+            document.getElementById('inputGalon4k').value = row[7] || 0;
+            document.getElementById('inputGalon5k').value = row[8] || 0;
+            document.getElementById('inputPemasukanLain').value = row[9] || 0;
+            document.getElementById('inputKetPemasukan').value = row[10] || '';
+            document.getElementById('inputShodaqoh').value = row[35] || 0;
             
             document.getElementById('btnSimpan').textContent = '✏️ Update Penjualan';
             document.getElementById('btnHapusForm').style.display = 'block';
             
+            // Pindah ke halaman input
             switchPage('input');
+            
+            // Scroll ke atas
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // ==================== HISTORY ====================
         function populateMonthSelector() {
             const select = document.getElementById('historyMonth');
+            select.innerHTML = '';
             const now = new Date();
             for (let i = 0; i < 12; i++) {
                 const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
@@ -855,67 +629,100 @@
             const result = await apiCall('getData', { bulan });
             showLoading(false);
             
-            const tbody = document.getElementById('historyTableBody');
-            if (!result.success || !result.data.length) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Tidak ada data</td></tr>';
+            const tbody = document.getElementById('historyBody');
+            
+            if (!result.success) {
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center">❌ Gagal memuat data</td></tr>';
+                return;
+            }
+            
+            if (!result.data || result.data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center">📭 Tidak ada data untuk bulan ini</td></tr>';
                 return;
             }
             
             allData = result.data;
+            
             tbody.innerHTML = result.data.map(row => {
-                const gas = (Number(row[3] || 0) + Number(row[4] || 0) + Number(row[5] || 0));
-                const galon = (Number(row[6] || 0) + Number(row[7] || 0) + Number(row[8] || 0));
+                const tgl = String(row[1] || '').split('T')[0];
+                const gas22 = row[3] || 0;
+                const gas23 = row[4] || 0;
+                const gasPink = row[5] || 0;
+                const galon3k = row[6] || 0;
+                const galon4k = row[7] || 0;
+                const galon5k = row[8] || 0;
+                const totalGalon = Number(galon3k) + Number(galon4k) + Number(galon5k);
+                const omzet = row[36] || 0;
+                const laba = row[45] || 0;
+                
                 return `
                     <tr>
-                        <td>${row[1] || '-'}</td>
-                        <td>${gas}</td>
-                        <td>${galon}</td>
-                        <td>Rp ${formatRupiah(row[36] || 0)}</td>
-                        <td>Rp ${formatRupiah(row[45] || 0)}</td>
+                        <td><b>${tgl}</b></td>
+                        <td>${gas22}</td>
+                        <td>${gas23}</td>
+                        <td>${gasPink}</td>
+                        <td>${totalGalon}</td>
+                        <td>Rp ${formatRupiah(omzet)}</td>
+                        <td>Rp ${formatRupiah(laba)}</td>
                         <td>
                             <button class="btn btn-sm btn-outline" onclick="editEntry('${row[0]}', '${row[49] || 1}')">✏️</button>
                         </td>
                     </tr>
                 `;
-            }).join('');
+            }).reverse().join('');
         }
 
-        // ==================== SETTINGS / TOOLS ====================
+        // ==================== TOOLS ====================
         async function loadSystemInfo() {
             const result = await apiCall('health');
-            document.getElementById('systemInfo').innerHTML = result.success ? `
-                <p>✅ Status: <strong>${result.status || 'ONLINE'}</strong></p>
-                <p>📌 Versi: <strong>${result.version || '-'}</strong></p>
-                <p>📅 Build: <strong>${result.build || '-'}</strong></p>
-                <p>📊 Jumlah Sheet: <strong>${result.sheets || 0}</strong></p>
-            ` : '<p>❌ Gagal memuat info sistem</p>';
+            const info = document.getElementById('systemInfo');
+            if (result.success) {
+                info.innerHTML = `
+                    <p>✅ Status: <strong>${result.status || 'ONLINE'}</strong></p>
+                    <p>📌 Versi Backend: <strong>${result.version || '-'}</strong></p>
+                    <p>📅 Build: <strong>${result.build || '-'}</strong></p>
+                    <p>📊 Jumlah Sheet: <strong>${result.sheets || 0}</strong></p>
+                    <p>🔧 Maintenance Mode: <strong>${result.maintenance ? 'YA' : 'TIDAK'}</strong></p>
+                `;
+            } else {
+                info.innerHTML = '<p>❌ Gagal memuat informasi sistem</p>';
+            }
         }
 
         async function checkHealth() {
+            showLoading(true);
             const result = await apiCall('health');
+            showLoading(false);
             if (result.success) {
-                showToast(`✅ Sistem ${result.status || 'sehat'}! Versi ${result.version}`, 'success');
+                showToast(`✅ Sistem ${result.status || 'sehat'}! Versi ${result.version || '-'}`, 'success');
             } else {
-                showToast('❌ Sistem bermasalah!', 'error');
+                showToast('❌ Sistem sedang bermasalah!', 'error');
             }
         }
 
         async function exportData() {
             const bulan = new Date().toISOString().slice(0, 7);
             showLoading(true);
-            const result = await apiCall('exportPDF', { bulan });
-            showLoading(false);
-            
-            if (result.success) {
-                const blob = new Blob([JSON.stringify(result, null, 2)], { type: 'text/plain' });
+            try {
+                const response = await fetch(API_URL + '?action=exportPDF&token=' + TOKEN + '&bulan=' + bulan);
+                const text = await response.text();
+                showLoading(false);
+                
+                // Buat file download
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
                 a.download = `Laporan_GALS_${bulan}.txt`;
+                document.body.appendChild(a);
                 a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
                 showToast('✅ Laporan berhasil diexport!', 'success');
-            } else {
-                showToast('❌ Gagal export data', 'error');
+            } catch (error) {
+                showLoading(false);
+                showToast('❌ Gagal export: ' + error.message, 'error');
             }
         }
 
@@ -931,45 +738,65 @@
         }
 
         async function openSetoranModal() {
+            showLoading(true);
             const result = await apiCall('getSetoran');
+            showLoading(false);
+            
             const data = result.data || [];
+            let historyHTML = '';
+            if (data.length > 0) {
+                historyHTML = data.map(s => `
+                    <tr><td>${s[1] || '-'}</td><td>Rp ${formatRupiah(s[3] || 0)}</td><td>${s[4] || '-'}</td></tr>
+                `).join('');
+            } else {
+                historyHTML = '<tr><td colspan="3" class="text-center">Belum ada setoran</td></tr>';
+            }
+            
             openModal(`
                 <h3>💵 Kelola Setoran</h3>
                 <div class="form-group">
-                    <label class="form-label">Jumlah Setoran</label>
-                    <input type="number" class="form-input" id="setoranJumlah" placeholder="0">
+                    <label class="form-label">Jumlah Setoran (Rp)</label>
+                    <input type="number" class="form-input" id="setoranJumlah" placeholder="0" min="0">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Keterangan</label>
-                    <input type="text" class="form-input" id="setoranKet" placeholder="Keterangan">
+                    <input type="text" class="form-input" id="setoranKet" placeholder="Keterangan setoran">
                 </div>
                 <button class="btn btn-primary" onclick="simpanSetoran()">💾 Simpan Setoran</button>
-                <hr style="margin:16px 0;">
-                <h4>Riwayat Setoran</h4>
-                <div style="max-height:200px;overflow-y:auto;">
-                    ${data.length ? data.map(s => `
-                        <p style="font-size:12px;margin:4px 0;">${s[1]} - Rp ${formatRupiah(s[3])} - ${s[4] || '-'}</p>
-                    `).join('') : '<p style="font-size:12px;">Belum ada setoran</p>'}
+                <hr style="margin:14px 0;">
+                <h4 style="margin-bottom:8px;">📋 Riwayat Setoran</h4>
+                <div class="table-container" style="max-height:200px;overflow-y:auto;">
+                    <table>
+                        <thead><tr><th>Tanggal</th><th>Jumlah</th><th>Ket</th></tr></thead>
+                        <tbody>${historyHTML}</tbody>
+                    </table>
                 </div>
-                <button class="btn btn-outline" style="margin-top:8px;" onclick="closeModal()">Tutup</button>
+                <button class="btn btn-outline mt-2" onclick="closeModal()">Tutup</button>
             `);
         }
 
         async function simpanSetoran() {
             const jumlah = document.getElementById('setoranJumlah').value;
-            const ket = document.getElementById('setoranKet').value;
-            if (!jumlah || jumlah <= 0) {
-                showToast('❌ Jumlah harus diisi!', 'error');
+            const keterangan = document.getElementById('setoranKet').value;
+            
+            if (!jumlah || Number(jumlah) <= 0) {
+                showToast('❌ Jumlah setoran harus diisi!', 'error');
                 return;
             }
+            
             showLoading(true);
-            const result = await apiCall('simpanSetoran', { jumlah, keterangan: ket, tanggal: new Date().toISOString().split('T')[0] }, 'POST');
+            const result = await apiCall('simpanSetoran', {
+                jumlah: jumlah,
+                keterangan: keterangan || 'Setoran',
+                tanggal: new Date().toISOString().split('T')[0]
+            }, 'POST');
             showLoading(false);
+            
             if (result.success) {
                 showToast('✅ Setoran berhasil disimpan!', 'success');
                 closeModal();
             } else {
-                showToast('❌ Gagal menyimpan setoran', 'error');
+                showToast('❌ Gagal: ' + (result.error?.message || 'Error'), 'error');
             }
         }
 
@@ -981,65 +808,83 @@
                     <input type="month" class="form-input" id="targetBulan" value="${new Date().toISOString().slice(0,7)}">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Target Omzet</label>
-                    <input type="number" class="form-input" id="targetOmzet" placeholder="0">
+                    <label class="form-label">Target Omzet (Rp)</label>
+                    <input type="number" class="form-input" id="targetOmzet" placeholder="0" min="0">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Target Laba</label>
-                    <input type="number" class="form-input" id="targetLaba" placeholder="0">
+                    <label class="form-label">Target Laba (Rp)</label>
+                    <input type="number" class="form-input" id="targetLaba" placeholder="0" min="0">
                 </div>
                 <button class="btn btn-primary" onclick="simpanTarget()">💾 Simpan Target</button>
-                <button class="btn btn-outline" style="margin-top:8px;" onclick="closeModal()">Tutup</button>
+                <button class="btn btn-outline mt-2" onclick="closeModal()">Tutup</button>
             `);
         }
 
         async function simpanTarget() {
             const bulan = document.getElementById('targetBulan').value;
-            const omzet = document.getElementById('targetOmzet').value;
-            const laba = document.getElementById('targetLaba').value;
+            const targetOmzet = document.getElementById('targetOmzet').value;
+            const targetLaba = document.getElementById('targetLaba').value;
+            
+            if (!targetOmzet || Number(targetOmzet) <= 0) {
+                showToast('❌ Target omzet harus diisi!', 'error');
+                return;
+            }
+            
             showLoading(true);
-            const result = await apiCall('setTarget', { bulan, targetOmzet: omzet, targetLaba: laba }, 'POST');
+            const result = await apiCall('setTarget', {
+                bulan,
+                targetOmzet,
+                targetLaba: targetLaba || 0
+            }, 'POST');
             showLoading(false);
+            
             if (result.success) {
                 showToast('✅ Target berhasil disimpan!', 'success');
                 closeModal();
             } else {
-                showToast('❌ Gagal menyimpan target', 'error');
+                showToast('❌ Gagal: ' + (result.error?.message || 'Error'), 'error');
             }
         }
 
         function openStokModal() {
             openModal(`
-                <h3>📦 Input Stok Masuk</h3>
+                <h3>📦 Input Stok Gas Masuk</h3>
                 <div class="form-group">
-                    <label class="form-label">Jumlah Gas Masuk</label>
+                    <label class="form-label">Jumlah Gas Masuk (tabung)</label>
                     <input type="number" class="form-input" id="stokMasuk" placeholder="0" min="1">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Keterangan</label>
-                    <input type="text" class="form-input" id="stokKet" placeholder="Contoh: Truk datang">
+                    <input type="text" class="form-input" id="stokKet" placeholder="Contoh: Truk datang, isi ulang" value="🚛 Truk datang">
                 </div>
-                <button class="btn btn-primary" onclick="simpanStok()">💾 Simpan Stok</button>
-                <button class="btn btn-outline" style="margin-top:8px;" onclick="closeModal()">Tutup</button>
+                <button class="btn btn-primary" onclick="simpanStok()">💾 Simpan Stok Masuk</button>
+                <button class="btn btn-outline mt-2" onclick="closeModal()">Tutup</button>
             `);
         }
 
         async function simpanStok() {
             const gasMasuk = document.getElementById('stokMasuk').value;
-            const ket = document.getElementById('stokKet').value;
-            if (!gasMasuk || gasMasuk <= 0) {
-                showToast('❌ Jumlah harus > 0!', 'error');
+            const keterangan = document.getElementById('stokKet').value;
+            
+            if (!gasMasuk || Number(gasMasuk) <= 0) {
+                showToast('❌ Jumlah gas masuk harus > 0!', 'error');
                 return;
             }
+            
             showLoading(true);
-            const result = await apiCall('inputStok', { gasMasuk, keterangan: ket || 'Stok masuk' }, 'POST');
+            const result = await apiCall('inputStok', {
+                gasMasuk,
+                keterangan: keterangan || 'Stok masuk',
+                tanggal: new Date().toISOString().split('T')[0]
+            }, 'POST');
             showLoading(false);
+            
             if (result.success) {
                 showToast('✅ Stok berhasil diinput!', 'success');
                 closeModal();
-                loadDashboard();
+                loadDashboard(); // Refresh prediksi
             } else {
-                showToast('❌ Gagal input stok', 'error');
+                showToast('❌ Gagal: ' + (result.error?.message || 'Error'), 'error');
             }
         }
 

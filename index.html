@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>GALS NextGen v12.7 • Final Complete</title>
+<title>GALS NextGen v12.8 • Final Complete</title>
 
 <meta name="theme-color" content="#0f766e">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="description" content="GALS NextGen v12.7 - Complete Analytics Platform">
+<meta name="description" content="GALS NextGen v12.8 - Complete Analytics Platform">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
@@ -210,18 +210,18 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
 }
 [data-theme="dark"] .input-group input, [data-theme="dark"] .input-group select { background: #1e293b; color: #f8fafc; border-color: #334155; }
 
-/* OPERASIONAL TABLE */
-.op-table-wrap { overflow-x: visible; margin-top: 6px; }
-.op-table { width: 100%; min-width: 100%; font-size: 9px; border-collapse: collapse; }
-.op-table th { background: #f0fdfa; padding: 3px 5px; font-size: 8px; color: var(--primary); font-weight: 700; }
-.op-table td { padding: 2px 5px; border-bottom: 1px solid var(--border); white-space: normal; word-break: break-word; }
-.op-table input { width: 70px; padding: 3px 5px; border-radius: 5px; border: 1.5px solid var(--border); font-size: 9px; }
-.op-table .jatah { text-align: right; font-weight: 700; color: var(--warning); }
-.op-table .sisa { text-align: right; font-weight: 700; }
+/* OPERASIONAL TABLE - SIMETRIS */
+.op-table-wrap { margin-top: 6px; }
+.op-table { width: 100%; font-size: 10px; border-collapse: collapse; }
+.op-table th { background: #f0fdfa; padding: 6px 8px; font-size: 9px; color: var(--primary); font-weight: 700; text-align: center; }
+.op-table td { padding: 5px 8px; border-bottom: 1px solid var(--border); text-align: center; }
+.op-table td:first-child { text-align: left; font-weight: 600; }
+.op-table .jatah { font-weight: 700; color: var(--warning); }
+.op-table .real { color: var(--gray); }
+.op-table .sisa { font-weight: 700; }
 .op-table .sisa.plus { color: var(--success); }
 .op-table .sisa.minus { color: var(--danger); }
 [data-theme="dark"] .op-table th { background: #1e293b; color: #14b8a6; }
-[data-theme="dark"] .op-table input { background: #1e293b; color: #f8fafc; border-color: #334155; }
 
 /* BUTTONS */
 .btn-wrap { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
@@ -271,55 +271,12 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
   border: 1px solid var(--border); max-height: 80vh; overflow-y: auto;
 }
 .popup-overlay.active .popup-box { transform: translateY(0) scale(1); }
-.popup-header {
-  background: linear-gradient(135deg, var(--primary), var(--primary2));
-  padding: 18px 14px 45px; position: relative; overflow: hidden; color: #fff;
-}
+.popup-header { background: linear-gradient(135deg, var(--primary), var(--primary2)); padding: 18px 14px 45px; position: relative; overflow: hidden; color: #fff; }
 .popup-title { font-size: 16px; font-weight: 800; position: relative; z-index: 2; }
 .popup-subtitle { margin-top: 2px; font-size: 9px; opacity: 0.85; position: relative; z-index: 2; }
-.popup-icon {
-  position: absolute; bottom: -20px; left: 14px; width: 42px; height: 42px;
-  border-radius: 12px; background: #fff; color: var(--primary);
-  display: flex; align-items: center; justify-content: center; font-size: 20px;
-  box-shadow: 0 8px 20px rgba(15,118,110,0.2); z-index: 5;
-}
+.popup-icon { position: absolute; bottom: -20px; left: 14px; width: 42px; height: 42px; border-radius: 12px; background: #fff; color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 8px 20px rgba(15,118,110,0.2); z-index: 5; }
 .popup-body { padding: 28px 14px 14px; }
-.popup-close-btn {
-  position: absolute; top: 6px; right: 6px; width: 24px; height: 24px;
-  border: none; border-radius: 6px; background: rgba(255,255,255,0.15);
-  color: #fff; font-size: 14px; cursor: pointer; z-index: 10;
-}
-
-/* KPI TICKER */
-.kpi-ticker { background: linear-gradient(135deg, var(--primary), var(--primary2)); color: #fff; padding: 10px 0; overflow: hidden; border-radius: var(--radius-md); margin-bottom: 16px; }
-.kpi-ticker-wrap { display: flex; gap: 28px; animation: tickerScroll 20s linear infinite; white-space: nowrap; padding: 0 14px; }
-@keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-/* BUSINESS SCORE */
-.business-score { background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: var(--radius-xl); overflow: hidden; margin-bottom: 20px; color: #fff; padding: 24px; }
-
-/* AI PREDICTION */
-.ai-prediction-panel { background: linear-gradient(135deg, rgba(15,118,110,0.05), rgba(14,165,233,0.05)); border: 1px solid rgba(15,118,110,0.15); border-radius: var(--radius-xl); padding: 22px; margin-bottom: 20px; }
-
-/* INSIGHT CARDS */
-.insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-bottom: 20px; }
-
-/* SUMMARY CARDS */
-.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 20px; }
-
-/* ANOMALY */
-.anomaly-alert { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: var(--radius-md); margin-bottom: 14px; font-weight: 700; font-size: 11px; }
-.anomaly-alert.warning { background: linear-gradient(135deg, #fffbeb, #fef3c7); border: 1px solid #fde68a; color: #92400e; }
-.anomaly-alert.danger { background: linear-gradient(135deg, #fef2f2, #fee2e2); border: 1px solid #fecaca; color: #991b1b; }
-
-/* STOK ALERT */
-.stok-alert { margin-bottom: 16px; }
-
-/* TARGET TRACKER */
-.target-card { background: linear-gradient(135deg, var(--primary), var(--primary2)); color: #fff; padding: 16px; border-radius: var(--radius-lg); margin-bottom: 16px; }
-
-/* INFO EDIT */
-.info-edit { background: #fef3c7; padding: 6px 10px; border-radius: 8px; margin-bottom: 8px; font-size: 10px; color: #92400e; display: none; border-left: 3px solid var(--warning); }
+.popup-close-btn { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border: none; border-radius: 6px; background: rgba(255,255,255,0.15); color: #fff; font-size: 14px; cursor: pointer; z-index: 10; }
 
 @media(max-width:480px){ .header h1 { font-size: 18px; } .stat-value { font-size: 18px; } }
 </style>
@@ -345,7 +302,7 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
       <h1>🚀 GALS NextGen</h1>
       <p class="hero-greeting" id="heroGreeting">Selamat datang! Memuat data...</p>
     </div>
-    <span class="version-badge">v12.7</span>
+    <span class="version-badge">v12.8</span>
   </div>
 </header>
 
@@ -356,7 +313,7 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
   <div class="stok-alert" id="stokAlert"></div>
   <div id="targetTracker"></div>
 
-  <!-- ============ DASHBOARD PAGE ============ -->
+  <!-- DASHBOARD -->
   <div id="dashboardPage">
     <div class="section-title"><div class="sicon">🏠</div><div><h2>Dashboard</h2><p id="filterLabel">Semua data</p></div></div>
     <div class="filter-row">
@@ -373,7 +330,6 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
     <div class="chart-card" style="margin-bottom:12px;">
       <div class="info-edit" id="infoEdit">⚡ Mode Edit Aktif</div>
       
-      <!-- GAS & GALON -->
       <div class="form-grid">
         <div class="input-group"><label>📅 Tanggal</label><input type="date" id="tanggal"></div>
         <div class="input-group"><label>🔍 Edit via Tanggal</label><select id="pilihTanggal"><option value="">-- Pilih --</option></select></div>
@@ -431,17 +387,17 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
     </div>
   </div>
 
-  <!-- ============ GRAFIK PAGE ============ -->
+  <!-- GRAFIK -->
   <div id="grafikPage" style="display:none;"><div class="section-title"><div class="sicon">📊</div><div><h2>Grafik Premium</h2></div></div><div class="chart-grid" id="chartsContainer"></div></div>
 
-  <!-- ============ REKAP PAGE ============ -->
+  <!-- REKAP -->
   <div id="rekapPage" style="display:none;">
     <div class="section-title"><div class="sicon">📋</div><div><h2>Rekap Transaksi</h2><p>Total: <b id="totalData">0</b> data</p></div></div>
     <button class="btn btn-primary" id="btnExport" style="margin-bottom:12px;">📄 Export Laporan</button>
     <div class="table-card"><div class="table-responsive"><table><thead><tr><th>Tgl</th><th>Gas</th><th>Galon</th><th>Omzet</th><th>Kulakan</th><th>Ops</th><th>Zakat</th><th>Setoran</th><th>Laba</th><th>Aksi</th></tr></thead><tbody id="rekapBody"></tbody></table></div></div>
   </div>
 
-  <!-- ============ ANALISIS PAGE ============ -->
+  <!-- ANALISIS -->
   <div id="analisisPage" style="display:none;">
     <div class="kpi-ticker"><div class="kpi-ticker-wrap" id="kpiTicker"></div></div>
     <div class="filter-row" id="analisisFilterRow">
@@ -458,19 +414,19 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
     <div class="chart-grid" id="analisisChartGrid"></div>
   </div>
 
-  <!-- ============ RIWAYAT SETORAN ============ -->
+  <!-- RIWAYAT SETORAN -->
   <div id="setoranPage" style="display:none;">
     <div class="section-title"><div class="sicon">💵</div><div><h2>Riwayat Setoran</h2><p>Total: <b id="totalSetoran">Rp 0</b></p></div></div>
     <div class="table-card"><div class="table-responsive"><table><thead><tr><th>Tanggal</th><th>Jumlah</th><th>Catatan</th></tr></thead><tbody id="setoranBody"></tbody></table></div></div>
   </div>
 
-  <!-- ============ KAS ADMIN ============ -->
+  <!-- KAS ADMIN -->
   <div id="kasAdminPage" style="display:none;">
     <div class="section-title"><div class="sicon">💰</div><div><h2>Kas Admin</h2><p id="totalKasAdmin">Total di Admin: Rp 0</p></div></div>
     <div class="table-card"><div class="table-responsive"><table><thead><tr><th>Pos</th><th>Jatah</th><th>Real</th><th>Sisa</th></tr></thead><tbody id="kasAdminBody"></tbody></table></div></div>
   </div>
 
-  <!-- ============ STOK PAGE ============ -->
+  <!-- STOK -->
   <div id="stokPage" style="display:none;">
     <div class="section-title"><div class="sicon">📦</div><div><h2>Input Stok Gas (per SKU)</h2></div></div>
     <div class="chart-card" style="margin-bottom:12px;">
@@ -513,19 +469,18 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
 
 <script>
 // =====================================
-// GALS NEXTGEN v12.7 — FINAL COMPLETE
+// GALS NEXTGEN v12.8 — FINAL COMPLETE
+// Format Rupiah Real-Time • Jatah Auto Update
 // =====================================
 
 const API_URL = 'https://script.google.com/macros/s/AKfycby0ONoAuvD6Q7A-kpH9RAdaka7DYWR_oo1dKJNwZAu_EAXQ_aXGdmotxAu6g6bWVVO6fQ/exec';
 const TOKEN = 'GALS2026';
 
-// ============ CENTRAL STATE ============
 const STATE = {
   data: [], stok: null, page: 'dashboardPage', editId: null,
   charts: {}, currentStats: {}, filter: null, analisisFilter: 'minggu'
 };
 
-// ============ COLUMN MAPPER ============
 const COL = {
   id:0, tanggal:1, gas22:3, gas23:4, gasPink:5, galon3k:6, galon4k:7, galon5k:8,
   pemasukanLain:9, realTransport:11, realWifi:13, realOpkirimgas:15,
@@ -548,7 +503,6 @@ const POS = [
   { key:'realJajan', catKey:'catJajan', label:'🟠 Jajan 2 Orang', jatahFn:()=>10000 }
 ];
 
-// ============ DOM CACHE ============
 const DOM = {};
 function cacheDOM() {
   DOM.topInfo = document.getElementById('topInfo');
@@ -567,7 +521,6 @@ function cacheDOM() {
   DOM.syncText = document.getElementById('syncText');
 }
 
-// ============ UTILS ============
 function formatDateLocal(d) { return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
 function getToday() { return formatDateLocal(new Date()); }
 function toast(m) { if(!DOM.toast)return; DOM.toast.textContent=m; DOM.toast.style.display='block'; clearTimeout(window._toastTimer); window._toastTimer=setTimeout(()=>{DOM.toast.style.display='none';},2000); }
@@ -578,14 +531,9 @@ function sum(d,i) { return d.reduce((s,r)=>s+Number(r[i]||0),0); }
 function el(tag, cls, html) { const e=document.createElement(tag); if(cls)e.className=cls; if(html)e.innerHTML=html; return e; }
 Chart.defaults.font.family='Inter';
 
-// ============ LOADING & SYNC ============
 function showLoading() { if(DOM.loadingOverlay)DOM.loadingOverlay.classList.add('show'); }
 function hideLoading() { if(DOM.loadingOverlay)DOM.loadingOverlay.classList.remove('show'); }
-function setSyncStatus(status) {
-  if(!DOM.syncDot||!DOM.syncText)return;
-  DOM.syncDot.className='sync-dot '+status;
-  DOM.syncText.textContent=status==='online'?'Online':status==='syncing'?'Syncing...':'Offline';
-}
+function setSyncStatus(status) { if(!DOM.syncDot||!DOM.syncText)return; DOM.syncDot.className='sync-dot '+status; DOM.syncText.textContent=status==='online'?'Online':status==='syncing'?'Syncing...':'Offline'; }
 
 // ============ API ============
 async function loadAllData() {
@@ -595,33 +543,14 @@ async function loadAllData() {
     if (r.success) { STATE.data = r.data; localStorage.setItem('gals-cache', JSON.stringify(r.data)); }
     else STATE.data = getCachedData();
     setSyncStatus('online');
-  } catch(e) {
-    STATE.data = getCachedData();
-    setSyncStatus('offline'); toast('⚠️ Offline — data dari cache');
-  }
+  } catch(e) { STATE.data = getCachedData(); setSyncStatus('offline'); toast('⚠️ Offline — data dari cache'); }
   hideLoading(); updateDashboard();
 }
-async function loadPrediksiStok() {
-  try {
-    const r = await (await fetch(API_URL+'?action=getPrediksiStok&token='+TOKEN)).json();
-    if (r?.success) STATE.stok = r;
-  } catch(e) {}
-}
-function getCachedData() {
-  try { return JSON.parse(localStorage.getItem('gals-cache')) || getDemoData(); }
-  catch(e) { return getDemoData(); }
-}
+async function loadPrediksiStok() { try { const r = await (await fetch(API_URL+'?action=getPrediksiStok&token='+TOKEN)).json(); if (r?.success) STATE.stok = r; } catch(e) {} }
+function getCachedData() { try { return JSON.parse(localStorage.getItem('gals-cache')) || getDemoData(); } catch(e) { return getDemoData(); } }
 function getDemoData() {
   const t = new Date(); const rows = [];
-  for(let i=6; i>=0; i--) {
-    const d=new Date(t); d.setDate(d.getDate()-i); const tgl=formatDateLocal(d);
-    const g22=Math.floor(Math.random()*15)+3, g23=Math.floor(Math.random()*10)+2, gP=Math.floor(Math.random()*5)+1;
-    const gl3=Math.floor(Math.random()*15)+5, gl4=Math.floor(Math.random()*10)+3, gl5=Math.floor(Math.random()*8)+2;
-    const omzet=(g22*22000)+(g23*23000)+(gP*125000)+(gl3*3000)+(gl4*4000)+(gl5*5000);
-    const kulakan=((g22+g23)*15833)+(gP*110000), ops=((g22+g23+gP)*400)+((gl3+gl4+gl5)*500)+(g22+g23+gP)*500+(g22+g23+gP)*833+(gl3+gl4+gl5)*2000+10000;
-    const zakat=Math.round((omzet-kulakan)*0.025), setoran=omzet-kulakan-ops-zakat, laba=omzet-kulakan-ops-zakat-setoran;
-    rows.push({ id:String(i+1), tanggal:tgl, gas22:g22, gas23:g23, gasPink:gP, galon3k:gl3, galon4k:gl4, galon5k:gl5, totalOmzet:omzet, jatahKulakan:kulakan, jatahOps:ops, jatahZakat:zakat, jatahSetoran:setoran, labaBersih:laba, omzetGas:omzet*0.7, omzetGalon:omzet*0.3, realKulakan:0, realZakat:0, realSetoran:0, realJajan:0, realTransport:0, realWifi:0, realOpkirimgas:0, realAir:0, realListrik:0, realPemeliharaan:0, realTisuTutup:0, shodaqoh:0, pengeluaranLain:0, totalPengeluaran:0, totalReal:0, status:'ACTIVE' });
-  }
+  for(let i=6; i>=0; i--) { const d=new Date(t); d.setDate(d.getDate()-i); const tgl=formatDateLocal(d); const g22=Math.floor(Math.random()*15)+3, g23=Math.floor(Math.random()*10)+2, gP=Math.floor(Math.random()*5)+1; const gl3=Math.floor(Math.random()*15)+5, gl4=Math.floor(Math.random()*10)+3, gl5=Math.floor(Math.random()*8)+2; const omzet=(g22*22000)+(g23*23000)+(gP*125000)+(gl3*3000)+(gl4*4000)+(gl5*5000); const kulakan=((g22+g23)*15833)+(gP*110000), ops=((g22+g23+gP)*400)+((gl3+gl4+gl5)*500)+(g22+g23+gP)*500+(g22+g23+gP)*833+(gl3+gl4+gl5)*2000+10000; const zakat=Math.round((omzet-kulakan)*0.025), setoran=omzet-kulakan-ops-zakat, laba=omzet-kulakan-ops-zakat-setoran; rows.push({ id:String(i+1), tanggal:tgl, gas22:g22, gas23:g23, gasPink:gP, galon3k:gl3, galon4k:gl4, galon5k:gl5, totalOmzet:omzet, jatahKulakan:kulakan, jatahOps:ops, jatahZakat:zakat, jatahSetoran:setoran, labaBersih:laba, omzetGas:omzet*0.7, omzetGalon:omzet*0.3, realKulakan:0, realZakat:0, realSetoran:0, realJajan:0, realTransport:0, realWifi:0, realOpkirimgas:0, realAir:0, realListrik:0, realPemeliharaan:0, realTisuTutup:0, shodaqoh:0, pengeluaranLain:0, totalPengeluaran:0, totalReal:0, status:'ACTIVE' }); }
   return rows;
 }
 
@@ -629,479 +558,161 @@ function getDemoData() {
 function setFilter(j, btn) {
   document.querySelectorAll('#dashboardPage .filter-btn').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
-  if(j==='semua'){ STATE.filter=null; } else {
-    const now=new Date(); let m=new Date(now), a=new Date(now);
-    if(j==='hari'){ m.setHours(0,0,0,0); a.setHours(23,59,59,999); }
-    else if(j==='minggu'){ const h=now.getDay()||7; m.setDate(now.getDate()-h+1); m.setHours(0,0,0,0); a.setHours(23,59,59,999); }
-    else if(j==='bulan'){ m.setDate(1); m.setHours(0,0,0,0); a.setHours(23,59,59,999); }
-    else if(j==='tahun'){ m.setMonth(0); m.setDate(1); m.setHours(0,0,0,0); a.setMonth(11); a.setDate(31); a.setHours(23,59,59,999); }
-    STATE.filter={mulai:m.toISOString().split('T')[0], akhir:a.toISOString().split('T')[0]};
-  }
+  if(j==='semua'){ STATE.filter=null; } else { const now=new Date(); let m=new Date(now), a=new Date(now); if(j==='hari'){ m.setHours(0,0,0,0); a.setHours(23,59,59,999); } else if(j==='minggu'){ const h=now.getDay()||7; m.setDate(now.getDate()-h+1); m.setHours(0,0,0,0); a.setHours(23,59,59,999); } else if(j==='bulan'){ m.setDate(1); m.setHours(0,0,0,0); a.setHours(23,59,59,999); } else if(j==='tahun'){ m.setMonth(0); m.setDate(1); m.setHours(0,0,0,0); a.setMonth(11); a.setDate(31); a.setHours(23,59,59,999); } STATE.filter={mulai:m.toISOString().split('T')[0], akhir:a.toISOString().split('T')[0]}; }
   updateDashboard(); renderTable();
 }
-function filterData() {
-  if(!STATE.filter)return STATE.data;
-  return STATE.data.filter(d=>{ const t=String(d.tanggal||d[1]||'').split('T')[0]; return t>=STATE.filter.mulai&&t<=STATE.filter.akhir; });
-}
+function filterData() { if(!STATE.filter)return STATE.data; return STATE.data.filter(d=>{ const t=String(d.tanggal||d[1]||'').split('T')[0]; return t>=STATE.filter.mulai&&t<=STATE.filter.akhir; }); }
 
 // ============ NAVIGATION ============
 function buildNav() {
-  const items = [
-    {id:'dashboardPage',icon:'🏠',label:'Home'}, {id:'grafikPage',icon:'📊',label:'Grafik'},
-    {id:'rekapPage',icon:'📋',label:'Rekap'}, {id:'analisisPage',icon:'🔬',label:'Analisis'},
-    {id:'setoranPage',icon:'💵',label:'Riwayat'}, {id:'kasAdminPage',icon:'💰',label:'Kas'},
-    {id:'stokPage',icon:'📦',label:'Stok'}
-  ];
+  const items = [{id:'dashboardPage',icon:'🏠',label:'Home'},{id:'grafikPage',icon:'📊',label:'Grafik'},{id:'rekapPage',icon:'📋',label:'Rekap'},{id:'analisisPage',icon:'🔬',label:'Analisis'},{id:'setoranPage',icon:'💵',label:'Riwayat'},{id:'kasAdminPage',icon:'💰',label:'Kas'},{id:'stokPage',icon:'📦',label:'Stok'}];
   const fragment = document.createDocumentFragment();
-  items.forEach(i=>{
-    const btn = document.createElement('button');
-    btn.className = 'nav-btn2' + (STATE.page===i.id?' active':'');
-    btn.innerHTML = `<span class="nav-icon">${i.icon}</span><span class="nav-text">${i.label}</span>`;
-    btn.dataset.page = i.id;
-    fragment.appendChild(btn);
-  });
+  items.forEach(i=>{ const btn=document.createElement('button'); btn.className='nav-btn2'+(STATE.page===i.id?' active':''); btn.innerHTML=`<span class="nav-icon">${i.icon}</span><span class="nav-text">${i.label}</span>`; btn.dataset.page=i.id; fragment.appendChild(btn); });
   DOM.bottomNav.replaceChildren(fragment);
 }
-function updateActiveNav() {
-  DOM.bottomNav.querySelectorAll('.nav-btn2').forEach(btn=>{
-    btn.classList.toggle('active', btn.dataset.page===STATE.page);
-  });
-}
+function updateActiveNav() { DOM.bottomNav.querySelectorAll('.nav-btn2').forEach(btn=>{ btn.classList.toggle('active', btn.dataset.page===STATE.page); }); }
 function showMainPage(p) {
-  ['dashboardPage','grafikPage','rekapPage','analisisPage','setoranPage','kasAdminPage','stokPage'].forEach(x=>{
-    const el=document.getElementById(x); if(el)el.style.display='none';
-  });
-  const el=document.getElementById(p); if(el)el.style.display='block';
-  STATE.page=p; updateActiveNav();
-  if(p==='dashboardPage') updateDashboard();
-  if(p==='grafikPage') setTimeout(()=>renderGrafikPremium(),200);
-  if(p==='rekapPage') renderTable();
-  if(p==='analisisPage') renderAnalisisV5();
-  if(p==='setoranPage') renderRiwayatSetoran();
-  if(p==='kasAdminPage') renderKasAdmin();
-  if(p==='stokPage') loadPrediksiStokPage();
+  ['dashboardPage','grafikPage','rekapPage','analisisPage','setoranPage','kasAdminPage','stokPage'].forEach(x=>{ const el=document.getElementById(x); if(el)el.style.display='none'; });
+  const el=document.getElementById(p); if(el)el.style.display='block'; STATE.page=p; updateActiveNav();
+  if(p==='dashboardPage') updateDashboard(); if(p==='grafikPage') setTimeout(()=>renderGrafikPremium(),200); if(p==='rekapPage') renderTable();
+  if(p==='analisisPage') renderAnalisisV5(); if(p==='setoranPage') renderRiwayatSetoran(); if(p==='kasAdminPage') renderKasAdmin(); if(p==='stokPage') loadPrediksiStokPage();
 }
 
-// ============ OPERASIONAL TABLE ============
+// ============ OPERASIONAL TABLE (SIMETRIS) ============
 function buildOpRows(data) {
-  const g=(data?.gas22||0)+(data?.gas23||0)+(data?.gasPink||0), gl=(data?.galon3k||0)+(data?.galon4k||0)+(data?.galon5k||0);
-  let h='<table class="op-table"><thead><tr><th>Pos</th><th>Jatah</th><th>Real</th><th>Sisa</th></tr></thead><tbody>';
-  POS.forEach(p=>{
-    const jatah=p.jatahFn(g,gl), real=data?(data[p.key]||0):0, sisa=jatah-real;
-    h+=`<tr><td>${p.label}</td><td class="jatah">${rupiah(jatah)}</td><td class="real">${data?rupiah(real):'-'}</td><td class="sisa ${sisa>=0?'plus':'minus'}">${sisa>=0?'+'+rupiah(sisa):rupiah(sisa)}</td></tr>`;
-  });
-  h+='</tbody></table>';
-  return h;
+  let g, gl;
+  if (data?.totalGas !== undefined) { g = data.totalGas; } else { g = (data?.gas22 || 0) + (data?.gas23 || 0) + (data?.gasPink || 0); }
+  if (data?.totalGalon !== undefined) { gl = data.totalGalon; } else { gl = (data?.galon3k || 0) + (data?.galon4k || 0) + (data?.galon5k || 0); }
+  let h = '<table class="op-table"><thead><tr><th>Pos</th><th>Jatah</th><th>Real</th><th>Sisa</th></tr></thead><tbody>';
+  POS.forEach(p => { const jatah = p.jatahFn(g, gl); const real = data ? (data[p.key] || 0) : 0; const sisa = jatah - real;
+    h += `<tr><td>${p.label}</td><td class="jatah">${rupiah(jatah)}</td><td class="real">${data ? rupiah(real) : '-'}</td><td class="sisa ${sisa >= 0 ? 'plus' : 'minus'}">${sisa >= 0 ? '+' + rupiah(sisa) : rupiah(sisa)}</td></tr>`; });
+  h += '</tbody></table>'; return h;
 }
+
+// ============ FORMAT RUPIAH REAL-TIME ============
+function bindOpEvents() {
+  document.querySelectorAll('.input-rupiah').forEach(el => {
+    if (el.dataset.binded === '1') return; el.dataset.binded = '1';
+    el.addEventListener('input', function() {
+      let cp = this.selectionStart, bl = this.value.length, a = this.value.replace(/\D/g, '');
+      if (!a) { this.value = ''; return; }
+      this.value = 'Rp ' + Number(a).toLocaleString('id-ID');
+      let al = this.value.length; cp = cp + (al - bl); this.setSelectionRange(cp, cp);
+    });
+    el.addEventListener('blur', function() { let a = this.value.replace(/\D/g, ''); if (a) { this.value = 'Rp ' + Number(a).toLocaleString('id-ID'); } });
+  });
+  ['gas22','gas23','gasPink','galon3k','galon4k','galon5k'].forEach(id => { const el=document.getElementById(id); if(el){ el.removeEventListener('input',handleInputUpdate); el.addEventListener('input',handleInputUpdate); } });
+}
+function handleInputUpdate() { const g=getNum('gas22')+getNum('gas23')+getNum('gasPink'), gl=getNum('galon3k')+getNum('galon4k')+getNum('galon5k'); updateOpTable(g,gl); }
+function updateOpTable(g, gl) { if(!DOM.opContainer)return; DOM.opContainer.innerHTML = buildOpRows({ totalGas: g, totalGalon: gl }); }
 
 // ============ FILL FORM ============
 function fillForm(r) {
-  STATE.editId = r.id||r[0];
-  const setVal = (id,val) => { const el=document.getElementById(id); if(el)el.value=val||''; };
-  setVal('tanggal', (r.tanggal||r[1]||'').split('T')[0]);
-  setVal('gas22', r.gas22||r[3]); setVal('gas23', r.gas23||r[4]); setVal('gasPink', r.gasPink||r[5]);
-  setVal('galon3k', r.galon3k||r[6]); setVal('galon4k', r.galon4k||r[7]); setVal('galon5k', r.galon5k||r[8]);
-  setVal('pemasukanLain', toRupiah(r.pemasukanLain||r[9]));
-  setVal('realTransport', toRupiah(r.realTransport||r[11])); setVal('catTransport', r.catTransport||r[12]||'');
-  setVal('realWifi', toRupiah(r.realWifi||r[13])); setVal('catWifi', r.catWifi||r[14]||'');
-  setVal('realOpkirimgas', toRupiah(r.realOpkirimgas||r[15])); setVal('catOpkirimgas', r.catOpkirimgas||r[16]||'');
-  setVal('realAir', toRupiah(r.realAir||r[17])); setVal('catAir', r.catAir||r[18]||'');
-  setVal('realListrik', toRupiah(r.realListrik||r[19])); setVal('catListrik', r.catListrik||r[20]||'');
-  setVal('realPemeliharaan', toRupiah(r.realPemeliharaan||r[21])); setVal('catPemeliharaan', r.catPemeliharaan||r[22]||'');
-  setVal('realTisuTutup', toRupiah(r.realTisuTutup||r[23])); setVal('catTisuTutup', r.catTisuTutup||r[24]||'');
-  setVal('realJajan', toRupiah(r.realJajan||r[25])); setVal('catJajan', r.catJajan||r[26]||'');
-  setVal('realKulakan', toRupiah(r.realKulakan||r[27])); setVal('catKulakan', r.catKulakan||r[28]||'');
-  setVal('realZakat', toRupiah(r.realZakat||r[29])); setVal('catZakat', r.catZakat||r[30]||'');
-  setVal('realSetoran', toRupiah(r.realSetoran||r[31])); setVal('catSetoran', r.catSetoran||r[32]||'');
-  setVal('pengeluaranLain', toRupiah(r.pengeluaranLain||r[33])); setVal('catPengeluaranLain', r.catPengeluaranLain||r[34]||'');
-  setVal('shodaqoh', toRupiah(r.shodaqoh||r[35]));
-  
-  const g=(Number(r.gas22||r[3]||0))+(Number(r.gas23||r[4]||0))+(Number(r.gasPink||r[5]||0));
-  const gl=(Number(r.galon3k||r[6]||0))+(Number(r.galon4k||r[7]||0))+(Number(r.galon5k||r[8]||0));
-  DOM.opContainer.innerHTML = buildOpRows({gas22:g,gas23:0,gasPink:0,galon3k:gl,galon4k:0,galon5k:0});
-  
-  document.getElementById('infoEdit').style.display='block';
-  document.getElementById('btnHapusForm').style.display='block';
-  document.getElementById('btnSimpan').textContent='✏️ Simpan Perubahan';
+  STATE.editId = r.id||r[0]; const setVal=(id,val)=>{ const el=document.getElementById(id); if(el)el.value=val||''; };
+  setVal('tanggal',(r.tanggal||r[1]||'').split('T')[0]); setVal('gas22',r.gas22||r[3]); setVal('gas23',r.gas23||r[4]); setVal('gasPink',r.gasPink||r[5]);
+  setVal('galon3k',r.galon3k||r[6]); setVal('galon4k',r.galon4k||r[7]); setVal('galon5k',r.galon5k||r[8]); setVal('pemasukanLain',toRupiah(r.pemasukanLain||r[9]));
+  setVal('realTransport',toRupiah(r.realTransport||r[11])); setVal('catTransport',r.catTransport||r[12]||''); setVal('realWifi',toRupiah(r.realWifi||r[13])); setVal('catWifi',r.catWifi||r[14]||'');
+  setVal('realOpkirimgas',toRupiah(r.realOpkirimgas||r[15])); setVal('catOpkirimgas',r.catOpkirimgas||r[16]||''); setVal('realAir',toRupiah(r.realAir||r[17])); setVal('catAir',r.catAir||r[18]||'');
+  setVal('realListrik',toRupiah(r.realListrik||r[19])); setVal('catListrik',r.catListrik||r[20]||''); setVal('realPemeliharaan',toRupiah(r.realPemeliharaan||r[21])); setVal('catPemeliharaan',r.catPemeliharaan||r[22]||'');
+  setVal('realTisuTutup',toRupiah(r.realTisuTutup||r[23])); setVal('catTisuTutup',r.catTisuTutup||r[24]||''); setVal('realJajan',toRupiah(r.realJajan||r[25])); setVal('catJajan',r.catJajan||r[26]||'');
+  setVal('realKulakan',toRupiah(r.realKulakan||r[27])); setVal('catKulakan',r.catKulakan||r[28]||''); setVal('realZakat',toRupiah(r.realZakat||r[29])); setVal('catZakat',r.catZakat||r[30]||'');
+  setVal('realSetoran',toRupiah(r.realSetoran||r[31])); setVal('catSetoran',r.catSetoran||r[32]||''); setVal('pengeluaranLain',toRupiah(r.pengeluaranLain||r[33])); setVal('catPengeluaranLain',r.catPengeluaranLain||r[34]||'');
+  setVal('shodaqoh',toRupiah(r.shodaqoh||r[35]));
+  const g=(Number(r.gas22||r[3]||0))+(Number(r.gas23||r[4]||0))+(Number(r.gasPink||r[5]||0)), gl=(Number(r.galon3k||r[6]||0))+(Number(r.galon4k||r[7]||0))+(Number(r.galon5k||r[8]||0));
+  DOM.opContainer.innerHTML = buildOpRows({totalGas:g, totalGalon:gl});
+  document.getElementById('infoEdit').style.display='block'; document.getElementById('btnHapusForm').style.display='block'; document.getElementById('btnSimpan').textContent='✏️ Simpan Perubahan';
 }
-
 function resetForm() {
   STATE.editId=null; document.getElementById('tanggal').valueAsDate=new Date();
-  ['gas22','gas23','gasPink','galon3k','galon4k','galon5k','pemasukanLain','ketPemasukanLain',
-   'realTransport','realWifi','realOpkirimgas','realAir','realListrik','realPemeliharaan','realTisuTutup','realJajan',
-   'catTransport','catWifi','catOpkirimgas','catAir','catListrik','catPemeliharaan','catTisuTutup','catJajan',
-   'realKulakan','catKulakan','realZakat','catZakat','realSetoran','catSetoran',
-   'pengeluaranLain','catPengeluaranLain','shodaqoh'].forEach(id=>{ const el=document.getElementById(id); if(el)el.value=''; });
-  DOM.opContainer.innerHTML = buildOpRows(null);
-  document.getElementById('infoEdit').style.display='none';
-  document.getElementById('btnHapusForm').style.display='none';
-  document.getElementById('btnSimpan').textContent='💾 Simpan';
+  ['gas22','gas23','gasPink','galon3k','galon4k','galon5k','pemasukanLain','ketPemasukanLain','realTransport','realWifi','realOpkirimgas','realAir','realListrik','realPemeliharaan','realTisuTutup','realJajan','catTransport','catWifi','catOpkirimgas','catAir','catListrik','catPemeliharaan','catTisuTutup','catJajan','realKulakan','catKulakan','realZakat','catZakat','realSetoran','catSetoran','pengeluaranLain','catPengeluaranLain','shodaqoh'].forEach(id=>{ const el=document.getElementById(id); if(el)el.value=''; });
+  DOM.opContainer.innerHTML = buildOpRows(null); document.getElementById('infoEdit').style.display='none'; document.getElementById('btnHapusForm').style.display='none'; document.getElementById('btnSimpan').textContent='💾 Simpan';
 }
 
 // ============ CRUD ============
 async function simpanData() {
-  const d=new FormData(); d.append('token',TOKEN);
-  d.append('action', STATE.editId?'update':'simpan');
-  if(STATE.editId)d.append('id',STATE.editId);
-  d.append('tanggal',document.getElementById('tanggal')?.value||'');
-  d.append('gas22',getNum('gas22')); d.append('gas23',getNum('gas23')); d.append('gasPink',getNum('gasPink'));
-  d.append('galon3k',getNum('galon3k')); d.append('galon4k',getNum('galon4k')); d.append('galon5k',getNum('galon5k'));
-  d.append('pemasukanLain',getNum('pemasukanLain'));
-  d.append('realTransport',getNum('realTransport')); d.append('catTransport',document.getElementById('catTransport')?.value||'');
-  d.append('realWifi',getNum('realWifi')); d.append('catWifi',document.getElementById('catWifi')?.value||'');
-  d.append('realOpkirimgas',getNum('realOpkirimgas')); d.append('catOpkirimgas',document.getElementById('catOpkirimgas')?.value||'');
-  d.append('realAir',getNum('realAir')); d.append('catAir',document.getElementById('catAir')?.value||'');
-  d.append('realListrik',getNum('realListrik')); d.append('catListrik',document.getElementById('catListrik')?.value||'');
-  d.append('realPemeliharaan',getNum('realPemeliharaan')); d.append('catPemeliharaan',document.getElementById('catPemeliharaan')?.value||'');
-  d.append('realTisuTutup',getNum('realTisuTutup')); d.append('catTisuTutup',document.getElementById('catTisuTutup')?.value||'');
-  d.append('realJajan',getNum('realJajan')); d.append('catJajan',document.getElementById('catJajan')?.value||'');
-  d.append('realKulakan',getNum('realKulakan')); d.append('catKulakan',document.getElementById('catKulakan')?.value||'');
-  d.append('realZakat',getNum('realZakat')); d.append('catZakat',document.getElementById('catZakat')?.value||'');
-  d.append('realSetoran',getNum('realSetoran')); d.append('catSetoran',document.getElementById('catSetoran')?.value||'');
-  d.append('pengeluaranLain',getNum('pengeluaranLain')); d.append('catPengeluaranLain',document.getElementById('catPengeluaranLain')?.value||'');
+  const d=new FormData(); d.append('token',TOKEN); d.append('action',STATE.editId?'update':'simpan'); if(STATE.editId)d.append('id',STATE.editId);
+  d.append('tanggal',document.getElementById('tanggal')?.value||''); d.append('gas22',getNum('gas22')); d.append('gas23',getNum('gas23')); d.append('gasPink',getNum('gasPink'));
+  d.append('galon3k',getNum('galon3k')); d.append('galon4k',getNum('galon4k')); d.append('galon5k',getNum('galon5k')); d.append('pemasukanLain',getNum('pemasukanLain'));
+  d.append('realTransport',getNum('realTransport')); d.append('catTransport',document.getElementById('catTransport')?.value||''); d.append('realWifi',getNum('realWifi')); d.append('catWifi',document.getElementById('catWifi')?.value||'');
+  d.append('realOpkirimgas',getNum('realOpkirimgas')); d.append('catOpkirimgas',document.getElementById('catOpkirimgas')?.value||''); d.append('realAir',getNum('realAir')); d.append('catAir',document.getElementById('catAir')?.value||'');
+  d.append('realListrik',getNum('realListrik')); d.append('catListrik',document.getElementById('catListrik')?.value||''); d.append('realPemeliharaan',getNum('realPemeliharaan')); d.append('catPemeliharaan',document.getElementById('catPemeliharaan')?.value||'');
+  d.append('realTisuTutup',getNum('realTisuTutup')); d.append('catTisuTutup',document.getElementById('catTisuTutup')?.value||''); d.append('realJajan',getNum('realJajan')); d.append('catJajan',document.getElementById('catJajan')?.value||'');
+  d.append('realKulakan',getNum('realKulakan')); d.append('catKulakan',document.getElementById('catKulakan')?.value||''); d.append('realZakat',getNum('realZakat')); d.append('catZakat',document.getElementById('catZakat')?.value||'');
+  d.append('realSetoran',getNum('realSetoran')); d.append('catSetoran',document.getElementById('catSetoran')?.value||''); d.append('pengeluaranLain',getNum('pengeluaranLain')); d.append('catPengeluaranLain',document.getElementById('catPengeluaranLain')?.value||'');
   d.append('shodaqoh',getNum('shodaqoh'));
   try{ const r=await(await fetch(API_URL,{method:'POST',body:d})).json(); toast(r.message); resetForm(); loadAllData(); } catch(e){ toast('❌ Gagal koneksi'); }
 }
+async function hapusData(id) { if(!confirm('Yakin hapus?'))return; const d=new FormData(); d.append('token',TOKEN); d.append('action','hapus'); d.append('id',id); try{ await fetch(API_URL,{method:'POST',body:d}); toast('✅ Dihapus'); resetForm(); loadAllData(); } catch(e){ toast('❌ Gagal'); } }
+async function inputStok() { const d=new FormData(); d.append('token',TOKEN); d.append('action','inputStok'); d.append('tanggal',document.getElementById('tglStok')?.value||''); d.append('gas22Masuk',document.getElementById('gas22Masuk')?.value||0); d.append('gas23Masuk',document.getElementById('gas23Masuk')?.value||0); d.append('gasPinkMasuk',document.getElementById('gasPinkMasuk')?.value||0); d.append('keterangan',document.getElementById('ketStok')?.value||'Truk datang'); try{ const r=await(await fetch(API_URL,{method:'POST',body:d})).json(); toast(r.message); } catch(e){ toast('❌ Gagal'); } }
+async function exportPDF() { const bulan=prompt('Bulan (YYYY-MM)?',new Date().toISOString().slice(0,7)); if(!bulan)return; try{ const r=await fetch(API_URL+'?action=exportPDF&token='+TOKEN+'&bulan='+bulan); const text=await r.text(); const win=window.open('','_blank'); win.document.write('<pre>'+text+'</pre>'); toast('✅ Laporan berhasil!'); } catch(e){ toast('❌ Gagal export'); } }
 
-async function hapusData(id) {
-  if(!confirm('Yakin hapus?'))return;
-  const d=new FormData(); d.append('token',TOKEN); d.append('action','hapus'); d.append('id',id);
-  try{ await fetch(API_URL,{method:'POST',body:d}); toast('✅ Dihapus'); resetForm(); loadAllData(); } catch(e){ toast('❌ Gagal'); }
-}
-
-async function inputStok() {
-  const d=new FormData(); d.append('token',TOKEN); d.append('action','inputStok');
-  d.append('tanggal',document.getElementById('tglStok')?.value||'');
-  d.append('gas22Masuk',document.getElementById('gas22Masuk')?.value||0);
-  d.append('gas23Masuk',document.getElementById('gas23Masuk')?.value||0);
-  d.append('gasPinkMasuk',document.getElementById('gasPinkMasuk')?.value||0);
-  d.append('keterangan',document.getElementById('ketStok')?.value||'Truk datang');
-  try{ const r=await(await fetch(API_URL,{method:'POST',body:d})).json(); toast(r.message); } catch(e){ toast('❌ Gagal'); }
-}
-
-async function exportPDF() {
-  const bulan=prompt('Bulan (YYYY-MM)?',new Date().toISOString().slice(0,7));
-  if(!bulan)return;
-  try{ const r=await fetch(API_URL+'?action=exportPDF&token='+TOKEN+'&bulan='+bulan); const text=await r.text(); const win=window.open('','_blank'); win.document.write('<pre>'+text+'</pre>'); toast('✅ Laporan berhasil!'); } catch(e){ toast('❌ Gagal export'); }
-}
-
-// ============ RENDER FUNCTIONS ============
+// ============ RENDER ============
 function renderCards(stats) {
-  const cards = [
-    {cls:'card-green',title:'💰 Omzet',value:rupiah(stats.omzet),sub:`Gas: ${rupiah(stats.omGas)} | Galon: ${rupiah(stats.omGal)}`,icon:'💵'},
-    {cls:'card-red',title:'🔵 Kulakan',value:rupiah(stats.kulakan),sub:`Real: ${rupiah(stats.rkt)}`,sisa:stats.sk>=0?'+'+rupiah(stats.sk):rupiah(stats.sk),sisaUp:stats.sk>=0,icon:'🛒'},
-    {cls:'card-orange',title:'🟢 Operasional',value:rupiah(stats.ops),sub:`Real: ${rupiah(stats.totalReal)}`,sisa:stats.sops>=0?'+'+rupiah(stats.sops):rupiah(stats.sops),sisaUp:stats.sops>=0,icon:'🔧'},
-    {cls:'card-pink',title:'🟠 Jajan',value:rupiah(stats.jajan),sub:`Real: ${rupiah(stats.realJajan||0)}`,sisa:stats.sj>=0?'+'+rupiah(stats.sj):rupiah(stats.sj),sisaUp:stats.sj>=0,icon:'🍽️'},
-    {cls:'card-purple',title:'🕌 Zakat',value:rupiah(stats.zakat),sub:`Real: ${rupiah(stats.rzt)}`,sisa:stats.sz>=0?'+'+rupiah(stats.sz):rupiah(stats.sz),sisaUp:stats.sz>=0,icon:'🕌'},
-    {cls:'card-teal',title:'🤲 Shodaqoh',value:rupiah(stats.shodaqoh),icon:'🤲'},
-    {cls:`card-blue ${stats.lc}`,title:`${stats.le} Laba`,value:rupiah(stats.laba),sub:'Omzet - Pengeluaran',icon:'📊'},
-    {cls:'card-gold',title:'🟡 Setoran',value:rupiah(stats.setoran),sub:`Real: ${rupiah(stats.rst)}`,sisa:stats.ss>=0?'+'+rupiah(stats.ss):rupiah(stats.ss),sisaUp:stats.ss>=0,icon:'💸'}
-  ];
-  const fragment = document.createDocumentFragment();
-  cards.forEach(c=>{
-    const card = el('div', `stat-card ${c.cls}`);
-    card.innerHTML = `<div class="card-icon-bg">${c.icon}</div><div class="stat-title">${c.title}</div><div class="stat-value">${c.value}</div><div class="stat-sub">${c.sub||''}</div>${c.sisa?`<div class="badge ${c.sisaUp?'success':'danger'}">${c.sisa}</div>`:''}`;
-    card.addEventListener('click', () => showDetailPopup(c.title, STATE.currentStats, c.cls));
-    fragment.appendChild(card);
-  });
+  const cards=[{cls:'card-green',title:'💰 Omzet',value:rupiah(stats.omzet),sub:`Gas: ${rupiah(stats.omGas)} | Galon: ${rupiah(stats.omGal)}`,icon:'💵'},{cls:'card-red',title:'🔵 Kulakan',value:rupiah(stats.kulakan),sub:`Real: ${rupiah(stats.rkt)}`,sisa:stats.sk>=0?'+'+rupiah(stats.sk):rupiah(stats.sk),sisaUp:stats.sk>=0,icon:'🛒'},{cls:'card-orange',title:'🟢 Operasional',value:rupiah(stats.ops),sub:`Real: ${rupiah(stats.totalReal)}`,sisa:stats.sops>=0?'+'+rupiah(stats.sops):rupiah(stats.sops),sisaUp:stats.sops>=0,icon:'🔧'},{cls:'card-pink',title:'🟠 Jajan',value:rupiah(stats.jajan),sub:`Real: ${rupiah(stats.realJajan||0)}`,sisa:stats.sj>=0?'+'+rupiah(stats.sj):rupiah(stats.sj),sisaUp:stats.sj>=0,icon:'🍽️'},{cls:'card-purple',title:'🕌 Zakat',value:rupiah(stats.zakat),sub:`Real: ${rupiah(stats.rzt)}`,sisa:stats.sz>=0?'+'+rupiah(stats.sz):rupiah(stats.sz),sisaUp:stats.sz>=0,icon:'🕌'},{cls:'card-teal',title:'🤲 Shodaqoh',value:rupiah(stats.shodaqoh),icon:'🤲'},{cls:`card-blue ${stats.lc}`,title:`${stats.le} Laba`,value:rupiah(stats.laba),sub:'Omzet - Pengeluaran',icon:'📊'},{cls:'card-gold',title:'🟡 Setoran',value:rupiah(stats.setoran),sub:`Real: ${rupiah(stats.rst)}`,sisa:stats.ss>=0?'+'+rupiah(stats.ss):rupiah(stats.ss),sisaUp:stats.ss>=0,icon:'💸'}];
+  const fragment=document.createDocumentFragment();
+  cards.forEach(c=>{ const card=el('div',`stat-card ${c.cls}`); card.innerHTML=`<div class="card-icon-bg">${c.icon}</div><div class="stat-title">${c.title}</div><div class="stat-value">${c.value}</div><div class="stat-sub">${c.sub||''}</div>${c.sisa?`<div class="badge ${c.sisaUp?'success':'danger'}">${c.sisa}</div>`:''}`; card.addEventListener('click',()=>showDetailPopup(c.title,STATE.currentStats,c.cls)); fragment.appendChild(card); });
   DOM.statContainer.replaceChildren(fragment);
 }
-
 function renderTable() {
-  const filtered = filterData();
-  if(!DOM.rekapBody)return;
-  if(!filtered.length){ DOM.rekapBody.replaceChildren(el('tr', '', '<td colspan="10"><div style="text-align:center;padding:40px;">📭 Belum ada data</div></td>')); return; }
-  if(DOM.totalData)DOM.totalData.textContent=filtered.length;
-  const fragment = document.createDocumentFragment();
-  [...filtered].reverse().forEach(r=>{
-    const tgl = (r.tanggal||r[1]||'').split('T')[0];
-    const tr = el('tr');
-    tr.innerHTML = `<td><b>${tgl}</b></td><td>22k:${r.gas22||r[3]||0} 23k:${r.gas23||r[4]||0}<br>Pink:${r.gasPink||r[5]||0}</td><td>3k:${r.galon3k||r[6]||0} 4k:${r.galon4k||r[7]||0}<br>5k:${r.galon5k||r[8]||0}</td><td><span class="pill pill-up">${rupiah(r.totalOmzet||r[36])}</span></td><td><span class="pill pill-down">${rupiah(r.jatahKulakan||r[39])}</span></td><td>${rupiah(r.jatahOps||r[40])}</td><td><span class="pill pill-up">${rupiah(r.jatahZakat||r[41])}</span></td><td><span class="pill pill-up">${rupiah(r.jatahSetoran||r[42])}</span></td><td><span class="pill pill-up">${rupiah(r.labaBersih||r[45])}</span></td><td><span class="btn-edit" data-id="${r.id||r[0]}">✏️</span><span class="btn-delete" data-id="${r.id||r[0]}">🗑️</span></td>`;
-    fragment.appendChild(tr);
-  });
+  const filtered=filterData(); if(!DOM.rekapBody)return; if(!filtered.length){ DOM.rekapBody.replaceChildren(el('tr','','<td colspan="10"><div style="text-align:center;padding:40px;">📭 Belum ada data</div></td>')); return; }
+  if(DOM.totalData)DOM.totalData.textContent=filtered.length; const fragment=document.createDocumentFragment();
+  [...filtered].reverse().forEach(r=>{ const tgl=(r.tanggal||r[1]||'').split('T')[0]; const tr=el('tr'); tr.innerHTML=`<td><b>${tgl}</b></td><td>22k:${r.gas22||r[3]||0} 23k:${r.gas23||r[4]||0}<br>Pink:${r.gasPink||r[5]||0}</td><td>3k:${r.galon3k||r[6]||0} 4k:${r.galon4k||r[7]||0}<br>5k:${r.galon5k||r[8]||0}</td><td><span class="pill pill-up">${rupiah(r.totalOmzet||r[36])}</span></td><td><span class="pill pill-down">${rupiah(r.jatahKulakan||r[39])}</span></td><td>${rupiah(r.jatahOps||r[40])}</td><td><span class="pill pill-up">${rupiah(r.jatahZakat||r[41])}</span></td><td><span class="pill pill-up">${rupiah(r.jatahSetoran||r[42])}</span></td><td><span class="pill pill-up">${rupiah(r.labaBersih||r[45])}</span></td><td><span class="btn-edit" data-id="${r.id||r[0]}">✏️</span><span class="btn-delete" data-id="${r.id||r[0]}">🗑️</span></td>`; fragment.appendChild(tr); });
   DOM.rekapBody.replaceChildren(fragment);
 }
-
-function renderGrafikPremium() {
-  if(!DOM.chartsContainer)return;
-  const filtered = filterData();
-  if(!filtered.length)return;
-  Object.values(STATE.charts).forEach(c=>{ if(c)c.destroy(); });
-  STATE.charts = {};
-  const labels = filtered.map(r=>(r.tanggal||r[1]||'').split('T')[0]);
-  const omzet = filtered.map(r=>Number(r.totalOmzet||r[36]||0));
-  DOM.chartsContainer.replaceChildren();
-  const card = el('div','chart-card');
-  card.innerHTML = '<div class="chart-head"><h3>📈 Omzet</h3></div><div class="chart-wrap"><canvas id="chartGrafik"></canvas></div>';
-  DOM.chartsContainer.appendChild(card);
-  setTimeout(()=>{
-    const ctx = document.getElementById('chartGrafik')?.getContext('2d');
-    if(ctx){
-      const g = ctx.createLinearGradient(0,0,0,220);
-      g.addColorStop(0,'rgba(15,118,110,0.3)'); g.addColorStop(1,'rgba(15,118,110,0)');
-      STATE.charts.grafik = new Chart(ctx,{type:'line',data:{labels,datasets:[{label:'Omzet',data:omzet,borderColor:'#0f766e',backgroundColor:g,fill:true,tension:.4,borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{ticks:{callback:v=>rupiah(v)}}}}});
-    }
-  },200);
-}
-
-function renderAnalisisV5() {
-  const analisisGrid = document.getElementById('analisisSummaryGrid');
-  if(!analisisGrid)return;
-  const filtered = filterData();
-  analisisGrid.replaceChildren(el('div','',`<p style="text-align:center;padding:20px;">📊 Data: <b>${filtered.length}</b> transaksi</p>`));
-}
-
-function renderRiwayatSetoran() {
-  const tb = document.getElementById('setoranBody');
-  if(!tb)return;
-  const data = STATE.data.filter(r=>Number(r.realSetoran||r[31]||0)>0);
-  if(!data.length){ tb.replaceChildren(el('tr','','<td colspan="3"><div style="text-align:center;padding:40px;">📭 Belum ada setoran</div></td>')); return; }
-  let total=0;
-  const fragment = document.createDocumentFragment();
-  [...data].reverse().forEach(r=>{
-    const jumlah = Number(r.realSetoran||r[31]||0);
-    total+=jumlah;
-    const tr = el('tr');
-    tr.innerHTML = `<td>${(r.tanggal||r[1]||'').split('T')[0]}</td><td>${rupiah(jumlah)}</td><td>${r.catSetoran||r[32]||''}</td>`;
-    fragment.appendChild(tr);
-  });
-  tb.replaceChildren(fragment);
-  document.getElementById('totalSetoran').textContent=rupiah(total);
-}
-
-function renderKasAdmin() {
-  const tb = document.getElementById('kasAdminBody');
-  if(!tb)return;
-  const filtered = filterData();
-  let ja={}, ra={}; POS.forEach(p=>{ja[p.key]=0;ra[p.key]=0;});
-  let jk=0,rk=0,jz=0,rz=0,js=0,rs=0,tl=0,ts=0;
-  filtered.forEach(r=>{
-    const g=(Number(r.gas22||r[3]||0))+(Number(r.gas23||r[4]||0))+(Number(r.gasPink||r[5]||0));
-    const gl=(Number(r.galon3k||r[6]||0))+(Number(r.galon4k||r[7]||0))+(Number(r.galon5k||r[8]||0));
-    POS.forEach(p=>{ ja[p.key]+=p.jatahFn(g,gl); ra[p.key]+=Number(r[REAL_COL[p.key]]||0); });
-    jk+=Number(r.jatahKulakan||r[39]||0); rk+=Number(r.realKulakan||r[27]||0);
-    jz+=Number(r.jatahZakat||r[41]||0); rz+=Number(r.realZakat||r[29]||0);
-    js+=Number(r.jatahSetoran||r[42]||0); rs+=Number(r.realSetoran||r[31]||0);
-    tl+=Number(r.pengeluaranLain||r[33]||0); ts+=Number(r.shodaqoh||r[35]||0);
-  });
-  let tj=Object.values(ja).reduce((a,b)=>a+b,0)+jk+jz+js, tr=Object.values(ra).reduce((a,b)=>a+b,0)+rk+rz+rs+tl+ts;
-  let html=''; POS.forEach(p=>{ const s=(ja[p.key]||0)-(ra[p.key]||0); html+=`<tr><td>${p.label}</td><td>${rupiah(ja[p.key])}</td><td>${rupiah(ra[p.key])}</td><td class="${s>=0?'pill-up':'pill-down'}">${s>=0?'+'+rupiah(s):rupiah(s)}</td></tr>`; });
-  html+=`<tr><td>🔵 Kulakan</td><td>${rupiah(jk)}</td><td>${rupiah(rk)}</td><td class="${jk-rk>=0?'pill-up':'pill-down'}">${jk-rk>=0?'+'+rupiah(jk-rk):rupiah(jk-rk)}</td></tr>`;
-  html+=`<tr><td>🕌 Zakat</td><td>${rupiah(jz)}</td><td>${rupiah(rz)}</td><td class="${jz-rz>=0?'pill-up':'pill-down'}">${jz-rz>=0?'+'+rupiah(jz-rz):rupiah(jz-rz)}</td></tr>`;
-  html+=`<tr><td>🟡 Setoran</td><td>${rupiah(js)}</td><td>${rupiah(rs)}</td><td class="${js-rs>=0?'pill-up':'pill-down'}">${js-rs>=0?'+'+rupiah(js-rs):rupiah(js-rs)}</td></tr>`;
-  html+=`<tr><td>📦 Pengeluaran Lain</td><td>-</td><td>${rupiah(tl)}</td><td class="pill-down">-${rupiah(tl)}</td></tr>`;
-  html+=`<tr><td>🤲 Shodaqoh</td><td>-</td><td>${rupiah(ts)}</td><td class="pill-down">-${rupiah(ts)}</td></tr>`;
-  html+=`<tr style="font-weight:700;"><td>TOTAL</td><td>${rupiah(tj)}</td><td>${rupiah(tr)}</td><td class="${tj-tr>=0?'pill-up':'pill-down'}">${tj-tr>=0?'+'+rupiah(tj-tr):rupiah(tj-tr)}</td></tr>`;
-  tb.innerHTML=html;
-  document.getElementById('totalKasAdmin').textContent='Total di Admin: '+rupiah(tj-tr);
-}
-
-function loadPrediksiStokPage() {
-  loadPrediksiStok();
-  if(STATE.stok){
-    document.getElementById('sisaStok2').textContent=STATE.stok.sisaStok||0;
-    document.getElementById('rataRataStok2').textContent=STATE.stok.rataRata||0;
-    document.getElementById('prediksiHabis2').textContent=STATE.stok.prediksiHabis||'-';
-  }
-}
+function renderGrafikPremium() { if(!DOM.chartsContainer)return; const filtered=filterData(); if(!filtered.length)return; Object.values(STATE.charts).forEach(c=>{ if(c)c.destroy(); }); STATE.charts={}; const labels=filtered.map(r=>(r.tanggal||r[1]||'').split('T')[0]), omzet=filtered.map(r=>Number(r.totalOmzet||r[36]||0)); DOM.chartsContainer.replaceChildren(); const card=el('div','chart-card'); card.innerHTML='<div class="chart-head"><h3>📈 Omzet</h3></div><div class="chart-wrap"><canvas id="chartGrafik"></canvas></div>'; DOM.chartsContainer.appendChild(card); setTimeout(()=>{ const ctx=document.getElementById('chartGrafik')?.getContext('2d'); if(ctx){ const g=ctx.createLinearGradient(0,0,0,220); g.addColorStop(0,'rgba(15,118,110,0.3)'); g.addColorStop(1,'rgba(15,118,110,0)'); STATE.charts.grafik=new Chart(ctx,{type:'line',data:{labels,datasets:[{label:'Omzet',data:omzet,borderColor:'#0f766e',backgroundColor:g,fill:true,tension:.4,borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{ticks:{callback:v=>rupiah(v)}}}}}); } },200); }
+function renderAnalisisV5() { const g=document.getElementById('analisisSummaryGrid'); if(!g)return; g.replaceChildren(el('div','',`<p style="text-align:center;padding:20px;">📊 Data: <b>${filterData().length}</b> transaksi</p>`)); }
+function renderRiwayatSetoran() { const tb=document.getElementById('setoranBody'); if(!tb)return; const data=STATE.data.filter(r=>Number(r.realSetoran||r[31]||0)>0); if(!data.length){ tb.replaceChildren(el('tr','','<td colspan="3"><div style="text-align:center;padding:40px;">📭 Belum ada setoran</div></td>')); return; } let total=0; const fragment=document.createDocumentFragment(); [...data].reverse().forEach(r=>{ const jumlah=Number(r.realSetoran||r[31]||0); total+=jumlah; const tr=el('tr'); tr.innerHTML=`<td>${(r.tanggal||r[1]||'').split('T')[0]}</td><td>${rupiah(jumlah)}</td><td>${r.catSetoran||r[32]||''}</td>`; fragment.appendChild(tr); }); tb.replaceChildren(fragment); document.getElementById('totalSetoran').textContent=rupiah(total); }
+function renderKasAdmin() { const tb=document.getElementById('kasAdminBody'); if(!tb)return; const filtered=filterData(); let ja={},ra={}; POS.forEach(p=>{ja[p.key]=0;ra[p.key]=0;}); let jk=0,rk=0,jz=0,rz=0,js=0,rs=0,tl=0,ts=0; filtered.forEach(r=>{ const g=(Number(r.gas22||r[3]||0))+(Number(r.gas23||r[4]||0))+(Number(r.gasPink||r[5]||0)), gl=(Number(r.galon3k||r[6]||0))+(Number(r.galon4k||r[7]||0))+(Number(r.galon5k||r[8]||0)); POS.forEach(p=>{ ja[p.key]+=p.jatahFn(g,gl); ra[p.key]+=Number(r[REAL_COL[p.key]]||0); }); jk+=Number(r.jatahKulakan||r[39]||0); rk+=Number(r.realKulakan||r[27]||0); jz+=Number(r.jatahZakat||r[41]||0); rz+=Number(r.realZakat||r[29]||0); js+=Number(r.jatahSetoran||r[42]||0); rs+=Number(r.realSetoran||r[31]||0); tl+=Number(r.pengeluaranLain||r[33]||0); ts+=Number(r.shodaqoh||r[35]||0); }); let tj=Object.values(ja).reduce((a,b)=>a+b,0)+jk+jz+js, tr=Object.values(ra).reduce((a,b)=>a+b,0)+rk+rz+rs+tl+ts; let html=''; POS.forEach(p=>{ const s=(ja[p.key]||0)-(ra[p.key]||0); html+=`<tr><td>${p.label}</td><td>${rupiah(ja[p.key])}</td><td>${rupiah(ra[p.key])}</td><td class="${s>=0?'pill-up':'pill-down'}">${s>=0?'+'+rupiah(s):rupiah(s)}</td></tr>`; }); html+=`<tr><td>🔵 Kulakan</td><td>${rupiah(jk)}</td><td>${rupiah(rk)}</td><td class="${jk-rk>=0?'pill-up':'pill-down'}">${jk-rk>=0?'+'+rupiah(jk-rk):rupiah(jk-rk)}</td></tr>`; html+=`<tr><td>🕌 Zakat</td><td>${rupiah(jz)}</td><td>${rupiah(rz)}</td><td class="${jz-rz>=0?'pill-up':'pill-down'}">${jz-rz>=0?'+'+rupiah(jz-rz):rupiah(jz-rz)}</td></tr>`; html+=`<tr><td>🟡 Setoran</td><td>${rupiah(js)}</td><td>${rupiah(rs)}</td><td class="${js-rs>=0?'pill-up':'pill-down'}">${js-rs>=0?'+'+rupiah(js-rs):rupiah(js-rs)}</td></tr>`; html+=`<tr><td>📦 Pengeluaran Lain</td><td>-</td><td>${rupiah(tl)}</td><td class="pill-down">-${rupiah(tl)}</td></tr>`; html+=`<tr><td>🤲 Shodaqoh</td><td>-</td><td>${rupiah(ts)}</td><td class="pill-down">-${rupiah(ts)}</td></tr>`; html+=`<tr style="font-weight:700;"><td>TOTAL</td><td>${rupiah(tj)}</td><td>${rupiah(tr)}</td><td class="${tj-tr>=0?'pill-up':'pill-down'}">${tj-tr>=0?'+'+rupiah(tj-tr):rupiah(tj-tr)}</td></tr>`; tb.innerHTML=html; document.getElementById('totalKasAdmin').textContent='Total di Admin: '+rupiah(tj-tr); }
+function loadPrediksiStokPage() { loadPrediksiStok(); if(STATE.stok){ document.getElementById('sisaStok2').textContent=STATE.stok.sisaStok||0; document.getElementById('rataRataStok2').textContent=STATE.stok.rataRata||0; document.getElementById('prediksiHabis2').textContent=STATE.stok.prediksiHabis||'-'; } }
 
 // ============ POPUP ============
-function showDetailPopup(title, stats, jenis) {
-  const overlay = document.getElementById('popupOverlay');
-  const popupTitle = document.getElementById('popupTitle');
-  const popupSubtitle = document.getElementById('popupSubtitle');
-  const popupIcon = document.getElementById('popupIcon');
-  const popupContent = document.getElementById('popupContent');
-  if (!overlay) return;
-  
-  let icon = '💰', sub = 'Informasi';
-  if (jenis?.includes('green')) { icon = '💰'; sub = 'Rincian Omzet'; }
-  else if (jenis?.includes('red')) { icon = '🔵'; sub = 'Rincian Kulakan'; }
-  else if (jenis?.includes('orange')) { icon = '🟢'; sub = 'Rincian Operasional'; }
-  else if (jenis?.includes('pink')) { icon = '🟠'; sub = 'Rincian Jajan'; }
-  else if (jenis?.includes('purple')) { icon = '🕌'; sub = 'Rincian Zakat'; }
-  else if (jenis?.includes('teal')) { icon = '🤲'; sub = 'Rincian Shodaqoh'; }
-  else if (jenis?.includes('blue') || jenis?.includes('profit')) { icon = '📈'; sub = 'Rincian Laba'; }
-  else if (jenis?.includes('gold')) { icon = '🟡'; sub = 'Rincian Setoran'; }
-  
-  if (popupTitle) popupTitle.textContent = title;
-  if (popupSubtitle) popupSubtitle.textContent = sub;
-  if (popupIcon) popupIcon.textContent = icon;
-  
-  let html = '';
-  if (jenis?.includes('green')) {
-    html += `<div style="display:flex;gap:12px;flex-wrap:wrap;">
-      <div style="flex:1;min-width:100px;"><small style="color:var(--gray);">Omzet Gas</small><div style="font-size:16px;font-weight:800;color:var(--success);">${rupiah(stats?.omzetGas||0)}</div></div>
-      <div style="flex:1;min-width:100px;"><small style="color:var(--gray);">Omzet Galon</small><div style="font-size:16px;font-weight:800;color:var(--secondary);">${rupiah(stats?.omzetGalon||0)}</div></div>
-      <div style="flex:1;min-width:100px;"><small style="color:var(--gray);">Total</small><div style="font-size:16px;font-weight:800;color:var(--gold);">${rupiah(stats?.omzet||0)}</div></div>
-    </div>`;
-  } else if (jenis?.includes('orange')) {
-    html += '<div class="op-table-wrap"><table class="op-table"><tr><th>Pos</th><th>Jatah</th><th>Real</th><th>Sisa</th></tr>';
-    POS.forEach(p => {
-      const j = stats?.['jatah_'+p.key] || 0, r = stats?.['real_'+p.key] || 0, s = j - r;
-      html += `<tr><td>${p.label}</td><td>${rupiah(j)}</td><td>${rupiah(r)}</td><td style="color:${s>=0?'var(--success)':'var(--danger)'};">${s>=0?'+'+rupiah(s):rupiah(s)}</td></tr>`;
-    });
-    html += '</table></div>';
-  } else {
-    const val = jenis?.includes('red') ? stats?.kulakan : jenis?.includes('pink') ? stats?.jajan : jenis?.includes('purple') ? stats?.zakat : jenis?.includes('teal') ? stats?.shodaqoh : jenis?.includes('blue') || jenis?.includes('profit') ? stats?.laba : stats?.setoran;
-    html += `<div style="font-size:20px;font-weight:800;color:var(--success);">${rupiah(val||0)}</div>`;
-  }
-  
-  if (popupContent) popupContent.innerHTML = html;
-  overlay.classList.add('active');
+function showDetailPopup(title,stats,jenis) {
+  const overlay=document.getElementById('popupOverlay'), popupTitle=document.getElementById('popupTitle'), popupSubtitle=document.getElementById('popupSubtitle'), popupIcon=document.getElementById('popupIcon'), popupContent=document.getElementById('popupContent');
+  if(!overlay)return; let icon='💰',sub='Informasi'; if(jenis?.includes('green')){icon='💰';sub='Rincian Omzet';} else if(jenis?.includes('red')){icon='🔵';sub='Rincian Kulakan';} else if(jenis?.includes('orange')){icon='🟢';sub='Rincian Operasional';} else if(jenis?.includes('pink')){icon='🟠';sub='Rincian Jajan';} else if(jenis?.includes('purple')){icon='🕌';sub='Rincian Zakat';} else if(jenis?.includes('teal')){icon='🤲';sub='Rincian Shodaqoh';} else if(jenis?.includes('blue')||jenis?.includes('profit')){icon='📈';sub='Rincian Laba';} else if(jenis?.includes('gold')){icon='🟡';sub='Rincian Setoran';}
+  if(popupTitle)popupTitle.textContent=title; if(popupSubtitle)popupSubtitle.textContent=sub; if(popupIcon)popupIcon.textContent=icon;
+  let html=''; if(jenis?.includes('green')){ html+=`<div style="display:flex;gap:12px;flex-wrap:wrap;"><div style="flex:1;min-width:100px;"><small>Omzet Gas</small><div style="font-size:16px;font-weight:800;color:var(--success);">${rupiah(stats?.omzetGas||0)}</div></div><div style="flex:1;min-width:100px;"><small>Omzet Galon</small><div style="font-size:16px;font-weight:800;color:var(--secondary);">${rupiah(stats?.omzetGalon||0)}</div></div></div>`; } else if(jenis?.includes('orange')){ html+='<table class="op-table"><tr><th>Pos</th><th>Jatah</th><th>Real</th><th>Sisa</th></tr>'; POS.forEach(p=>{ const j=stats?.['jatah_'+p.key]||0,r=stats?.['real_'+p.key]||0,s=j-r; html+=`<tr><td>${p.label}</td><td>${rupiah(j)}</td><td>${rupiah(r)}</td><td style="color:${s>=0?'var(--success)':'var(--danger)'};">${s>=0?'+'+rupiah(s):rupiah(s)}</td></tr>`; }); html+='</table>'; } else { const val=jenis?.includes('red')?stats?.kulakan:jenis?.includes('pink')?stats?.jajan:jenis?.includes('purple')?stats?.zakat:jenis?.includes('teal')?stats?.shodaqoh:jenis?.includes('blue')||jenis?.includes('profit')?stats?.laba:stats?.setoran; html+=`<div style="font-size:20px;font-weight:800;color:var(--success);">${rupiah(val||0)}</div>`; }
+  if(popupContent)popupContent.innerHTML=html; overlay.classList.add('active');
 }
+function closePopup(){ const o=document.getElementById('popupOverlay'); if(o)o.classList.remove('active'); }
 
-function closePopup() {
-  const overlay = document.getElementById('popupOverlay');
-  if (overlay) overlay.classList.remove('active');
-}
-
-// ============ UPDATE DASHBOARD ============
+// ============ DASHBOARD ============
 function updateDashboard() {
-  const filtered = filterData();
-  const today = getToday();
-  const dToday = STATE.data.filter(r=>(r.tanggal||r[1]||'').split('T')[0]===today);
-  const omzetToday = sum(dToday, COL.totalOmzet);
-
-  if(DOM.floatingTotal)DOM.floatingTotal.innerHTML = `<small>Omzet Hari Ini</small><strong>${rupiah(omzetToday)}</strong>`;
-  if(DOM.heroGreeting)DOM.heroGreeting.textContent = `Omzet hari ini: ${rupiah(omzetToday)}`;
-
-  let omzet=0,kulakan=0,ops=0,laba=0,setoran=0,zakat=0,sh=0,omGas=0,omGal=0,rkt=0,rzt=0,rst=0,realJajan=0;
-  let ja={}, ra={}; POS.forEach(p=>{ja[p.key]=0;ra[p.key]=0;});
-  filtered.forEach(r=>{
-    omzet+=Number(r.totalOmzet||r[COL.totalOmzet]||0); kulakan+=Number(r.jatahKulakan||r[COL.jatahKulakan]||0);
-    ops+=Number(r.jatahOps||r[COL.jatahOps]||0); laba+=Number(r.labaBersih||r[COL.labaBersih]||0);
-    setoran+=Number(r.jatahSetoran||r[COL.jatahSetoran]||0); zakat+=Number(r.jatahZakat||r[COL.jatahZakat]||0);
-    sh+=Number(r.shodaqoh||r[COL.shodaqoh]||0); omGas+=Number(r.omzetGas||r[COL.omzetGas]||0);
-    omGal+=Number(r.omzetGalon||r[COL.omzetGalon]||0); rkt+=Number(r.realKulakan||r[COL.realKulakan]||0);
-    rzt+=Number(r.realZakat||r[COL.realZakat]||0); rst+=Number(r.realSetoran||r[COL.realSetoran]||0);
-    realJajan+=Number(r.realJajan||r[COL.realJajan]||0);
-    const g=(Number(r.gas22||r[COL.gas22]||0))+(Number(r.gas23||r[COL.gas23]||0))+(Number(r.gasPink||r[COL.gasPink]||0));
-    const gl=(Number(r.galon3k||r[COL.galon3k]||0))+(Number(r.galon4k||r[COL.galon4k]||0))+(Number(r.galon5k||r[COL.galon5k]||0));
-    POS.forEach(p=>{ ja[p.key]+=p.jatahFn(g,gl); ra[p.key]+=Number(r[REAL_COL[p.key]]||0); });
-  });
-  const totalReal=Object.values(ra).reduce((a,b)=>a+b,0), jajan=filtered.length*10000;
-  STATE.currentStats = {omzet,kulakan,ops,jajan,zakat,shodaqoh:sh,laba,setoran,omzetGas:omGas,omzetGalon:omGal,realKulakan:rkt,realZakat:rzt,realSetoran:rst,realJajan};
-  POS.forEach(p=>{ STATE.currentStats['jatah_'+p.key]=ja[p.key]; STATE.currentStats['real_'+p.key]=ra[p.key]; });
-
-  const stats = {
-    omzet,kulakan,ops,jajan,zakat,shodaqoh:sh,laba,setoran,omGas,omGal,rkt,rzt,rst,realJajan,
-    sk:kulakan-rkt, sops:ops-totalReal, sj:jajan-realJajan, sz:zakat-rzt, ss:setoran-rst,
-    lc:laba>500000?'profit-good':laba>0?'profit-ok':'profit-bad',
-    le:laba>500000?'🟢':laba>0?'🟠':'🔴', totalReal
-  };
-  renderCards(stats);
-
-  if(DOM.topInfo){
-    const stok = STATE.stok?.sisaStok||0;
-    DOM.topInfo.replaceChildren();
-    [
-      {label:'📅 Jam', value:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}), id:'clock'},
-      {label:'📦 Stok', value:stok+' tabung', color:stok>STOCK_LIMIT.aman?'var(--success)':stok>STOCK_LIMIT.warning?'var(--warning)':'var(--danger)'},
-      {label:'📋 Data', value:STATE.data.length},
-      {label:'💾 Versi', value:'v12.7'}
-    ].forEach(item=>{
-      const card = el('div','mini-card');
-      card.innerHTML = `<div class="mlabel">${item.label}</div><div class="mvalue"${item.id?' id="'+item.id+'"':''} style="${item.color?'color:'+item.color:''}">${item.value}</div>`;
-      DOM.topInfo.appendChild(card);
-    });
-  }
-
-  // ✅ Tampilkan tabel operasional dengan jatah
-  const g = getNum('gas22') + getNum('gas23') + getNum('gasPink');
-  const gl = getNum('galon3k') + getNum('galon4k') + getNum('galon5k');
-  DOM.opContainer.innerHTML = buildOpRows({gas22:g, gas23:0, gasPink:0, galon3k:gl, galon4k:0, galon5k:0});
-  
-  if(DOM.filterLabel)DOM.filterLabel.textContent=STATE.filter?'Data terfilter':'Semua data';
+  const filtered=filterData(); const today=getToday(); const dToday=STATE.data.filter(r=>(r.tanggal||r[1]||'').split('T')[0]===today); const omzetToday=sum(dToday,COL.totalOmzet);
+  if(DOM.floatingTotal)DOM.floatingTotal.innerHTML=`<small>Omzet Hari Ini</small><strong>${rupiah(omzetToday)}</strong>`; if(DOM.heroGreeting)DOM.heroGreeting.textContent=`Omzet hari ini: ${rupiah(omzetToday)}`;
+  let omzet=0,kulakan=0,ops=0,laba=0,setoran=0,zakat=0,sh=0,omGas=0,omGal=0,rkt=0,rzt=0,rst=0,realJajan=0; let ja={},ra={}; POS.forEach(p=>{ja[p.key]=0;ra[p.key]=0;});
+  filtered.forEach(r=>{ omzet+=Number(r.totalOmzet||r[COL.totalOmzet]||0); kulakan+=Number(r.jatahKulakan||r[COL.jatahKulakan]||0); ops+=Number(r.jatahOps||r[COL.jatahOps]||0); laba+=Number(r.labaBersih||r[COL.labaBersih]||0); setoran+=Number(r.jatahSetoran||r[COL.jatahSetoran]||0); zakat+=Number(r.jatahZakat||r[COL.jatahZakat]||0); sh+=Number(r.shodaqoh||r[COL.shodaqoh]||0); omGas+=Number(r.omzetGas||r[COL.omzetGas]||0); omGal+=Number(r.omzetGalon||r[COL.omzetGalon]||0); rkt+=Number(r.realKulakan||r[COL.realKulakan]||0); rzt+=Number(r.realZakat||r[COL.realZakat]||0); rst+=Number(r.realSetoran||r[COL.realSetoran]||0); realJajan+=Number(r.realJajan||r[COL.realJajan]||0); const g=(Number(r.gas22||r[COL.gas22]||0))+(Number(r.gas23||r[COL.gas23]||0))+(Number(r.gasPink||r[COL.gasPink]||0)), gl=(Number(r.galon3k||r[COL.galon3k]||0))+(Number(r.galon4k||r[COL.galon4k]||0))+(Number(r.galon5k||r[COL.galon5k]||0)); POS.forEach(p=>{ ja[p.key]+=p.jatahFn(g,gl); ra[p.key]+=Number(r[REAL_COL[p.key]]||0); }); });
+  const totalReal=Object.values(ra).reduce((a,b)=>a+b,0), jajan=filtered.length*10000; STATE.currentStats={omzet,kulakan,ops,jajan,zakat,shodaqoh:sh,laba,setoran,omzetGas:omGas,omzetGalon:omGal,realKulakan:rkt,realZakat:rzt,realSetoran:rst,realJajan}; POS.forEach(p=>{ STATE.currentStats['jatah_'+p.key]=ja[p.key]; STATE.currentStats['real_'+p.key]=ra[p.key]; });
+  const stats={omzet,kulakan,ops,jajan,zakat,shodaqoh:sh,laba,setoran,omGas,omGal,rkt,rzt,rst,realJajan,sk:kulakan-rkt,sops:ops-totalReal,sj:jajan-realJajan,sz:zakat-rzt,ss:setoran-rst,lc:laba>500000?'profit-good':laba>0?'profit-ok':'profit-bad',le:laba>500000?'🟢':laba>0?'🟠':'🔴',totalReal}; renderCards(stats);
+  if(DOM.topInfo){ const stok=STATE.stok?.sisaStok||0; DOM.topInfo.replaceChildren(); [{label:'📅 Jam',value:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}),id:'clock'},{label:'📦 Stok',value:stok+' tabung',color:stok>STOCK_LIMIT.aman?'var(--success)':stok>STOCK_LIMIT.warning?'var(--warning)':'var(--danger)'},{label:'📋 Data',value:STATE.data.length},{label:'💾 Versi',value:'v12.8'}].forEach(item=>{ const card=el('div','mini-card'); card.innerHTML=`<div class="mlabel">${item.label}</div><div class="mvalue"${item.id?' id="'+item.id+'"':''} style="${item.color?'color:'+item.color:''}">${item.value}</div>`; DOM.topInfo.appendChild(card); }); }
+  const g=getNum('gas22')+getNum('gas23')+getNum('gasPink'), gl=getNum('galon3k')+getNum('galon4k')+getNum('galon5k'); DOM.opContainer.innerHTML=buildOpRows({totalGas:g,totalGalon:gl}); if(DOM.filterLabel)DOM.filterLabel.textContent=STATE.filter?'Data terfilter':'Semua data';
 }
 
 // ============ DARK MODE ============
-function toggleDarkMode() {
-  const h=document.documentElement;
-  const isDark=h.getAttribute('data-theme')==='dark';
-  h.setAttribute('data-theme',isDark?'light':'dark');
-  const btn=document.getElementById('darkToggle');
-  if(btn)btn.textContent=isDark?'🌙':'☀️';
-  localStorage.setItem('gals-dark',isDark?'light':'dark');
-}
+function toggleDarkMode(){ const h=document.documentElement; const isDark=h.getAttribute('data-theme')==='dark'; h.setAttribute('data-theme',isDark?'light':'dark'); const btn=document.getElementById('darkToggle'); if(btn)btn.textContent=isDark?'🌙':'☀️'; localStorage.setItem('gals-dark',isDark?'light':'dark'); }
 
-// ============ EVENT DELEGATION (ALL IN ONE - FIXED) ============
-document.addEventListener('click', (e) => {
-  // ✅ NAVIGASI
-  const navBtn = e.target.closest('.nav-btn2');
-  if (navBtn && navBtn.dataset.page) { showMainPage(navBtn.dataset.page); return; }
-  
-  // ✅ FILTER DASHBOARD
-  const filterBtn = e.target.closest('#dashboardPage .filter-btn');
-  if (filterBtn) { const f = filterBtn.dataset.filter; if(f) setFilter(f, filterBtn); return; }
-  
-  // ✅ FILTER ANALISIS
-  const aFilterBtn = e.target.closest('#analisisFilterRow .filter-btn');
-  if (aFilterBtn) {
-    document.querySelectorAll('#analisisFilterRow .filter-btn').forEach(b=>b.classList.remove('active'));
-    aFilterBtn.classList.add('active');
-    STATE.analisisFilter = aFilterBtn.dataset.afilter;
-    renderAnalisisV5();
-    return;
-  }
-  
-  // ✅ EDIT (pakai closest)
-  const editBtn = e.target.closest('.btn-edit');
-  if (editBtn) { const id = editBtn.dataset.id; if(id){ const r=STATE.data.find(d=>(d.id||d[0])==id); if(r)fillForm(r); } return; }
-  
-  // ✅ DELETE (pakai closest)
-  const deleteBtn = e.target.closest('.btn-delete');
-  if (deleteBtn) { const id = deleteBtn.dataset.id; if(id) hapusData(id); return; }
-  
-  // ✅ SIMPAN (pakai closest)
-  if (e.target.closest('#btnSimpan')) { simpanData(); return; }
-  
-  // ✅ HAPUS FORM (pakai closest)
-  if (e.target.closest('#btnHapusForm')) { if(STATE.editId) hapusData(STATE.editId); return; }
-  
-  // ✅ RESET (pakai closest)
-  if (e.target.closest('#btnReset')) { resetForm(); return; }
-  
-  // ✅ INPUT STOK (pakai closest)
-  if (e.target.closest('#btnInputStok')) { inputStok(); return; }
-  
-  // ✅ EXPORT (pakai closest)
-  if (e.target.closest('#btnExport')) { exportPDF(); return; }
-  
-  // ✅ DARK TOGGLE
-  if (e.target.closest('#darkToggle')) { toggleDarkMode(); return; }
-  
-  // ✅ CLOSE POPUP
-  if (e.target.closest('#popupCloseBtn')) { closePopup(); return; }
-  
-  // ✅ CLOSE POPUP (klik overlay)
-  if (e.target.id === 'popupOverlay') { closePopup(); return; }
+// ============ EVENT DELEGATION ============
+document.addEventListener('click',(e)=>{
+  const navBtn=e.target.closest('.nav-btn2'); if(navBtn&&navBtn.dataset.page){ showMainPage(navBtn.dataset.page); return; }
+  const filterBtn=e.target.closest('#dashboardPage .filter-btn'); if(filterBtn){ const f=filterBtn.dataset.filter; if(f)setFilter(f,filterBtn); return; }
+  const aFilterBtn=e.target.closest('#analisisFilterRow .filter-btn'); if(aFilterBtn){ document.querySelectorAll('#analisisFilterRow .filter-btn').forEach(b=>b.classList.remove('active')); aFilterBtn.classList.add('active'); STATE.analisisFilter=aFilterBtn.dataset.afilter; renderAnalisisV5(); return; }
+  const editBtn=e.target.closest('.btn-edit'); if(editBtn){ const id=editBtn.dataset.id; if(id){ const r=STATE.data.find(d=>(d.id||d[0])==id); if(r)fillForm(r); } return; }
+  const deleteBtn=e.target.closest('.btn-delete'); if(deleteBtn){ const id=deleteBtn.dataset.id; if(id)hapusData(id); return; }
+  if(e.target.closest('#btnSimpan')){ simpanData(); return; } if(e.target.closest('#btnHapusForm')){ if(STATE.editId)hapusData(STATE.editId); return; }
+  if(e.target.closest('#btnReset')){ resetForm(); return; } if(e.target.closest('#btnInputStok')){ inputStok(); return; }
+  if(e.target.closest('#btnExport')){ exportPDF(); return; } if(e.target.closest('#darkToggle')){ toggleDarkMode(); return; }
+  if(e.target.closest('#popupCloseBtn')){ closePopup(); return; } if(e.target.id==='popupOverlay'){ closePopup(); return; }
 });
 
 // ============ SCROLL HIDE NAV ============
-let lastScroll=0;
-window.addEventListener('scroll',()=>{
-  const cs=window.pageYOffset;
-  if(!DOM.bottomNav)return;
-  if(cs>lastScroll&&cs>200)DOM.bottomNav.style.transform='translateY(100px)';
-  else DOM.bottomNav.style.transform='translateY(0)';
-  lastScroll=cs;
-});
+let lastScroll=0; window.addEventListener('scroll',()=>{ const cs=window.pageYOffset; if(!DOM.bottomNav)return; if(cs>lastScroll&&cs>200)DOM.bottomNav.style.transform='translateY(100px)'; else DOM.bottomNav.style.transform='translateY(0)'; lastScroll=cs; });
 
 // ============ CLOCK ============
 setInterval(()=>{ const cl=document.getElementById('clock'); if(cl)cl.textContent=new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}); },30000);
 
 // ============ INIT ============
-window.addEventListener('DOMContentLoaded', () => {
-  cacheDOM();
-  if(localStorage.getItem('gals-dark')==='dark'){
-    document.documentElement.setAttribute('data-theme','dark');
-    const btn=document.getElementById('darkToggle');
-    if(btn) btn.textContent='☀️';
-  }
-  buildNav();
-  loadAllData();
-  loadPrediksiStok();
+window.addEventListener('DOMContentLoaded',()=>{
+  cacheDOM(); if(localStorage.getItem('gals-dark')==='dark'){ document.documentElement.setAttribute('data-theme','dark'); const btn=document.getElementById('darkToggle'); if(btn)btn.textContent='☀️'; }
+  buildNav(); bindOpEvents(); loadAllData(); loadPrediksiStok();
 });
 </script>
 

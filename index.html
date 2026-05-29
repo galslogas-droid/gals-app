@@ -552,7 +552,11 @@ function updateStokDisplay(){
 function updateDashboard(){
   const filtered=filterData();const stats=calculateStats(filtered);
   const today=getToday();
-  const dToday=allData.filter(r=>{const t=String(r[COL.tanggal]||'').split('T')[0];return t===today;});
+ const dToday = allData.filter(r => {
+  const rawDate = String(r[COL.tanggal] || '');
+  const t = rawDate.split('T')[0];
+  return t === today;
+});
   document.getElementById('floatingTotal').innerHTML=`<small>💰 Omzet Hari Ini</small><strong>${rupiah(sum(dToday,COL.totalOmzet))}</strong>`;
   document.getElementById('heroGreeting').innerHTML=`${getGreeting()} 👋 Omzet hari ini <b>${rupiah(sum(dToday,COL.totalOmzet))}</b>`;
   renderCards(stats);document.getElementById('opContainer').innerHTML=buildOpRows(null);bindOpEvents();

@@ -375,7 +375,13 @@ let chartTrend=null,chartKomposisi=null,chartForecast=null,currentAnalisisFilter
 const POS=[{key:'realTransport',catKey:'catTransport',label:'🚚 Transport',jatahFn:(g,gl)=>(g*400)+(gl*500),realCol:11,catCol:12},{key:'realWifi',catKey:'catWifi',label:'🌐 Wifi',jatahFn:(g)=>g*500,realCol:13,catCol:14},{key:'realOpkirimgas',catKey:'catOpkirimgas',label:'📦 Op.Kirim Gas',jatahFn:(g)=>g*833,realCol:15,catCol:16},{key:'realAir',catKey:'catAir',label:'💧 Air',jatahFn:(_,gl)=>gl*500,realCol:17,catCol:18},{key:'realListrik',catKey:'catListrik',label:'⚡ Listrik',jatahFn:(_,gl)=>gl*500,realCol:19,catCol:20},{key:'realPemeliharaan',catKey:'catPemeliharaan',label:'🔧 Pemeliharaan',jatahFn:(_,gl)=>gl*500,realCol:21,catCol:22},{key:'realTisuTutup',catKey:'catTisuTutup',label:'🧻 Tutup & Tisu',jatahFn:(_,gl)=>gl*500,realCol:23,catCol:24},{key:'realJajan',catKey:'catJajan',label:'🟠 Jajan 2 Orang',jatahFn:()=>10000,realCol:25,catCol:26}];
 
 function formatDateLocal(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
-function getToday(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function getToday(){
+  const d = new Date();
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return yyyy + '-' + mm + '-' + dd;
+}
 function toast(m){if(DOM.toast){DOM.toast.innerText=m;DOM.toast.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>{DOM.toast.style.display='none';},2000);}}
 function rupiah(n){return'Rp '+Number(n||0).toLocaleString('id-ID');}
 function toRupiah(v){return v&&Number(v)>0?'Rp '+Number(v).toLocaleString('id-ID'):'';}

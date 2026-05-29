@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>✨ GALS NextGen v6.2 • Premium Dashboard</title>
+<title>✨ GALS NextGen v6.2 • Premium Dashboard V2</title>
 <meta name="theme-color" content="#0f766e">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -156,69 +156,68 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
 .popup-icon { position: absolute; bottom: -20px; left: 14px; width: 42px; height: 42px; border-radius: 12px; background: #fff; color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 8px 20px rgba(15,118,110,0.2); z-index: 5; }
 .popup-body { padding: 28px 14px 14px; }
 .popup-close-btn { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border: none; border-radius: 6px; background: rgba(255,255,255,0.15); color: #fff; font-size: 12px; cursor: pointer; z-index: 10; }
+/* ANALISIS V2 */
 .kpi-dot.pink { background: #ec4899; }
-.analisis-hero { background: radial-gradient(circle at top left, rgba(56,189,248,.22), transparent 35%), radial-gradient(circle at top right, rgba(236,72,153,.18), transparent 30%), linear-gradient(135deg, #07111f, #101f35); border-radius: 32px; padding: 28px; display: flex; justify-content: space-between; gap: 20px; align-items: center; margin-bottom: 20px; border: 1px solid rgba(255,255,255,.06); box-shadow: 0 25px 60px rgba(0,0,0,.35); flex-wrap: wrap; }
-.hero-badge { display: inline-flex; padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,.08); font-size: 11px; font-weight: 800; letter-spacing: .08em; margin-bottom: 12px; color: #fff; }
-.analisis-hero h1 { font-size: 36px; line-height: 1; margin-bottom: 10px; font-weight: 900; color: #fff; }
-.analisis-hero p { color: #94a3b8; font-size: 13px; }
-.hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 14px; margin-bottom: 20px; }
-.kpi-card { background: rgba(255,255,255,.06); backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,.08); border-radius: 24px; padding: 22px; position: relative; overflow: hidden; color: #fff; }
-.kpi-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at top right, rgba(255,255,255,.12), transparent 40%); pointer-events: none; }
-.kpi-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-.kpi-icon { width: 54px; height: 54px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
-.kpi-card:nth-child(1) .kpi-icon { background: #dcfce7; color: #166534; }
-.kpi-card:nth-child(2) .kpi-icon { background: #dbeafe; color: #1d4ed8; }
-.kpi-card:nth-child(3) .kpi-icon { background: #fef3c7; color: #92400e; }
-.kpi-card:nth-child(4) .kpi-icon { background: #fce7f3; color: #be185d; }
-.kpi-label { color: #94a3b8; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
-.kpi-value { font-size: 28px; font-weight: 900; margin-top: 6px; color: #fff; }
-.kpi-sub { margin-top: 12px; display: inline-flex; padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.06); font-size: 10px; font-weight: 700; color: #94a3b8; }
-.business-score { background: linear-gradient(135deg, #07111f, #13233d); border-radius: 32px; padding: 30px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,.06); color: #fff; }
-.score-grid { display: grid; grid-template-columns: 260px 1fr; gap: 28px; }
-@media(max-width:768px){ .score-grid { grid-template-columns: 1fr; } }
-.score-ring { width: 220px; height: 220px; border-radius: 50%; margin: auto; position: relative; display: flex; align-items: center; justify-content: center; }
-.score-ring::before { content: ''; position: absolute; width: 160px; height: 160px; background: #07111f; border-radius: 50%; }
-.score-content { position: relative; z-index: 2; text-align: center; }
-.score-number { font-size: 62px; font-weight: 900; background: linear-gradient(135deg, #4ade80, #22c55e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.score-text { font-size: 12px; color: #94a3b8; margin-top: 4px; }
-.metric-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin-top: 18px; }
-.metric-card { background: rgba(255,255,255,.05); border-radius: 20px; padding: 18px; border: 1px solid rgba(255,255,255,.05); }
-.metric-card small { color: #94a3b8; text-transform: uppercase; font-size: 10px; font-weight: 700; }
-.metric-card h3 { margin-top: 8px; font-size: 24px; color: #fff; }
-.progress { margin-top: 10px; width: 100%; height: 8px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,.06); }
-.progress-fill { height: 100%; border-radius: 999px; }
-.progress-fill.green { background: linear-gradient(90deg, #22c55e, #4ade80); }
-.progress-fill.blue { background: linear-gradient(90deg, #0ea5e9, #38bdf8); }
-.progress-fill.yellow { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
-.insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 14px; margin-bottom: 20px; }
-.insight-card { background: rgba(255,255,255,.06); backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,.08); border-radius: 28px; padding: 22px; color: #fff; }
-.insight-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-.insight-icon { width: 52px; height: 52px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
-.insight-big { font-size: 36px; font-weight: 900; margin: 14px 0; }
-.ai-box { background: linear-gradient(135deg, rgba(56,189,248,.12), rgba(168,85,247,.12)); border-radius: 18px; padding: 14px; font-size: 12px; color: #cbd5e1; line-height: 1.6; margin-top: 16px; }
-.anomaly-alert { margin-bottom: 18px; background: linear-gradient(135deg, #451a03, #78350f); border: 1px solid rgba(251,191,36,.25); color: #fde68a; padding: 16px 18px; border-radius: 18px; font-size: 12px; font-weight: 700; }
+.analisis-hero { background: radial-gradient(circle at top left, rgba(56,189,248,.22), transparent 35%), radial-gradient(circle at top right, rgba(236,72,153,.18), transparent 30%), linear-gradient(135deg, #07111f, #101f35); border-radius: 32px; padding: 24px 28px; display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 20px; border: 1px solid rgba(255,255,255,.06); box-shadow: 0 25px 60px rgba(0,0,0,.35); flex-wrap: wrap; }
+.hero-badge { display: inline-flex; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.08); font-size: 10px; font-weight: 800; letter-spacing: .06em; margin-bottom: 8px; color: #fff; }
+.analisis-hero h1 { font-size: 28px; line-height: 1; margin-bottom: 6px; font-weight: 900; color: #fff; }
+.analisis-hero p { color: #94a3b8; font-size: 12px; }
+.hero-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.grid-analisis { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; margin-bottom: 20px; }
+@media(max-width:900px){ .grid-analisis { grid-template-columns: 1fr; } }
+.left-col, .right-col { display: flex; flex-direction: column; gap: 16px; }
+.kpi-grid-v2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
+.kpi-card-v2 { background: rgba(255,255,255,.06); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.08); border-radius: 20px; padding: 16px; position: relative; overflow: hidden; color: #fff; animation: fadeUp .5s ease; animation-fill-mode: both; }
+.kpi-card-v2:nth-child(1) { animation-delay: .05s; } .kpi-card-v2:nth-child(2) { animation-delay: .1s; }
+.kpi-card-v2:nth-child(3) { animation-delay: .15s; } .kpi-card-v2:nth-child(4) { animation-delay: .2s; }
+.kpi-card-v2 .kpi-label-v2 { font-size: 9px; color: #94a3b8; text-transform: uppercase; font-weight: 700; letter-spacing: .04em; margin-bottom: 6px; }
+.kpi-card-v2 .kpi-value-v2 { font-size: 24px; font-weight: 900; margin-bottom: 4px; }
+.kpi-card-v2 .kpi-spark { height: 40px; margin-top: 4px; }
+.kpi-card-v2 .kpi-sub-v2 { font-size: 9px; color: #94a3b8; margin-top: 4px; }
+.business-score-v2 { background: linear-gradient(135deg, #07111f, #13233d); border-radius: 24px; padding: 22px; border: 1px solid rgba(255,255,255,.06); color: #fff; }
+.score-grid-v2 { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.score-ring-v2 { width: 140px; height: 140px; border-radius: 50%; position: relative; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.score-ring-v2::before { content: ''; position: absolute; width: 100px; height: 100px; background: #07111f; border-radius: 50%; }
+.score-content-v2 { position: relative; z-index: 2; text-align: center; }
+.score-number-v2 { font-size: 40px; font-weight: 900; background: linear-gradient(135deg, #4ade80, #22c55e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.score-text-v2 { font-size: 10px; color: #94a3b8; margin-top: 2px; }
+.score-info-v2 { flex: 1; min-width: 180px; }
+.score-info-v2 h2 { font-size: 20px; font-weight: 900; }
+.score-info-v2 p { font-size: 11px; color: #94a3b8; margin-top: 4px; line-height: 1.5; }
+.metric-row { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-top: 12px; }
+.metric-mini { background: rgba(255,255,255,.04); border-radius: 12px; padding: 10px; text-align: center; }
+.metric-mini small { font-size: 8px; color: #94a3b8; text-transform: uppercase; }
+.metric-mini h4 { font-size: 16px; font-weight: 800; margin-top: 2px; }
+.insight-grid-v2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
+.insight-card-v2 { background: rgba(255,255,255,.06); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 14px; color: #fff; animation: fadeUp .5s ease; animation-fill-mode: both; }
+.insight-card-v2:nth-child(1) { animation-delay: .25s; } .insight-card-v2:nth-child(2) { animation-delay: .3s; }
+.insight-card-v2:nth-child(3) { animation-delay: .35s; } .insight-card-v2:nth-child(4) { animation-delay: .4s; }
+.insight-head-v2 { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.insight-icon-v2 { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.insight-big-v2 { font-size: 22px; font-weight: 900; margin: 6px 0; }
+.ai-box-v2 { background: linear-gradient(135deg, rgba(56,189,248,.12), rgba(168,85,247,.12)); border-radius: 12px; padding: 10px; font-size: 10px; color: #cbd5e1; line-height: 1.5; margin-top: 8px; }
+.anomaly-alert { margin-bottom: 16px; background: linear-gradient(135deg, #451a03, #78350f); border: 1px solid rgba(251,191,36,.25); color: #fde68a; padding: 12px 16px; border-radius: 14px; font-size: 11px; font-weight: 700; }
+.chart-card-v2 { background: rgba(255,255,255,.06); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 14px; }
+.chart-card-v2 h3 { font-size: 13px; margin-bottom: 10px; opacity: .9; }
+.chart-wrap-v2 { position: relative; min-height: 220px; }
 [data-theme="light"] .analisis-hero { background: linear-gradient(135deg, var(--primary), var(--primary2)); }
 [data-theme="light"] .analisis-hero h1 { color: #fff; }
 [data-theme="light"] .analisis-hero p { color: rgba(255,255,255,.8); }
-[data-theme="light"] .kpi-card { background: var(--glass); color: var(--dark); }
-[data-theme="light"] .kpi-value { color: var(--dark); }
-[data-theme="light"] .kpi-label { color: var(--gray); }
-[data-theme="light"] .kpi-sub { color: var(--gray); background: rgba(0,0,0,.05); }
-[data-theme="light"] .business-score { background: var(--glass); color: var(--dark); }
-[data-theme="light"] .business-score h2 { color: var(--dark); }
-[data-theme="light"] .business-score p { color: var(--gray); }
-[data-theme="light"] .metric-card { background: rgba(0,0,0,.03); border-color: var(--border); }
-[data-theme="light"] .metric-card h3 { color: var(--dark); }
-[data-theme="light"] .metric-card small { color: var(--gray); }
-[data-theme="light"] .insight-card { background: var(--glass); color: var(--dark); }
-[data-theme="light"] .insight-big { color: var(--dark); }
-[data-theme="light"] .ai-box { background: rgba(15,118,110,.05); color: var(--dark); }
-[data-theme="light"] .score-number { color: var(--dark); -webkit-text-fill-color: var(--dark); }
-[data-theme="light"] .score-text { color: var(--gray); }
-[data-theme="light"] .score-ring::before { background: var(--white); }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-@media(max-width:480px){ .header h1 { font-size: 18px; } .stat-value { font-size: 18px; } .analisis-hero h1 { font-size: 24px; } .score-number { font-size: 44px; } }
+[data-theme="light"] .kpi-card-v2 { background: var(--glass); color: var(--dark); }
+[data-theme="light"] .kpi-card-v2 .kpi-value-v2 { color: var(--dark); }
+[data-theme="light"] .kpi-card-v2 .kpi-label-v2 { color: var(--gray); }
+[data-theme="light"] .business-score-v2 { background: var(--glass); color: var(--dark); }
+[data-theme="light"] .business-score-v2 h2 { color: var(--dark); }
+[data-theme="light"] .business-score-v2 p { color: var(--gray); }
+[data-theme="light"] .metric-mini { background: rgba(0,0,0,.03); }
+[data-theme="light"] .metric-mini h4 { color: var(--dark); }
+[data-theme="light"] .insight-card-v2 { background: var(--glass); color: var(--dark); }
+[data-theme="light"] .insight-big-v2 { color: var(--dark); }
+[data-theme="light"] .ai-box-v2 { background: rgba(15,118,110,.05); color: var(--dark); }
+[data-theme="light"] .score-number-v2 { color: var(--dark); -webkit-text-fill-color: var(--dark); }
+[data-theme="light"] .score-ring-v2::before { background: var(--white); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@media(max-width:480px){ .header h1 { font-size: 18px; } .stat-value { font-size: 18px; } .analisis-hero h1 { font-size: 22px; } .kpi-grid-v2 { grid-template-columns: 1fr; } .insight-grid-v2 { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -226,7 +225,7 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
 <header class="header">
   <div class="header-content">
     <div><h1>✨ GALS NextGen</h1><p class="hero-greeting" id="heroGreeting">Selamat datang! Memuat data...</p></div>
-    <span class="version-badge">v6.2 Premium</span>
+    <span class="version-badge">v6.2 V2</span>
   </div>
 </header>
 <div class="container">
@@ -306,14 +305,18 @@ tbody tr:hover { background: rgba(15,118,110,0.03); }
         <button class="filter-btn" onclick="setAnalisisFilter('semua',this)">Semua</button>
       </div>
     </div>
-    <div class="kpi-grid" id="summaryGrid"></div>
     <div id="anomalyAlert"></div>
-    <div class="business-score" id="businessScore"></div>
-    <div class="insight-grid" id="insightGrid"></div>
-    <div class="chart-grid">
-      <div class="chart-card large"><div class="chart-head"><h3>📈 Tren Omzet</h3></div><div class="chart-wrap"><canvas id="cTrend"></canvas></div></div>
-      <div class="chart-card"><div class="chart-head"><h3>🍩 Komposisi Penjualan</h3></div><div class="chart-wrap"><canvas id="cKomposisi"></canvas></div></div>
-      <div class="chart-card"><div class="chart-head"><h3>🔮 Forecast AI</h3></div><div class="chart-wrap"><canvas id="cForecast"></canvas></div></div>
+    <div class="grid-analisis">
+      <div class="left-col">
+        <div class="kpi-grid-v2" id="summaryGrid"></div>
+        <div class="business-score-v2" id="businessScore"></div>
+        <div class="insight-grid-v2" id="insightGrid"></div>
+      </div>
+      <div class="right-col">
+        <div class="chart-card-v2"><h3>📈 Tren Omzet</h3><div class="chart-wrap-v2"><canvas id="cTrend"></canvas></div></div>
+        <div class="chart-card-v2"><h3>🍩 Komposisi Penjualan</h3><div class="chart-wrap-v2"><canvas id="cKomposisi"></canvas></div></div>
+        <div class="chart-card-v2"><h3>🔮 Forecast AI</h3><div class="chart-wrap-v2"><canvas id="cForecast"></canvas></div></div>
+      </div>
     </div>
   </div>
 
@@ -364,6 +367,7 @@ const TOKEN='GALS2026';
 const COL={id:0,tanggal:1,waktu:2,gas22:3,gas23:4,gasPink:5,galon3k:6,galon4k:7,galon5k:8,pemasukanLain:9,ketPemasukanLain:10,realTransport:11,catTransport:12,realWifi:13,catWifi:14,realOpkirimgas:15,catOpkirimgas:16,realAir:17,catAir:18,realListrik:19,catListrik:20,realPemeliharaan:21,catPemeliharaan:22,realTisuTutup:23,catTisuTutup:24,realJajan:25,catJajan:26,realKulakan:27,catKulakan:28,realZakat:29,catZakat:30,realSetoran:31,catSetoran:32,pengeluaranLain:33,catPengeluaranLain:34,shodaqoh:35,totalOmzet:36,omzetGas:37,omzetGalon:38,jatahKulakan:39,jatahOps:40,jatahZakat:41,jatahSetoran:42,totalReal:43,totalPengeluaran:44,labaBersih:45,status:46,createdAt:47,updatedAt:48,version:49};
 let allData=[],editId=null,currentPage='dashboardPage',stokData=null,DOM={},toastTimer=null;
 let chartTrend=null,chartKomposisi=null,chartForecast=null,currentAnalisisFilter='minggu';
+const sparkCanvases={};
 
 const POS=[{key:'realTransport',catKey:'catTransport',label:'🚚 Transport',jatahFn:(g,gl)=>(g*400)+(gl*500),realCol:11,catCol:12},{key:'realWifi',catKey:'catWifi',label:'🌐 Wifi',jatahFn:(g)=>g*500,realCol:13,catCol:14},{key:'realOpkirimgas',catKey:'catOpkirimgas',label:'📦 Op.Kirim Gas',jatahFn:(g)=>g*833,realCol:15,catCol:16},{key:'realAir',catKey:'catAir',label:'💧 Air',jatahFn:(_,gl)=>gl*500,realCol:17,catCol:18},{key:'realListrik',catKey:'catListrik',label:'⚡ Listrik',jatahFn:(_,gl)=>gl*500,realCol:19,catCol:20},{key:'realPemeliharaan',catKey:'catPemeliharaan',label:'🔧 Pemeliharaan',jatahFn:(_,gl)=>gl*500,realCol:21,catCol:22},{key:'realTisuTutup',catKey:'catTisuTutup',label:'🧻 Tutup & Tisu',jatahFn:(_,gl)=>gl*500,realCol:23,catCol:24},{key:'realJajan',catKey:'catJajan',label:'🟠 Jajan 2 Orang',jatahFn:()=>10000,realCol:25,catCol:26}];
 
@@ -376,6 +380,37 @@ function toRupiah(v){return v&&Number(v)>0?'Rp '+Number(v).toLocaleString('id-ID
 function getNum(id){const el=document.getElementById(id);if(!el)return 0;return Number(String(el.value).replace(/[^0-9]/g,''))||0;}
 function sum(d,i){return d.reduce((s,r)=>s+Number(r[i]||0),0);}
 Chart.defaults.font.family='Inter';
+
+function animateValue(el,start,end,duration=1000){
+  let startTime=null;
+  function update(currentTime){
+    if(!startTime)startTime=currentTime;
+    const progress=Math.min((currentTime-startTime)/duration,1);
+    const value=Math.floor(progress*(end-start)+start);
+    el.textContent=rupiah(value);
+    if(progress<1)requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+function drawSparkline(canvasId,data,color='#14b8a6'){
+  setTimeout(()=>{
+    const c=document.getElementById(canvasId);
+    if(!c)return;
+    const ctx=c.getContext('2d'),w=c.width=c.offsetWidth,h=c.height=c.offsetHeight;
+    if(!w||!h)return;
+    ctx.clearRect(0,0,w,h);
+    const max=Math.max(...data,1),min=Math.min(...data,0),range=max-min||1;
+    const step=data.length>1?w/(data.length-1):w;
+    ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=2;
+    data.forEach((v,i)=>{const x=i*step,y=h-((v-min)/range)*h;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
+    ctx.stroke();
+    const g=ctx.createLinearGradient(0,0,0,h);
+    const rgba=color.startsWith('#')?color.replace(')',',0.15)').replace('rgb','rgba'):color;
+    g.addColorStop(0,rgba);g.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=g;ctx.fill();
+  },300);
+}
 
 document._filter=null;
 function setFilter(j,btn){
@@ -543,10 +578,7 @@ function updateStokDisplay(){
 function updateDashboard(){
   const filtered=filterData();const stats=calculateStats(filtered);
   const today=getToday();
-  const dToday=allData.filter(r=>{
-    const d=parseDate(r[COL.tanggal]);
-    return d&&formatDateLocal(d)===today;
-  });
+  const dToday=allData.filter(r=>{const d=parseDate(r[COL.tanggal]);return d&&formatDateLocal(d)===today;});
   document.getElementById('floatingTotal').innerHTML=`<small>💰 Omzet Hari Ini</small><strong>${rupiah(sum(dToday,COL.totalOmzet))}</strong>`;
   document.getElementById('heroGreeting').innerHTML=`${getGreeting()} 👋 Omzet hari ini <b>${rupiah(sum(dToday,COL.totalOmzet))}</b>`;
   renderCards(stats);document.getElementById('opContainer').innerHTML=buildOpRows(null);bindOpEvents();
@@ -632,6 +664,7 @@ function renderGrafik(){
   },300);
 }
 
+// ============ ANALISIS V2 ============
 function renderAnalisis(){
   if(!allData||!allData.length)return;
   let data=[...allData];
@@ -639,7 +672,7 @@ function renderAnalisis(){
   if(currentAnalisisFilter==='minggu'){const batas=new Date();batas.setDate(now.getDate()-7);data=data.filter(r=>{const t=new Date((r[COL.tanggal]||'').split('T')[0]);return t>=batas;});}
   if(currentAnalisisFilter==='bulan'){const bulan=now.toISOString().slice(0,7);data=data.filter(r=>String(r[COL.tanggal]||'').startsWith(bulan));}
   const a=analyzeData(data);
-  renderSummary(a);renderScore(a);renderInsight(a);renderAlert(a);renderCharts(a,data);
+  renderSummaryV2(a,data);renderScoreV2(a);renderInsightV2(a);renderAlertV2(a);renderChartsV2(a,data);
 }
 function setAnalisisFilter(f,btn){currentAnalisisFilter=f;document.querySelectorAll('#analisisPage .filter-btn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');renderAnalisis();}
 function analyzeData(data){
@@ -656,43 +689,49 @@ function analyzeData(data){
   const omzetValues=data.map(r=>Number(r[COL.totalOmzet]||0)),mean=omzetValues.reduce((a,b)=>a+b,0)/(omzetValues.length||1);
   const trend=omzetValues.length>1?(omzetValues[omzetValues.length-1]-omzetValues[0])/omzetValues.length:0;
   const forecast=Array.from({length:7},(_,i)=>Math.round(avgOmzet+trend*(i+1)));
-  return{omzet,laba,avgOmzet,avgLaba,margin,opsRatio,score,label,g22,g23,gp,top,predHabis,avgGas,hari,forecast,anomalies:data.filter(r=>Number(r[COL.totalOmzet]||0)>mean*1.7)};
+  return{omzet,laba,avgOmzet,avgLaba,margin,opsRatio,score,label,g22,g23,gp,top,predHabis,avgGas,hari,forecast,omzetValues,anomalies:data.filter(r=>Number(r[COL.totalOmzet]||0)>mean*1.7)};
 }
-function renderSummary(a){
+function renderSummaryV2(a,data){
+  const omzetValues=data.map(r=>Number(r[COL.totalOmzet]||0));
   document.getElementById('summaryGrid').innerHTML=`
-  <div class="kpi-card"><div class="kpi-top"><div><div class="kpi-label">Total Omzet</div><div class="kpi-value">${rupiah(a.omzet)}</div></div><div class="kpi-icon">💰</div></div><div class="kpi-sub">📈 ${a.hari} Hari</div></div>
-  <div class="kpi-card"><div class="kpi-top"><div><div class="kpi-label">Total Laba</div><div class="kpi-value">${rupiah(a.laba)}</div></div><div class="kpi-icon">📈</div></div><div class="kpi-sub">${a.margin}% Margin</div></div>
-  <div class="kpi-card"><div class="kpi-top"><div><div class="kpi-label">Prediksi Stok</div><div class="kpi-value">${a.predHabis} Hari</div></div><div class="kpi-icon">📦</div></div><div class="kpi-sub">${a.avgGas} gas/hari</div></div>
-  <div class="kpi-card"><div class="kpi-top"><div><div class="kpi-label">Produk Terlaris</div><div class="kpi-value">${a.top[0]}</div></div><div class="kpi-icon">🔥</div></div><div class="kpi-sub">${a.top[1]} Unit</div></div>`;
+  <div class="kpi-card-v2"><div class="kpi-label-v2">Total Omzet</div><div class="kpi-value-v2" id="kpiOmzetVal">${rupiah(a.omzet)}</div><canvas class="kpi-spark" id="spOmzet"></canvas><div class="kpi-sub-v2">📈 ${a.hari} Hari</div></div>
+  <div class="kpi-card-v2"><div class="kpi-label-v2">Total Laba</div><div class="kpi-value-v2">${rupiah(a.laba)}</div><canvas class="kpi-spark" id="spLaba"></canvas><div class="kpi-sub-v2">${a.margin}% Margin</div></div>
+  <div class="kpi-card-v2"><div class="kpi-label-v2">Prediksi Stok</div><div class="kpi-value-v2">${a.predHabis} Hari</div><canvas class="kpi-spark" id="spStok"></canvas><div class="kpi-sub-v2">${a.avgGas} gas/hari</div></div>
+  <div class="kpi-card-v2"><div class="kpi-label-v2">Produk Terlaris</div><div class="kpi-value-v2">${a.top[0]}</div><canvas class="kpi-spark" id="spTop"></canvas><div class="kpi-sub-v2">${a.top[1]} Unit</div></div>`;
+  drawSparkline('spOmzet',omzetValues,'#14b8a6');
+  drawSparkline('spLaba',data.map(r=>Number(r[COL.labaBersih]||0)),'#0ea5e9');
+  drawSparkline('spStok',Array(7).fill(a.avgGas).map((v,i)=>v+(i-3)*2),'#f59e0b');
+  drawSparkline('spTop',data.map(r=>Number(r[COL.gas22]||0)+Number(r[COL.gas23]||0)+Number(r[COL.gasPink]||0)),'#ec4899');
 }
-function renderScore(a){
+function renderScoreV2(a){
   const deg=(a.score/100)*360;
   document.getElementById('businessScore').innerHTML=`
-  <div class="score-grid"><div class="score-ring" style="background:conic-gradient(#22c55e 0deg,#22c55e ${deg}deg,rgba(255,255,255,.06) ${deg}deg);"><div class="score-content"><div class="score-number">${a.score}</div><div class="score-text">Business Score</div></div></div>
-    <div><h2 style="font-size:32px;font-weight:900;">${a.label}</h2><p style="margin-top:10px;color:#94a3b8;">Sistem AI mendeteksi performa bisnis berdasarkan profit, efisiensi operasional, dan kestabilan penjualan.</p>
-      <div class="metric-grid">
-        <div class="metric-card"><small>Profit Margin</small><h3>${a.margin}%</h3><div class="progress"><div class="progress-fill green" style="width:${Math.min(100,a.margin*3)}%"></div></div></div>
-        <div class="metric-card"><small>Efisiensi</small><h3>${100-a.opsRatio}%</h3><div class="progress"><div class="progress-fill blue" style="width:${100-a.opsRatio}%"></div></div></div>
-        <div class="metric-card"><small>Prediksi Stok</small><h3>${a.predHabis} Hari</h3><div class="progress"><div class="progress-fill yellow" style="width:${Math.min(100,a.predHabis*8)}%"></div></div></div>
-        <div class="metric-card"><small>Rata Omzet</small><h3>${rupiah(a.avgOmzet)}</h3><div class="progress"><div class="progress-fill blue" style="width:${Math.min(100,a.avgOmzet/10000)}%"></div></div></div>
+  <div class="score-grid-v2">
+    <div class="score-ring-v2" style="background:conic-gradient(#22c55e 0deg,#22c55e ${deg}deg,rgba(255,255,255,.06) ${deg}deg);"><div class="score-content-v2"><div class="score-number-v2">${a.score}</div><div class="score-text-v2">Score</div></div></div>
+    <div class="score-info-v2"><h2>${a.label}</h2><p>Sistem AI mendeteksi performa bisnis berdasarkan profit, efisiensi operasional, dan kestabilan penjualan.</p>
+      <div class="metric-row">
+        <div class="metric-mini"><small>Profit Margin</small><h4>${a.margin}%</h4></div>
+        <div class="metric-mini"><small>Efisiensi</small><h4>${100-a.opsRatio}%</h4></div>
+        <div class="metric-mini"><small>Prediksi Stok</small><h4>${a.predHabis} Hari</h4></div>
+        <div class="metric-mini"><small>Rata Omzet</small><h4>${rupiah(a.avgOmzet)}</h4></div>
       </div>
     </div>
   </div>`;
 }
-function renderInsight(a){
+function renderInsightV2(a){
   document.getElementById('insightGrid').innerHTML=`
-  <div class="insight-card"><div class="insight-head"><div class="insight-icon">📈</div><div><h3>Profit</h3></div></div><div class="insight-big">${a.margin}%</div><div class="ai-box">🤖 Profit bisnis berada dalam kondisi baik dan stabil.</div></div>
-  <div class="insight-card"><div class="insight-head"><div class="insight-icon">📦</div><div><h3>Stok</h3></div></div><div class="insight-big">${a.predHabis} Hari</div><div class="ai-box">🤖 ${a.predHabis<3?'Stok hampir habis, segera lakukan kulakan.':'Persediaan stok masih aman.'}</div></div>
-  <div class="insight-card"><div class="insight-head"><div class="insight-icon">💸</div><div><h3>Operasional</h3></div></div><div class="insight-big">${a.opsRatio}%</div><div class="ai-box">🤖 ${a.opsRatio>25?'Biaya operasional terlalu tinggi.':'Biaya operasional masih efisien.'}</div></div>
-  <div class="insight-card"><div class="insight-head"><div class="insight-icon">🔥</div><div><h3>Best Seller</h3></div></div><div class="insight-big">${a.top[0]}</div><div class="ai-box">🤖 Produk dengan penjualan tertinggi saat ini.</div></div>`;
+  <div class="insight-card-v2"><div class="insight-head-v2"><div class="insight-icon-v2">📈</div><div><h3>Profit</h3></div></div><div class="insight-big-v2">${a.margin}%</div><div class="ai-box-v2">🤖 Profit bisnis berada dalam kondisi baik dan stabil.</div></div>
+  <div class="insight-card-v2"><div class="insight-head-v2"><div class="insight-icon-v2">📦</div><div><h3>Stok</h3></div></div><div class="insight-big-v2">${a.predHabis} Hari</div><div class="ai-box-v2">🤖 ${a.predHabis<3?'Stok hampir habis, segera kulakan!':'Persediaan stok masih aman.'}</div></div>
+  <div class="insight-card-v2"><div class="insight-head-v2"><div class="insight-icon-v2">💸</div><div><h3>Operasional</h3></div></div><div class="insight-big-v2">${a.opsRatio}%</div><div class="ai-box-v2">🤖 ${a.opsRatio>25?'Biaya operasional terlalu tinggi.':'Biaya operasional masih efisien.'}</div></div>
+  <div class="insight-card-v2"><div class="insight-head-v2"><div class="insight-icon-v2">🔥</div><div><h3>Best Seller</h3></div></div><div class="insight-big-v2">${a.top[0]}</div><div class="ai-box-v2">🤖 Produk dengan penjualan tertinggi saat ini.</div></div>`;
 }
-function renderAlert(a){document.getElementById('anomalyAlert').innerHTML=a.anomalies.length>0?`<div class="anomaly-alert">⚠️ Terdeteksi ${a.anomalies.length} anomali penjualan.</div>`:'';}
-function renderCharts(a,data){
+function renderAlertV2(a){document.getElementById('anomalyAlert').innerHTML=a.anomalies.length>0?`<div class="anomaly-alert">⚠️ Terdeteksi ${a.anomalies.length} anomali penjualan.</div>`:'';}
+function renderChartsV2(a,data){
   if(chartTrend)chartTrend.destroy();if(chartKomposisi)chartKomposisi.destroy();if(chartForecast)chartForecast.destroy();
   const labels=data.map(r=>{const d=new Date((r[COL.tanggal]||'').split('T')[0]);return d.toLocaleDateString('id-ID',{day:'numeric',month:'short'});});
-  chartTrend=new Chart(document.getElementById('cTrend'),{type:'line',data:{labels,datasets:[{label:'Omzet',data:data.map(r=>Number(r[COL.totalOmzet]||0)),borderColor:'#38bdf8',tension:.45,borderWidth:4}]},options:{responsive:true,maintainAspectRatio:false}});
-  chartKomposisi=new Chart(document.getElementById('cKomposisi'),{type:'doughnut',data:{labels:['22K','23K','Pink'],datasets:[{data:[a.g22,a.g23,a.gp],backgroundColor:['#22c55e','#38bdf8','#ec4899']}]},options:{responsive:true,maintainAspectRatio:false,cutout:'70%'}});
-  chartForecast=new Chart(document.getElementById('cForecast'),{type:'line',data:{labels:['H+1','H+2','H+3','H+4','H+5','H+6','H+7'],datasets:[{label:'Forecast',data:a.forecast,borderColor:'#f59e0b',borderDash:[8,6],tension:.45,borderWidth:4}]},options:{responsive:true,maintainAspectRatio:false}});
+  chartTrend=new Chart(document.getElementById('cTrend'),{type:'line',data:{labels,datasets:[{label:'Omzet',data:data.map(r=>Number(r[COL.totalOmzet]||0)),borderColor:'#38bdf8',tension:.45,borderWidth:2,pointRadius:0,fill:true,backgroundColor:'rgba(56,189,248,0.08)'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(255,255,255,0.05)'}}}}});
+  chartKomposisi=new Chart(document.getElementById('cKomposisi'),{type:'doughnut',data:{labels:['22K','23K','Pink'],datasets:[{data:[a.g22,a.g23,a.gp],backgroundColor:['#22c55e','#38bdf8','#ec4899'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'75%',plugins:{legend:{position:'bottom'}}}});
+  chartForecast=new Chart(document.getElementById('cForecast'),{type:'line',data:{labels:['H+1','H+2','H+3','H+4','H+5','H+6','H+7'],datasets:[{label:'Forecast',data:a.forecast,borderColor:'#f59e0b',borderDash:[8,6],tension:.45,borderWidth:2,pointRadius:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(255,255,255,0.05)'}}}}});
 }
 
 function openPopup(html){document.getElementById('popupContent').innerHTML=html;document.getElementById('popupOverlay').classList.add('active');}
@@ -704,7 +743,7 @@ function updateClock(){if(DOM.clock)DOM.clock.textContent=new Date().toLocaleTim
 
 document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('bottomNav').innerHTML=buildBottomNav();
-  document.getElementById('topInfo').innerHTML='<div class="mini-card"><div class="mlabel">📅 Jam</div><div class="mvalue" id="clock">00:00</div></div><div class="mini-card"><div class="mlabel">📦 Total Stok</div><div class="mvalue" id="statusTop">-</div></div><div class="mini-card"><div class="mlabel">📋 Data</div><div class="mvalue" id="totalTop">0</div></div><div class="mini-card"><div class="mlabel">💾 Versi</div><div class="mvalue">v6.2</div></div>';
+  document.getElementById('topInfo').innerHTML='<div class="mini-card"><div class="mlabel">📅 Jam</div><div class="mvalue" id="clock">00:00</div></div><div class="mini-card"><div class="mlabel">📦 Total Stok</div><div class="mvalue" id="statusTop">-</div></div><div class="mini-card"><div class="mlabel">📋 Data</div><div class="mvalue" id="totalTop">0</div></div><div class="mini-card"><div class="mlabel">💾 Versi</div><div class="mvalue">v6.2 V2</div></div>';
   DOM={galonHari:document.getElementById('galonHari'),galonMinggu:document.getElementById('galonMinggu'),galonBulan:document.getElementById('galonBulan'),galonTahun:document.getElementById('galonTahun'),galonSummary:document.getElementById('galonSummary'),statusTop:document.getElementById('statusTop'),totalTop:document.getElementById('totalTop'),clock:document.getElementById('clock'),toast:document.getElementById('toast')};
   document.getElementById('tanggal').valueAsDate=new Date();
   loadAllData();updateClock();setInterval(updateClock,30000);

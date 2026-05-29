@@ -159,6 +159,7 @@ tbody tr:hover{background:rgba(15,118,110,0.03)}.pill{padding:3px 7px;border-rad
   <div class="stok-alert" id="stokAlert"></div>
   <div id="targetTracker"></div>
 
+  <!-- DASHBOARD -->
   <div id="dashboardPage">
     <div class="section-title"><div class="sicon">🏠</div><div><h2>Dashboard</h2><p id="filterLabel">Semua data</p></div>
       <div style="margin-left:auto;display:flex;gap:5px;" class="filter-row">
@@ -207,6 +208,7 @@ tbody tr:hover{background:rgba(15,118,110,0.03)}.pill{padding:3px 7px;border-rad
     </div>
   </div>
 
+  <!-- GRAFIK, REKAP, ANALISIS, SETORAN, KAS, STOK -->
   <div id="grafikPage" style="display:none;"><div class="section-title"><div class="sicon">📊</div><div><h2>Grafik Premium</h2></div></div><div class="chart-grid" id="chartsContainer"></div></div>
   <div id="rekapPage" style="display:none;"><div class="section-title"><div class="sicon">📋</div><div><h2>Rekap Transaksi</h2><p>Total: <b id="totalData">0</b> data</p></div></div><button class="btn btn-primary" onclick="exportPDF()" style="margin-bottom:12px;">📄 Export Laporan</button><div class="table-card"><div class="table-responsive"><table><thead><tr><th>Tgl</th><th>Gas</th><th>Galon</th><th>Omzet</th><th>Kulakan</th><th>Ops</th><th>Zakat</th><th>Setoran</th><th>Laba</th><th>Aksi</th></tr></thead><tbody id="rekapBody"></tbody></table></div></div></div>
   <div id="analisisPage" style="display:none;"><div class="kpi-ticker"><div class="kpi-ticker-wrap" id="kpiTicker"></div></div><div class="filter-row" id="analisisFilterRow"></div><div id="anomalyAlert"></div><div class="summary-grid" id="summaryGrid"></div><div class="business-score" id="businessScore"></div><div class="ai-prediction-panel" id="aiPrediction"></div><div class="insight-grid" id="insightGrid"></div><div class="chart-grid" id="analisisChartGrid"></div></div>
@@ -240,7 +242,7 @@ tbody tr:hover{background:rgba(15,118,110,0.03)}.pill{padding:3px 7px;border-rad
 // =====================================
 // GALS NEXTGEN v12.8 — ULTIMATE COMPLETE
 // v5.5 Final UI + Backend v12.8 Final
-// 100% Fitur Lengkap + Demo Data + Target
+// 100% Fitur Lengkap + Dark Mode + Navigasi
 // =====================================
 const API_URL='https://script.google.com/macros/s/AKfycby-jgVK55wbR53KQBZsXsBs2nYcpEgIS_YnBYL7dypwhoyfCw6oXzU8GNZyKc0_7jKpdQ/exec';
 const TOKEN='GALS2026';const DEFAULT_STOK=60;

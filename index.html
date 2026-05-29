@@ -8,8 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root {
   --primary: #0f766e; --primary2: #115e59; --primary-light: #14b8a6;
@@ -370,6 +369,7 @@ const POS=[{key:'realTransport',catKey:'catTransport',label:'🚚 Transport',jat
 
 function formatDateLocal(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function getToday(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function parseDate(str){if(!str)return null;const t=str.split('T')[0];const parts=t.split('-');if(parts.length===3)return new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));return null;}
 function toast(m){if(DOM.toast){DOM.toast.innerText=m;DOM.toast.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>{DOM.toast.style.display='none';},2000);}}
 function rupiah(n){return'Rp '+Number(n||0).toLocaleString('id-ID');}
 function toRupiah(v){return v&&Number(v)>0?'Rp '+Number(v).toLocaleString('id-ID'):'';}
@@ -438,7 +438,7 @@ function fillForm(r){
   document.getElementById('infoEdit').style.display='block';document.getElementById('btnHapusForm').style.display='block';
   document.getElementById('btnSimpan').textContent='✏️ Simpan Perubahan';document.getElementById('btnReset').style.display='none';
 }
-function cekDataHariIni(){const today=getToday();const d=allData.filter(r=>(r[COL.tanggal]||'').includes(today));if(d.length>0){fillForm(d[0]);}else resetForm();}
+function cekDataHariIni(){const today=getToday();const d=allData.filter(r=>{const d=parseDate(r[COL.tanggal]);return d&&formatDateLocal(d)===today;});if(d.length>0){fillForm(d[0]);}else resetForm();}
 function isiDropdownTanggal(){const dd=document.getElementById('pilihTanggal');if(!dd)return;dd.innerHTML='<option value="">-- Pilih --</option>';[...allData].reverse().forEach((r,i)=>{const o=document.createElement('option');o.value=allData.indexOf(r);o.textContent=(r[COL.tanggal]||'').split('T')[0];dd.appendChild(o);});}
 function loadByTanggal(){const idx=document.getElementById('pilihTanggal')?.value;if(!idx||idx===''){cekDataHariIni();return;}fillForm(allData[idx]);}
 function editFromRekap(id){const r=allData.find(d=>d[COL.id]==id);if(!r)return;fillForm(r);showMainPage('dashboardPage');}
@@ -543,7 +543,10 @@ function updateStokDisplay(){
 function updateDashboard(){
   const filtered=filterData();const stats=calculateStats(filtered);
   const today=getToday();
-  const dToday=allData.filter(r=>{const t=String(r[COL.tanggal]||'');return t.includes(today);});
+  const dToday=allData.filter(r=>{
+    const d=parseDate(r[COL.tanggal]);
+    return d&&formatDateLocal(d)===today;
+  });
   document.getElementById('floatingTotal').innerHTML=`<small>💰 Omzet Hari Ini</small><strong>${rupiah(sum(dToday,COL.totalOmzet))}</strong>`;
   document.getElementById('heroGreeting').innerHTML=`${getGreeting()} 👋 Omzet hari ini <b>${rupiah(sum(dToday,COL.totalOmzet))}</b>`;
   renderCards(stats);document.getElementById('opContainer').innerHTML=buildOpRows(null);bindOpEvents();
@@ -599,12 +602,13 @@ function updateGalonSummary(){
   const awalBulan=formatDateLocal(new Date(now.getFullYear(),now.getMonth(),1)),awalTahun=formatDateLocal(new Date(now.getFullYear(),0,1));
   const day=now.getDay()||7;const senin=new Date(now);senin.setDate(now.getDate()-day+1);const seninStr=formatDateLocal(senin);
   allData.forEach(r=>{
-    const tglStr=String(r[COL.tanggal]||'');
+    const tgl=parseDate(r[COL.tanggal]);
+    if(!tgl)return;
     const total=(Number(r[COL.galon3k])||0)+(Number(r[COL.galon4k])||0)+(Number(r[COL.galon5k])||0);
-    if(tglStr.includes(today))g.hari+=total;
-    if(tglStr>=seninStr&&tglStr.includes(today))g.minggu+=total;
-    if(tglStr>=awalBulan&&tglStr.includes(today))g.bulan+=total;
-    if(tglStr>=awalTahun&&tglStr.includes(today))g.tahun+=total;
+    if(formatDateLocal(tgl)===today)g.hari+=total;
+    if(tgl>=senin&&tgl<=now)g.minggu+=total;
+    if(tgl>=new Date(awalBulan)&&tgl<=now)g.bulan+=total;
+    if(tgl>=new Date(awalTahun)&&tgl<=now)g.tahun+=total;
   });
   if(DOM.galonHari)DOM.galonHari.textContent=g.hari;if(DOM.galonMinggu)DOM.galonMinggu.textContent=g.minggu;
   if(DOM.galonBulan)DOM.galonBulan.textContent=g.bulan;if(DOM.galonTahun)DOM.galonTahun.textContent=g.tahun;
